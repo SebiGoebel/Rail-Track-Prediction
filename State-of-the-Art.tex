@@ -213,21 +213,27 @@ Since, this dataset only consists of infrared data and in this work \ac{RGB} dat
 
 % RailSet
 \subsubsection{RailSet}
-\cite{railSet2022} and \cite{hadded2022application} presented the \textit{RailSet} dataset, which is divided into two sub sets: RailSet-Seg for segmentation and RailSet-Ano for anomaly detection \cite{railSet2022}. Both of them are captured in the ego perspective of the train driver \cite{railSet2022} \cite{hadded2022application}. The idea is to firstly detect the railways using semantic segmentation and secondly using positional information of the prediction for the creation of the anomaly dataset \cite{railSet2022}.
+\cite{railSet2022} and \cite{hadded2022application} presented the \textit{RailSet} dataset,
+which is divided into two sub sets: RailSet-Seg for segmentation and RailSet-Ano for anomaly detection \cite{railSet2022}.
+Both of them are captured in the ego perspective of the train driver \cite{railSet2022} \cite{hadded2022application}.
+The idea is to firstly detect the railways using semantic segmentation and secondly using positional information of the prediction for the creation of the anomaly dataset \cite{railSet2022}.
+RailSet-Ano is a collection of 1100 images of railway defects like rail discontinuity and holes in the rail bed.
+Some anomalies are taken from a other images and pasted on images of RailSet-Seg and RailSem19 dataset others are generated with a network \cite{railSet2022}.
+Since, RailSet-Ano deals with a different use case than the one in this work, this particular data cannot be used.
 
-RailSet-Ano is a collection of 1100 images of railway defects like rail discontinuity and holes in the rail bed. Some anomalies are taken from a other images and pasted on images of RailSet-Seg and RailSem19 dataset others are generated with a network \cite{railSet2022}. Since, RailSet-Ano deals with a different use case than the one in this work, this particular data cannot be used.
+On the other hand, RailSet-Seg fits the problem. It consists of 6600 images of normal situations.
+The images are collected from 23 YouTube videos with a collective duration of 15 hours. It includes two labels: \textit{rail} and \textit{rail-track}.
+Besides the use of  RailSet-Seg for the creation of RailSet-Ano, an additional motivation is to include more complex scenes of the rail domain than RailSem19.
+That is why the focus of RailSet lies on scenarios with poor weather conditions or lighting conditions.
+Furthermore, images are included in which the rails are not visible at all, like in tunnels without lighting or in snowy scenes.
+Additionally, it was ensured that the videos were recorded by different cameras and from different mounting positions \cite{railSet2022} \cite{hadded2022application}. 
 
-On the other hand, RailSet-Seg fits the problem. It consists of 6600 images of normal situations. The images are collected from 23 YouTube videos with a collective duration of 15 hours. It includes two labels: \textit{rail} and \textit{rail-track}. Besides the use of  RailSet-Seg for the creation of RailSet-Ano, an additional motivation is to include more complex scenes of the rail domain than RailSem19. That is why the focus of RailSet lies on scenarios with poor weather conditions or lighting conditions. Furthermore, images are included in which the rails are not visible at all, like in tunnels without lighting or in snowy scenes. Additionally, it was ensured that the videos were recorded by different cameras and from different mounting positions \cite{railSet2022} \cite{hadded2022application}. 
-
-An advantage of this dataset is that it can be joined with RailSem19, when combining four specific labels. \textit{trackbed} and \textit{rail-track} from RailSem19 have to be transformed into RailSet's \textit{rail-track} label and \textit{rail-raised} and \textit{rail-embedded} become the \textit{rail} label. This method leads to more data for the training and validation which could be an advantage. However, it also shows the disadvantage of this dataset for the specific use case of this work. 
-RailSet exclusively addresses railway and not tram scenes \cite{hadded2022application}. Since, the goal is to target a broad applicability, leaning towards tram scenes this dataset is not used for this work.
-
-
-
-Bilder von RailSet
-
-
-%bild einfügen von RailSet und von RailSem19 und von RailSem19 mit zusammengefassten labels.
+An advantage of this dataset is that it can be joined with RailSem19, when combining four specific labels.
+\textit{trackbed} and \textit{rail-track} from RailSem19 have to be transformed into RailSet's \textit{rail-track} label and \textit{rail-raised} and \textit{rail-embedded} become the \textit{rail} label.
+This method leads to more data for the training and validation which could be an advantage.
+However, it also shows the disadvantage of this dataset for the specific use case of this work. 
+RailSet exclusively addresses railway and not tram scenes \cite{hadded2022application}.
+Since, the goal is to target a broad applicability, leaning towards tram scenes this dataset is not used for this work.
 
 % Bild von RailSet
 \begin{figure}[H]
