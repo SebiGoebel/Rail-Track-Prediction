@@ -10,9 +10,79 @@
 \end{itemize}
 
 
+After a drop in rail passenger transport in 2020, it quickly recovered and increased by almost 71\%, resulting in 328,3 million passengers in 2023 \cite{schienenpersonenverkehrAustria}.
+The Wiener Linien and the ÖBB show similar behaviors with an increase of 218 million and 115,4 million passengers from 2020 to 2023 respectively \cite{wienerLinienAustria} \cite{oebbAustria}.
 
+The increase in train traffic is bound to a rise in accidents.
+In Austria, 34 rail traffic accidents with 38 victims were recorded in 2021.
+Of them 24 were seriously injured and 14 were killed <Quelle: Verkehrsstatistik>.
+Incidents include a train derailment in the area of a signal box, where there usually are many switches \cite{zugEntgleist}.
+In 2022 in Münchendorf a train drove too fast over a switch, resulting in a derailment accident, with one passenger dead and 25 including the train driver injured \cite{zugUnfall1Tod}.
+Also in other countries like the Czech Republic, an accident occurred, where a head-on collision of two trains resulted in four deaths.
+It is suspected that an incorrect switch caused that incident \cite{zugUnfallFrontal}.
+The cause of all accidents mentioned can be traced back to either an incorrect set switch or a derailment at a switch.
+This leads to the idea that correctly identifying the switch states may have prevented these accidents.
 
-Autonomous vehicles are increasingly considered a groundbreaking technology of the future. \cite{FraunhoferInstituteforCognitiveSystemsIKS.21.10.2024}
+Simultaneously, autonomous vehicles are becoming increasingly seen as revolutionary technology for the future \cite{FraunhoferInstituteforCognitiveSystemsIKS}.
+Also indicated by the "Autonomous Vehicle Readiness Index" \cite{autonomousVehicleReadinessIndex} in most countries including Austria \cite{autonomousVehicleReadinessCounties}.
+Currently the development of applications for autonomous road vehicles is a rapidly evolving field that could improve safety \cite{railsem19dataset} \cite{tepNet2024}, with machine-learning algorithms being a key trend \cite{railsem19dataset}.
+Even though a vast amount of research is done in the street context, the rail domain has gotten little attention \cite{railsem19dataset}.
+This is because, unlike other modes of transportation like airplanes or cars, trains follow a predetermined path defined by the tracks.
+Nevertheless, trams or other low-speed trains operate in dynamic environments where autonomous systems are still needed to respond to unpredictable events \cite{tepNet2024}.
+Therefore autonomy for these modes of transport will gain importance \cite{railNet2019}.
+
+One particular task of an autonomous train system involves filtering out the area in front of the vehicle, which can be defined as the danger zone.
+This area represents where the train is headed and the space, which is occupied next.
+A functional system can then be used as preprocessing for other algorithms or safety features \cite{railNet2019}, which could prevent accidents like the ones mentioned before and potentially save lives.
+
+The problem is, that many state-of-the-art techniques in the rail domain consider all rails or rail tracks, and often make no distinction between the train's track and other tracks \cite{tepNet2024}.
+While the segmentation of rails can be used for obstacle detection \cite{railNet2019}, the output of these methods can easily be misinterpreted \cite{tepNet2024}.
+Train infrastructure is complex, with multiple tracks often crossing, merging, or splitting at switches. Therefore, it is insufficient to recognize all tracks in a single image.
+A more targeted system is needed, which only detects the train's track and predicts the upcoming path at switches \cite{tepNet2024}.
+Such a system identifies the most relevant danger zone and when it is real-time capable it could be used as a preprocessing step for other systems, which in turn could make better-informed decisions \cite{tepNet2024}.
+
+This is why in the line of this work a distinction between rail detection and rail track prediction is made.
+Rail detection in this context is filtering out rails or rail tracks with no further information about the own or adjacent rails and rail track prediction answers the question of where the train will be particularly when switches are present that split the track.
+
+Consequently, the goal of this work is to develop a rail track prediction, especially when switches are present in the field of view.
+Since such a system can primarily be used for safety features in the dynamic environments of trains, another goal, in addition to achieving high accuracy, is to ensure it operates in real-time and is consequently lightweight \cite{tepNet2024}.
+
+As the goal is to perceive the environment in front of the train, it is most advantageous to use front-view cameras \cite{tepNet2024} \cite{railNet2019}.
+Images are captured in the driving direction from the driver's cabin because it is the best view of the tracks \cite{tepNet2024}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{PICs/Introduction/train-ego-path.png}
+    \caption{Example of a diverging rail track at a switch. The trains path is marked in green. The path the train cannot take is marked in red. This path is be obstructed and would be unsafe \cite{tepNet2024}}
+    \label{fig:train-ego-path}
+\end{figure}
+
+Figure \ref{fig:train-ego-path} shows a possible output of a track prediction, aiming not only to detect the rail but also to predict the train's path solely based on camera data.
+However, the focus of this work is not only on the path itself but especially on correctly identifying positioned switches where the train's path splits.
+
+<Bild difference between rail detection and track prediction>
+
+Bild 3, 4 rechts, 5, 7, 
+
+\textbf{Problem formulation:}
+\begin{itemize}
+    \item rail track prediction (auch mit der presenz von weichen)
+    \item only the track of the train
+    \item Real-time application: 
+\end{itemize}
+
+\textbf{Was mach ich und warum? -> letztes vor der kapitel übersicht}
+The main contributions of this work can be divided into three parts.
+
+Firstly, an initial approach was taken that aimed to combine object detection and semantic segmentation.
+However, due to unsatisfactory results, this methodology was deemed ineffective, leading to the pursuit of a fundamentally different solution.
+
+Secondly, TEP-Net \cite{tepNet2024} was chosen as the baseline for further experiments and improvements are implemented with a specific focus on correct path prediction in the presence of switches.
+
+Thirdly, as further improvements were anticipated through the use of the temporal component with RNNs, the system was adjusted to accept video information rather than just single frames as input.
+Thus, the data loading logic was adapted, and models were modified.
+Additionally, a temporal dataset was created.
+To minimize the workload for annotation an auto labeler was developed utilizing the single-frame-based model.
 
 \vspace{2cm} % Größerer Abstand zwischen den Reihen
 
@@ -21,7 +91,7 @@ Autonomous vehicles are increasingly considered a groundbreaking technology of t
 \vspace{2cm} % Größerer Abstand zwischen den Reihen
 
 \textbf{\ref{sec:stateOfTheArt}} \textbf{\nameref{sec:stateOfTheArt}} describes different approaches, to how the train track prediction problem can be solved.
-In this section, thorough research is done, which gives an overview of different approaches, models, and fitting datasets.
+In this section, thorough research is done, which gives an overview of various approaches, models, and fitting datasets.
 Additionally, a couple of papers that could serve as a baseline are discussed in more detail.
 In \textbf{\ref{sec:methodology}} \textbf{\nameref{sec:methodology}} the used datasets as well as the hardware and software frameworks used for training and evaluation are described.
 Additionally, this work includes the development of a temporal dataset with partly auto-labeled annotations.

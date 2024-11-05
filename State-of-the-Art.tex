@@ -291,7 +291,21 @@ Since this dataset only covers very specific railroads with unique characteristi
 
 % Rail-DB
 \subsubsection{Rail-DB}
-A very similar dataset is Rail-DB \cite{li2022rail}. This dataset is a collection of 7432 images, which are taken from 15 videos. The labels in this dataset are consist of poly lines, which represent all existing rails in an image. Additionally the the poly lines all have different classes. This way there is not only one rail class, but as many classes as there are rails in one image. The labeling policy specifies that the central rails are marked with the annotations 1 and 2. Additional rails are labeled with rising numbers. Since this dataset includes poly lines and not binary masks, this dataset can be used for training line detection algorithms. Compared to \ac{RSDS}, this dataset includes not only lines and curves, but also rail switches. Additionally, the images are taken in various conditions and scenes. \ref{fig:Rail-DB-dataset_images_annotated} shows example images of Rail-DB's different scenes. However, it seems that the images again have very specific characteristics like in \ac{RSDS}. \ref{fig:Rail-DB-dataset_images_annotated} also shows, that all images are captured on a Chinese line. Even though \cite{li2022rail} presents a very interesting approach for solving the rail detection problem, because of the before mentioned specific characteristics it is not used for this work. Even the author of \cite{li2022rail} states in the GitHub repository \cite{railNet2022GitHub}, that this project fails to generalize on example videos, where the scene looks different from the one the dataset is captured on.
+A very similar dataset is Rail-DB \cite{li2022rail}.
+This dataset is a collection of 7432 images, which are taken from 15 videos.
+The labels in this dataset are consist of poly lines, which represent all existing rails in an image.
+Additionally the the poly lines all have different classes. This way there is not only one rail class, but as many classes as there are rails in one image.
+The labeling policy specifies that the central rails are marked with the annotations 1 and 2.
+Additional rails are labeled with rising numbers.
+Since this dataset includes poly lines and not binary masks, this dataset can be used for training line detection algorithms.
+Compared to \ac{RSDS}, this dataset includes not only lines and curves, but also rail switches.
+Additionally, the images are taken in various conditions and scenes.
+\ref{fig:Rail-DB-dataset_images_annotated} shows example images of Rail-DB's different scenes.
+However, it seems that the images again have very specific characteristics like in \ac{RSDS}.
+\ref{fig:Rail-DB-dataset_images_annotated} also shows, that all images are captured on a Chinese line.
+Even though \cite{li2022rail} presents a very interesting approach for solving the rail detection problem,
+because of the before mentioned specific characteristics it is not used for this work. Even the author of \cite{li2022rail} states in the GitHub repository \cite{railNet2022GitHub},
+that this project fails to generalize on example videos, where the scene looks different from the one the dataset is captured on.
 
 \begin{figure}[H]
     \centering
