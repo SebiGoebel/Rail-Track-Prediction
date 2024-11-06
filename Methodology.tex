@@ -18,13 +18,40 @@ blindtext
 blindtext
 
 \subsection{Hardware Setups used for Training CNNs}
-blindtext
+
+For training \ac{CNN}s a powerful hardwaresetup is necessary.
+In this work one main setup is used for training all models.
+This work is based on a project proposed and supported by the \ac{ICT} at \ac{TU}, which also provides the necessary resources.
+This includes a server with two NVIDIA Tesla V100S-PCIE-32GB \ac{GPU}s <Quelle>.
+In this work training is done on a single \ac{GPU}.
+All trainings are logged with the "Weights \& Biases" <Quelle>, which is a developer platform for training and fine-tuning machine learning models.
+
+%GPU datenblatt: https://images.nvidia.com/content/technologies/volta/pdf/volta-v100-datasheet-update-us-1165301-r5.pdf
+
+%CUDA version: CUDA Version: 12.6
+%CPU beschreiben
+
+%Wandb überarbeiten <Quelle: https://wandb.ai/site>
+
+In this work it is used to save configurations, logs and results.
+The \textit{train loss} and \textit{validation loss} of each training is tracked and visualized in a graph.
+The \textit{test \ac{IoU}} and the \textit{best validation loss} is displayed.
+Additionally, the \ac{GPU}'s power usage, allocated memory is tracked and graphs are plotet.
+
+And for generating a unique name for every training, which is important when starting hundreds of training sessions.
+
+all logs are on https://wandb.ai/sebiorganization/train-ego-path-detection
+
+%PyTorch beschreiben
 
 \subsection{Measuing Inference on NVIDIA Jetson Devices}
 blindtext
 
 \subsection{The NVIDIA Jetson series}
 blindtext
+
+%Quelle: Jetson AGX Xavier Series
+% https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-agx-xavier/
 
 \subsection{vielleicht: Optimizing models through TensorRT}
 blindtext
