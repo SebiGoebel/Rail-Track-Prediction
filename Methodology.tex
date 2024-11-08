@@ -48,16 +48,23 @@ All training logs are available at \href{https://wandb.ai/sebiorganization/train
 
 %PyTorch beschreiben
 
-\section{Measuing Inference on NVIDIA Jetson Devices}
-blindtext
+\section{Measuing Inference on NVIDIA Jetson Device}
 
-\subsection{The NVIDIA Jetson series}
+Due to the nature of this work's use case and potential applications for the system encompassing safety features or preprocessing steps for autonomous trains, the system has to ensure real-time capability when deployed on embedded devices. 
+In more detail, one goal for the track prediction is to be deployed on an Nvidia Jetson device, because of their high computing power and their low power consumption.
+Additionally, through NVIDIA's software ecosystem, rapid deployment and latency measurements are possible.
+Jetson devices are suitable for applications in autonomous systems and computer vision tasks \cite{nvidia_jetson_embedded_devices}.
 
+\subsection{Hardware Setup for Measuring Inference}
 
-%Quelle: Jetson AGX Xavier Series
-% https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-agx-xavier/
-
-The technical specifications of the NVIDIA Jetson AGX Xavier is shown in table \ref{tab:jetson_AGX_xavier_specs}.
+For this study, the NVIDIA Jetson AGX Xavier is chosen because of several reasons.
+This platform achieves up to 32 TOPS by utilizing a \ac{GPU} with 512 cores and 64 Tensor cores, which is advantageous for parallel data processing and neural network inference \cite{nvidia_jetson_agx_xavier_datasheet}.
+Even though there are more powerful devices like some of the NVIDIA Jetson Orin series, the AGX Xavier is sufficient for this application and cheaper \cite{nvidia_jetson_embedded_devices_prices}.
+Additionally, the Xavier has a lower power consumption than the Orin.
+Finally but yet important is the ease of integration.
+Since, track prediction is a use case of a company, that most commonly uses the Jetson AGX Xavier platform.
+Conducting tests on this specific device is appropriate.
+The technical specifications of the NVIDIA Jetson AGX Xavier are shown in table \ref{tab:jetson_AGX_xavier_specs}.
 
 \begin{table}[H]
     \centering
@@ -83,5 +90,90 @@ The technical specifications of the NVIDIA Jetson AGX Xavier is shown in table \
     \label{tab:jetson_AGX_xavier_specs}
 \end{table}
 
-\subsection{Optimizing models through TensorRT}
-blindtext
+\subsection{Optimizing models with TensorRT}
+
+To fully leverage the used hardware platform Jetson AGX Xavier, NVIDIA introduced TensorRT \cite{nvidia_tensorrt}.
+This ecosystem is developed to allow faster inference times when deploying deep learning models.
+Also, the baseline paper \cite{tepNet2024} demonstrates through latency measurements that TensorRT consistently outperforms PyTorch in the context of speed.
+TensorRT is approximately six times faster than PyTorch, which aligns with the claims made by NVIDIA \cite{tepNet2024} \cite{nvidia_tensorrt}.
+Consequently, all latency measurements in this study are conducted using TensorRT.
+This framework optimizes inference with methods like quantization, layer and tensor fusion, and kernel tuning \cite{nvidia_tensorrt}.
+This can be done for various types of NVIDIA \ac{GPU}s.
+
+\vspace{0.8cm}
+
+\noindent\textbf{Quantization} can optimize an already trained model.
+This technique shows a small reduction in accuracy but minimizes latency significantly.
+While PyTorch uses PF32 for the inference of its standard models, TensorRT allows to use \ac{GPU}s and \ac{TPU}s to their maximum capacity by permitting FP8, INT8, and INT4.
+
+\vspace{0.8cm}
+
+\noindent\textbf{Layer and Tensor fusion} are used from TensorRT for further optimizing inference.
+Often specific layer sequences include two consecutive layers that can be mathematically combined into a single layer.
+Resulting in a reduction of unessential computations.
+
+\vspace{0.8cm}
+
+\noindent\textbf{Kernal tuning} is a process that seeks the optimal configuration of available kernels in the Jetson device.
+The selected kernels depend on the specific machine-learning application and the used device.
+In more detail, the model is executed on the device several times using different CUDA kernels in each run and the best combination is utilized.
+Since, Kernel tuning is an iterative process it usually takes a couple of minutes even with compact models.
+
+\subsubsection{TensorRT engine from PyTorch model}
+
+Since TensorRT does not support PyTorch models, a workaround has to be made.
+First, the PyTorch models are converted into an \ac{ONNX} format \cite{onnx_docu}.
+After that, the \texttt{.onnx} files are optimized by TensorRT with the techniques mentioned before.
+
+\vspace{0.8cm}
+
+\ac{ONNX} is an approach for easier access to hardware optimization and to make interoperability possible \cite{onnx_docu}.
+Often machine learning applications are locked in the framework they are developed in, which can present some hurdles.
+The \ac{ONNX} format aims for a standardized representation of machine learning models and is therefore commonly used in the community.
+Once converted to ONNX, a model utilizes standard data types and a set of built-in operators.
+The \ac{ONNX} format version, known as the "opset", defines which operators are used \cite{onnx_docu}.
+Therefore the TensorRT version must be compatible with the \ac{ONNX} opset number.
+
+\vspace{0.8cm}
+
+The TensorRT version installed on the Jetson AGX Xavier must support the used \ac{ONNX} opset.
+Therefore in this work, the opset 11 is used for all model exports.
+
+\begin{listing}[H]
+\begin{minted}[
+    frame=single,
+    framesep=2mm,
+    baselinestretch=1.2,
+    bgcolor=white,
+    fontsize=\footnotesize,
+    linenos
+    ]{python}
+# Export the model to ONNX
+torch.onnx.export(
+    model,                       # Model to be exported
+    input_tensor,                # Input to the model
+    "onnx_file_path/model.onnx", # Output file path
+    opset_version=11,            # ONNX version to export the model to
+    export_params=True,          # Store the trained parameter
+                                 # weights inside the model file
+)
+\end{minted}
+\caption{Exporting a PyTorch model to \ac{ONNX} format}
+\label{code:export_model_onnx}
+\end{listing}
+
+In this work, all PyTorch models are converted to \texttt{.onnx} files with the built-in torch exporter.
+\autoref{code:export_model_onnx} shows that the conversion is done with a single \texttt{torch.onnx.export()} python line \cite{pytorch_onnx_exporter_docu}.
+After an \ac{ONNX} model format is created it can be optimized by TensorRT.
+This can be executed with the \texttt{trtexec} console application.
+
+\vspace{0.5cm}
+\begin{center}
+    \texttt{trtexec --onnx=model.onnx --saveEngine=model.engine}
+\end{center}
+\vspace{0.5cm}
+
+This command provides an example, in which the model.onnx is optimized with TensorRT techniques mentioned above.
+Furthermore, the \texttt{model.engine} is saved and can be executed from now on without the need to create it again.
+After a couple of minutes, TensorRT outputs a performance summary with many different latencies, like the min, max, mean, or median.
+Of these values, the median inference time is considered as the final latency rather than the mean, because it is more robust against outliers.
