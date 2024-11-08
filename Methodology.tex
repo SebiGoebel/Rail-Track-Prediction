@@ -51,14 +51,18 @@ All training logs are available at \href{https://wandb.ai/sebiorganization/train
 \section{Measuing Inference on NVIDIA Jetson Device}
 
 Due to the nature of this work's use case and potential applications for the system encompassing safety features or preprocessing steps for autonomous trains, the system has to ensure real-time capability when deployed on embedded devices. 
-In more detail, one goal for the track prediction is to be deployed on an Nvidia Jetson device, because of their high computing power and their low power consumption.
+In more detail, one goal for the train track prediction is to be deployed on an Nvidia Jetson device, because of their high computing power and their low power consumption.
 Additionally, through NVIDIA's software ecosystem, rapid deployment and latency measurements are possible.
 Jetson devices are suitable for applications in autonomous systems and computer vision tasks \cite{nvidia_jetson_embedded_devices}.
+Furthermore, the NVIDIA Jetson series is specifically built for machine learning applications, because the devices have \ac{DLA}s built in.
+\ac{DLA}s are tensor processor units designed to accelerate the inference of neuronal networks \cite{nvidia_dlas}.
 
 \subsection{Hardware Setup for Measuring Inference}
 
 For this study, the NVIDIA Jetson AGX Xavier is chosen because of several reasons.
 This platform achieves up to 32 TOPS by utilizing a \ac{GPU} with 512 cores and 64 Tensor cores, which is advantageous for parallel data processing and neural network inference \cite{nvidia_jetson_agx_xavier_datasheet}.
+An additional advantage present the two built-in \ac{NVDLA}s of the AGX Xavier.
+\ac{NVDLA}s are NVIDIAs own \ac{DLA}s.
 Even though there are more powerful devices like some of the NVIDIA Jetson Orin series, the AGX Xavier is sufficient for this application and cheaper \cite{nvidia_jetson_embedded_devices_prices}.
 Additionally, the Xavier has a lower power consumption than the Orin.
 Finally but yet important is the ease of integration.
