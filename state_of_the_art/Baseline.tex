@@ -34,9 +34,9 @@ The third augmentation is the cropping mechanism, which reduces the image to the
 Randomness is also introduced to enhance generalization.
 
 \autoref{fig:tepNet_dataaugmentation} visualizes the cropping algorithm steps schematically.
-At first, there are two green lines, which follow the train's ego-path and represent the ground truth in the form of polylines.
-Then the yellow rectangle is computed with this information, being the smallest possible rectangle around the GT.
-In the next step, the orange box, the start pixels of the rails GT are centered by expanding the yellow borders in one direction.
+At first, there are two green lines, which follow the train's ego-path and represent the \ac{GT} in the form of polylines.
+Then the yellow rectangle is computed with this information, being the smallest possible rectangle around the \ac{GT}.
+In the next step, the orange box, the start pixels of the rails \ac{GT} are centered by expanding the yellow borders in one direction.
 Important to mention is that in this tailored dataset the rails always begin in the first row at the bottom of each image.
 After that margins are added shown by the red rectangle.
 These margins are predefined with hyperparameters.
@@ -131,7 +131,7 @@ The final loss function \autoref{func:combinedLoss} \cite{tepNet2024} consists o
 \end{align}
 
 The two sub-functions are the trajectory loss $L_{traj}$ and $y$-limit loss $L_{ylim}$.
-For the following functions, $\hat{\mathbf{X}}$ and $\mathbf{X}$ represent the predicted and ground truth $x$-values.
+For the following functions, $\hat{\mathbf{X}}$ and $\mathbf{X}$ represent the predicted and \ac{GT} $x$-values.
 These include the points for the left and right rails.
 For the $y$-limit, the predicted and \ac{GT} values are $\hat{y}_{lim}$ and $y_{lim}$.
 
@@ -235,14 +235,68 @@ Due to images from the dataset stemming from low-resolution YouTube videos, it b
     \label{fig:smoothL1}
 \end{figure}
 
+\clearpage
+\subsection{Experiments, Results and Comparison other state-of-the-art approaches of TEP-Net}
 
-\subsection{Experimente und Results}
+State-of-the-art approaches include two main ideas: a classification and a segmentation approach.
+To fairly compare the novel regression-based architecture, \cite{tepNet2024} extends the model with two prediction heads, which support the two state-of-the-art methods.
+For the segmentation model a U-Net-like \cite{uNet2015} decoder architecture is implemented, which outputs a binary mask with dimensions $1 \times 512 \times 512$.
+A binary Dice loss is used for training.
+The classification model is inspired by \cite{li2022rail}.
+Therefore the prediction is also described in a grid system with the dimensions $C \times H \times (W + 1)$.
+With $C=2$ for the number of rails, $H=64$ like the number of anchors in the regression model, and $W=128$ for the width of the grid following the settings from \cite{li2022rail}.
+The $+1$ is for the background class.
+Consequently, the classification model outputs a $2 \times 64 \times (128 + 1) = 16512$-dimensional vector.
+A cross-entropy loss is used to train this model \cite{tepNet2024}.
 
-text
+For experiments, the same dataset is utilized.
+With various preprocessing steps, the data annotation is transformed to fit the specific task of the model.
+As described in \autoref{subsubsec:TEP-Net_dataset} the area between the rails is transformed into a binary mask for segmentation and the grid system is used for classification.
+To get the most transparent comparison the same backbone is used for the three different models, as illustrated in \autoref{fig:TEP-Net_sota_models}.
 
-\subsection{Discussion}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{PICs/Baselinepaper/tep-net_sota_models.jpg}
+    \caption{The model architecture is designed to enable a fair comparison between the novel regression model proposed in \cite{tepNet2024} and other \ac{SOTA} approaches.
+    All models use the same dataset with preprocessing steps to fit annotation to the model task.}
+    \label{fig:TEP-Net_sota_models}
+\end{figure}
 
-text
+Experiments include trainings with different backbones: ResNet18, 34, 50 and EfficientNet B0, B1, B2, B3.
+Results of \cite{tepNet2024} show that the segmentation-based approach is the most accurate when it comes to the \ac{IoU}.
+However, the difference in \ac{IoU} performances is within a range of only 1.4 percent.
+The segmentation model with the EfficientNet-B3 is the best and the classification model with the ResNet18 is the worst performing.
+The Latency on the other hand shows that the segmentation model is the slowest.
+Here the regression-based approach outperforms other models.
+For the rail track prediction application of this work, the latency is of great importance.
+Additionally, the regression model has lower numbers in parameters and \ac{MACs}, proving to be more lightweight compared to state-of-the-art models.
+For more detailed results, please refer to \cite{tepNet2024}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{PICs/Baselinepaper/comparison_sota_tep-net.jpg}
+    \caption{Comparison between classification (CLS), regression (REG) and segmentation (SEG) models with challenging scenes.
+    The ResNet18 backbone is used for this figure.}
+    \label{fig:TEP-Net_sota_comparison}
+\end{figure}
+
+Since all three model architectures achieve similar \ac{IoU} scores, performances are compared on individual challenging scenes.
+To see the differences more clearly the ResNet18 backbone is used because it is the worst performing in terms of accuracy.
+As visualized in \autoref{fig:TEP-Net_sota_comparison}, the correctness of the prediction is negatively impacted when the model becomes unsure of where the rail track continues.
+However, \autoref{fig:TEP-Net_sota_comparison} shows that the regression model is the only one that seems to have no issues with obstructions like in the lower two rows.
+Additionally, when tracks split at upcoming switches, the novel approach of \cite{tepNet2024} is the only one that keeps the form of a rail.
+
+This is due to the loss functions of both state-of-the-art models.
+Both the dice loss and the cross-entropy loss penalize their models in the case of misclassification.
+However, this penalty does not grow as the distance from the \ac{GT} increases.
+
+The segmentation and the classification model work with probabilities, either on a pixel-wise or a grid-row level.
+When segmentation models are confident, their pixel predictions tend toward the extremes of the output range.
+Under uncertainty, they move closer to the middle which is also the threshold.
+Similarly, classification models produce one-hot-like distributions when confident, but show more spread-out probabilities across classes when uncertain.
+Since the regression approach inherently involves continuous values, the model assumes an average among the uncertain possibilities.
+The concept of distance in the error between prediction and \ac{GT} is only provided in the regression-based model, but missing in segmentation and classification models.
+Resulting in a more robust system \cite{tepNet2024}.
 
 \subsection{Limitation}
 
