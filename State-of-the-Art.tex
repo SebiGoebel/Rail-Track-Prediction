@@ -1,17 +1,35 @@
 \chapter{State of the Art}
 \label{sec:stateOfTheArt}
-Etwas Text... Hier kommen noch einige Abkürzunge vor zum Beispiel \ac{ABC},\ac{WWW} und \ac{ROFL}.
+
+schauen dass Sate of the art ca 25 bis 30 seiten hat
 
 \section{Different solutions approaches for rail prediction}
 
-möglichkeiten
-- rail segmentation    (detection und keine direction prediction) hat normalerweise probleme wenn mehrere rails in der scene sind --> weichen schwer trennbar weil der pixelhaufen dazwischen irgendwas ist
-- rail line detection  (detection und keine direction prediction) anzahl der rails in einer scene ist das problem
-- TEP-Net
+\subsection{Was es alles gibt (1 bis 2 Seiten max)}
 
+\begin{itemize}
+    \item Image Classification
+    \item Object Detection
+    \item Semantic Segmentation (detection und keine direction prediction) hat normalerweise probleme wenn mehrere rails in der scene sind --> weichen schwer trennbar weil der pixelhaufen dazwischen irgendwas ist
+    \item Instance Segmentation
+    \item panoptic Segmentation
+    \item line detection (detection und keine direction prediction) anzahl der rails in einer scene ist das problem
+\end{itemize}
 
-\subsection{Ensemble Learning}
-\subsubsection{Real-time Object detection}
+was ist das? \\
+.\\
+Einen absatz mit: \\
+im gleichen abschitt aber interesant (für track prediction) sind nur: \\
+object detection --> erkennen von switches \\
+semantic segmentation \\
+lane detection \\
+einen kleinen absatz dazu dass object detection mit semantic segmentation verbunden werden kann. (erster ansatz) oder generell dass diese information intressant ist
+.\\
+Für die nächstem kapitel:\\
+was gibt es?\\
+was gibt es in der rail domaine?\\
+
+\subsection{Real-time Object detection (2 Seiten)}
 
 \begin{itemize}
     \item Yolov9
@@ -19,7 +37,7 @@ möglichkeiten
     \item ...
 \end{itemize}
 
-\subsubsection{Semantic Segmentation}
+\subsection{Rail Segmentation oder Semantic Segmentation (2 bis 3 Seiten)}
 
 \begin{itemize}
     \item DeepLab V3+
@@ -27,26 +45,28 @@ möglichkeiten
     \item ...
 \end{itemize}
 
-\subsection{Panoptic segmenation (vielleicht)}
-\subsection{Rail Segmentation}
-\subsection{Line detection algorithms}
+\subsection{Line detection algorithms (2 bis 3 Seiten)}
+
 Rail Detection: An Efficient Row-based Network and A New Benchmark --> hat auch Lane Detection \& Railroad Detection
-\subsection{Backbone architectures}
+
+\subsection{Backbone architectures 2 Seiten}
 
 \begin{itemize}
-    \item EfficientNet
-    \item ResNet
-    \item MobileNet
-    \item DenseNet
+    \item EfficientNet 1/2 Seite
+    \item ResNet 1/2 Seite
+    \item MobileNet 1/2 Seite
+    \item DenseNet 1/2 Seite
 \end{itemize}
 
-\subsection{mögliches Baseline Paper}
-\subsection{verwendetes Baseline Paper}
-\subsection{Temporal Models}
+\subsection{mögliches Baseline Paper vielleicht (wenn die Aufteilung geändert werden muss)}
+
+\subsection{verwendetes Baseline Paper vielleicht (wenn die Aufteilung geändert werden muss)}
+
+\subsection{Temporal Models (2 Seiten)}
 
 \begin{itemize}
-    \item LSTM
-    \item GRU
+    \item LSTM -> 1 Seite
+    \item GRU -> 1 Seite
     \item ...
 \end{itemize}
 
@@ -65,19 +85,3 @@ Rail Detection: An Efficient Row-based Network and A New Benchmark --> hat auch 
 \input{state_of_the_art/Baseline.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Baseline Paper}
-
-
-
-\subsection{Description of Baseline Paper}
-blindtext
-
-\subsection{Results and Limits of Baseline Paper}
-blindtext
-
-\subsection{Erste Überschrift Tiefe 3 (subsection)}
-blindtext
-
-\subsubsection{Erste Überschrift Tiefe 4 (subsubsection)}
-blindtext
