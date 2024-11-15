@@ -1,0 +1,50 @@
+\section{Real-time Object detection (2 Seiten)}
+\label{sec:ObjectDetection}
+
+In 2012 <Quelle: ImageNet Classification with Deep Convolutional Neural Networks> showed that deep convolutional networks are capable of extracting abstract feature representations from images in a robust manner.
+Enabling accurate classification.
+In 2014 <Quelle: Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation> introduced Regions with CNN features (RCNN).
+Since then the development of CNNs can be grouped into two different detection techniques: "two-stage detectors" and "one-stage detectors".
+
+\subsection{Two-stage detectors}
+
+Two-stage detectors usually follow a "coarse-to-fine" process, which firstly includes a region proposal and secondly a classification and a refinement of regions.
+Well-known examples are the R-CNN, Fast R-CNN, Faster R-CNN, Mask R-CNN, and FPN <Quellen>.
+Even though these models achieve promising accuracy results, they are highly complex, which increases inference time.
+Consequently, two-stage detectors are usually unsuitable for real-time-critical applications.
+Since all of the use cases of the implementation of this work involve real-time capable applications, the inference time is of great importance.
+Therefore two-stage detectors are not further considered for this work.
+
+\subsection{One-stage detectors}
+
+Single-stage detectors or one-stage-detectors combine the classification and localization in one step making them fast enough for real-time applications.
+The first single shot detector was the You Only Look Once (YOLO) <Quelle: YOLO1>, which operates with up to 155 FPS.
+Yolo is the first approach, which reframed the object detection task as a regression problem.
+The introduced model consists of a single neuronal network, allowing end-to-end training.
+This model first divides the image into a grid and then simultaneously predicts bounding boxes and the probabilities of classes.
+Proving to be a fast object detector, <Quelle: YOLO v1> presented the beginning of a whole series of real-time capable models.
+Since, <Quelle: YOLO v1> still shows decreased accuracy in the localization of small objects, versions YOLOv3, YOLOv4, YOLO9000, and SSD particularly focused on this issue.
+However, YOLOv7 and YOLOv9 are among the latest real-time object detection models, emphasizing both high speed and improved parameter utilization.
+
+\subsubsection{YOLO v7}
+\label{subsubsec: YOLO v7}
+
+The YOLO v7 introduced in 2022 is a subsequent work from the YOLO v4.
+It surpasses most object detectors in both accuracy and speed, with inferences from 5 FPS to 160 FPS.
+The main contributions of YOLOv7 are several methods that increase the accuracy without decelerating inference.
+To achieve that it incorporates a planned re-parameterized strategy, which can be utilized for layers in various models.
+Furthermore, YOLO v7 also uses new label assignment methods called "coarse-to-fine lead head guided label assignment".
+Additionally, extend and compound scaling techniques are used.
+The introduced methods not only increased speed and accuracy, but also decreased the number of parameters of the model by about 40\%.
+This presents an advantage for this work since the final system is supposed to operate on an embedded device.
+
+\subsubsection{YOLO v9}
+\label{subsubsec:YOLOv9}
+
+The YOLOv9 is yet another follow-up work from YOLOv7.
+Released in February 2024, it is the most recent model in the YOLO series.
+<Quelle> states that most models lose information through spatial transformations and layer-by-layer feature extraction.
+Therefore, the YOLO v9 model focuses on reversible functions and information bottlenecks.
+Consequently, the main contributions of <Quelle: yolov9> are a Programmable Gradient Information (PGI) concept, which utilizes auxiliary reversible branches, and a Generalized Efficient Layer Aggregation Network (GELAN), which further increases the usage of existing parameters.
+The proposed models prove to be lightweight while still being accurate and fast, outperforming current real-time object detection models.
+The characteristics of these models indicate that they are also applicable to this work.
