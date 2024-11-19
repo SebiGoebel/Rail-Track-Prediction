@@ -67,7 +67,31 @@ PyTorch includes DenseNet model variants with 121, 161, 169, 201 <Quelle: https:
 
 \subsection{MobileNetV3}
 
-blindtext
+The goal of the MobileNet series is to efficiently operate on limited hardware for example on mobile devices.
+Therefore the main focus of these models is to be as lightweight as possible <Quelle: Übersicht>, meaning the reduction of parameters and ensuring real-time capabilities while maintaining comparable accuracy.
+There are 3 versions of MobileNets and each one builds upon and extends its predecessor.
+To achieve a reduced size version 1 utilizes depthwise separable convolutions.
+These blocks of convolutions consist of two steps. First, a depthwise convolution, where a kernel is deployed on each channel, followed by a pointwise convolution, where a 1x1 kernel combines the output from the first step <Quelle: Übersicht>.
+MobileNet V2 then added a layer with a 1x1 kernel before the depthwise convolution and a residual connection to create its so-called bottleneck blocks.
+A bottleneck block from MobileNetV2 is shown in <Figure xy>.
+
+\vspace{1cm}
+<Figure 3 MobileNetV3>
+\vspace{1cm}
+
+MobileNet V3 added optional blocks called Squeeze-and-Excite, which is illustrated in <Figure xy>. 
+These blocks can be added to any CNN and consist of a global pooling layer and two fully connected layers with a ReLu and a Sigmoid activation function respectively.
+After that, the output of this additional block is multiplied with the feature map.
+This enables the weighing of specific channels <Quelle: https://arxiv.org/abs/1709.01507>.
+Additionally, for the MobileNet V3 a Network Search is used to find optimal network structures and experiments with various activation functions have been conducted <Quelle: Mobilenet V3>.
+
+\vspace{1cm}
+<Figure 4 MobileNetV3>
+\vspace{1cm}
+
+MobileNets allow flexible usage with the so-called width or in V3 depth multiplier, which is a hyperparameter for controlling the number of feature maps in layers.
+MobileNet V1 and V2 additionally offer the resolution multiplier, which controls the resolution of layers.
+Both the MobileNetV3\_small and MobileNetV3\_large are supported in PyTorch <Quelle: https://pytorch.org/vision/main/models/mobilenetv3.html>.
 
 \subsection{EfficientNets}
 
