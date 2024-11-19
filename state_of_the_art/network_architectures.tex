@@ -21,15 +21,49 @@ Since then research has shown a rapid development of CNN architectures, consiste
     \item In 2019 \textbf{EfficientNets} \cite{EfficientNet} was introduced to further explore greater trade-offs between accuracy and efficiency, by using scaling methods for model architectures. 
 \end{itemize}
 
+\vspace{1cm} % Größerer Abstand zwischen den Reihen
+
+\noindent Since the CNNs are a part of a rapidly developing research field, more recent architectures are more interesting for this work.
+Because they already solved issues that exist in older models.
+Therefore, only the last four mentioned CNNs are described in more detail in the next sections.
+
 \subsection{ResNets}
 
 https://medium.com/@cpt1995daas/evolution-of-convolutional-neural-network-cnn-architectures-44f2109268a1
 
-blindtext
+A widely used model architecture in the community is ResNet <Quelle: ResNet>.
+Up to this architecture CNNs suffered from the vanishing gradient problem, particularly when the model consists of a deep network.
+A neural network is typically considered deep when it comprises a large number of consecutive layers.
+To solve that issue ResNet introduced the residual block that is also visualized in <Figure xy>.
+This block enabled effective training of models with up to 152 layers. Compared to VGGNet ResNet is 8 times deeper but still less complex.
+ResNet showed a great performance gain and was therefore granted first place in the classification task of the ILSVRC 2015.
+ResNet is supported in Pytorch, which includes variants with 18, 34, 50, 101, and 152 layers <Quelle: https://pytorch.org/vision/main/models/resnet.html>. 
+However, ResNet models are still resource-intensive because of their size <Quelle: Übersicht>. 
+
+\vspace{1cm}
+
+<Figure xy> <Quelle: ResNet>
+
+\vspace{1cm}
+
+<Figure xy> schematically represents the ResNet's skip connection.
+The block has two processes.
+One consists of two layers and the other one performs identity mapping.
+After that, the outputs are added together.
 
 \subsection{DenseNets}
 
-blindtext
+DenseNet further explores skip connections and implemented architecture blocks in which each layer is connected to every following layer.
+An example of a so-called "dense block" is shown in <Figure xy>.
+Compared to ResNet, this model connects outputs via concatenation instead of addition.
+Between dense bocks, there are the so-called "transition layers", consisting of one convolutional and then one pooling layer.
+This architecture allows deeper CNNs which result in more accuracy and efficiency.
+DenseNet showed great results with the introduced technique because their blocks further tackle the vanishing gradient problem with feature reuse.
+PyTorch includes DenseNet model variants with 121, 161, 169, 201 <Quelle: https://pytorch.org/vision/main/models/densenet.html>.
+
+\vspace{1cm}
+
+<Figure xy dense block -> figure 1 in Densenet paper>
 
 \subsection{MobileNetV3}
 
