@@ -1,18 +1,18 @@
 \section{Semantic Segmentation}
 \label{sec:SemanticSegmentation}
 
-The first approach to filter out the rail tracks in front of the train was proposed by <Quelle: 2018: Efficient Rail Area Detection Using Convolutional Neural Network [in TEP]> in 2018.
-A SegNet <Quelle: SegNet> inspired network for semantic segmentation is extended with mixed pooling <Quelle> and atrous spatial pyramid pooling (ASPP) from DeepLab.
+The first approach to filter out the rail tracks in front of the train was proposed by \cite{firstRailSegmentation2018} in 2018.
+A SegNet \cite{SegNet2017} <Quelle: SegNet> inspired network for semantic segmentation is extended with mixed pooling \cite{mixedPooling2014} <Quelle> and \ac{ASPP} from DeepLab \cite{deepLab2018}.
 After the proposed semantic segmentation network outputs a binary mask with pixel labels being track or no track, a polygon fitting technique is utilized to refine the tracks further.
 
-In 2019 <RailNet: A Segmentation Network for Railroad Detection> introduced the RailNet architecture.
-This model uses a ResNet-50 <Quelle ResNet> backbone and a fully convolutional network <Quelle in TEP-Net> to segment the rail tracks.
+In 2019 \cite{railNet2019} <RailNet: A Segmentation Network for Railroad Detection> introduced the RailNet architecture.
+This model uses a ResNet-50 \cite{ResNet} backbone and a fully convolutional network <Quelle in TEP-Net> to segment the rail tracks.
 The network is designed in a pyramid structure <Quelle: 2017 Feature pyramid networks for object detection>, in which features of every ResNet stage are summed and up-sampled.
 This combines low and high-level features, resulting in an enhanced performance.
-<Quelle: RailNet: A Segmentation Network for Railroad Detection> reports higher accuracy than state-of-the-art segmentation models at the time with speeds up to 20 FPS.
-Tests are made on the introduced RSDS dataset further described in <Dataset section>.
+\cite{railNet2019} <Quelle: RailNet: A Segmentation Network for Railroad Detection> reports higher accuracy than state-of-the-art segmentation models at the time with speeds up to 20 \ac{FPS}.
+Tests are made on the introduced \ac{RSDS} dataset further described in <Dataset section>.
 
-In 2019 RailSem19 <Quelle: RailSem19> introduced the first publicly available dataset for the rail domain.
+In 2019 RailSem19 \cite{railsem19dataset} introduced the first publicly available dataset for the rail domain.
 This dataset also includes annotations for semantic segmentation tasks and experimented with a FRRNB model <Quelle: Full-Resolution Residual Networks for Semantic Segmentation in Street Scenes>.
 This dataset is widely used in the community when working in the rail domain.
 
@@ -32,8 +32,8 @@ For details of the RailSet dataset please refer to <dataset section>.
 
 In 2020 <Quelle: Railroad semantic segmentation on high-resolution images> proposed a U-Net-inspired <Quelle: U-Net> semantic segmentation network.
 It combines a ResNet-34 backbone and includes connections to the upsampling blocks.
-At the deepest level, a spatial pyramid pooling (SPP) <Quelle: Spatial pyramid pooling in deep convolutional networks for visual recognition> and on the skip connections squeeze-and-excitation blocks <Quelle: wie bei mobilenet> are used.
-Tests on RailSem19 <Quelle: RailSem19>, show that it outperforms <Quelle: 2019 RailNet: A Segmentation Network for Railroad Detection> in accuracy with a speed of 20 FPS.
+At the deepest level, a \ac{SPP} <Quelle: Spatial pyramid pooling in deep convolutional networks for visual recognition> and on the skip connections squeeze-and-excitation blocks \cite{SqueezeAndExcitation2019} are used.
+Tests on RailSem19 \cite{railsem19dataset}, show that it outperforms \cite{railNet2019} <Quelle: 2019 RailNet: A Segmentation Network for Railroad Detection> in accuracy with a speed of 20 \ac{FPS}.
 Additionally, <Quelle: Railroad semantic segmentation on high-resolution images> introduced the concept of "possible tracks", which are all paths the train could follow under the assumption that the state of switches cannot be determined.
 For this, a rule-based post-processing algorithm is proposed. <Figure xy> shows the concept of possible paths.
 
@@ -49,18 +49,18 @@ An example of such a heatmap is an image with one channel that shows the probabi
 The segmentation mask and the heatmaps are then used by a complex post-processing approach.
 This process includes track point clustering, the creation of track segments, and the creation of a path tree, which is then used to generate all possible tracks.
 Refinement is done by removing redundant paths and polynomial fitting.
-Because of the complexity of this system, <Quelle: TPE-Net: Track Point Extraction and Association Network for Rail Path Proposal Generation> reports speeds up to 12 FPS making this system unsuitable for real-time applications.
+Because of the complexity of this system, <Quelle: TPE-Net: Track Point Extraction and Association Network for Rail Path Proposal Generation> reports speeds up to 12 \ac{FPS} making this system unsuitable for real-time applications.
 Additionally, it is stated that problems arise when switches are present.
 
-In 2022 <Quelle: RailVID: A Dataset for Rail Environment Semantic> proposed the RailVID dataset, which consists of infrared images instead of RGB data to improve the system's abilities in challenging situations such as the absence of ambient light.
-The dataset is described in <Dataset section> in more detail.
-After collecting data, <Quelle: RailVID: A Dataset for Rail Environment Semantic> experimented with widely used CNNs for semantic segmentations, like CGNet <Quelle>, DeepLabv3+ <Quelle>, and BiSeNet <Quelle>.
+In 2022 \cite{yuan2022railvid} proposed the RailVID dataset, which consists of infrared images instead of \ac{RGB} data to improve the system's abilities in challenging situations such as the absence of ambient light.
+The dataset is described in \autoref{subsubsec:railVID} in more detail.
+After collecting data, \cite{yuan2022railvid} experimented with widely used \ac{CNN}s for semantic segmentations, like CGNet <Quelle>, DeepLabv3+ <Quelle>, and BiSeNet <Quelle>.
 Additionally, an improved BiSeNet architecture is proposed with consideration of the infrared data. Performance is enhanced by added layers to fuse low-level features.
 
 In 2021 <Accurate and Lightweight RailNet for Real-Time Rail Line Detection> proposed another architecture called RailNet.
 It consists of an Encoder-Decoder structure incorporating depth-wise convolutions and a Segmentation Soul block, inspired by the context embedding block of BiSeNetV2 <Quelle: BiSeNetV2>.
 Additionally, a port processing algorithm is utilized that is based on sliding window detection.
-<Accurate and Lightweight RailNet for Real-Time Rail Line Detection> reports speeds up to 74 FPS proving that this system is real-time capable.
+<Accurate and Lightweight RailNet for Real-Time Rail Line Detection> reports speeds up to 74 \ac{FPS} proving that this system is real-time capable.
 
 A topic that could be interesting is anomaly detection because many state-of-the-art approaches use semantic segmentation as a preprocessing step.
 <2021 Near Real-time Situation Awareness and Anomaly Detection for Complex Railway Environment> utilizes a BiSeNet architecture for segmenting rails, which is tailored for the anomaly detection task.
