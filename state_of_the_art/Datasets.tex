@@ -163,6 +163,7 @@ Since, this dataset only consists of infrared data and in this work \ac{RGB} dat
 
 % RailSet
 \subsubsection{RailSet}
+\label{subsubsec:RailSet}
 \cite{railSet2022} and \cite{hadded2022application} presented the \textit{RailSet} dataset,
 which is divided into two sub sets: RailSet-Seg for segmentation and RailSet-Ano for anomaly detection \cite{railSet2022}.
 Both of them are captured in the ego perspective of the train driver \cite{railSet2022} \cite{hadded2022application}.
@@ -215,6 +216,7 @@ Since, the goal is to target a broad applicability, leaning towards tram scenes 
 
 % RSDS
 \subsubsection{RSDS}
+\label{subsubsec:RSDS}
 The creators of the \ac{RSDS} \cite{railNet2019}, tried to solve the railroad detection problem with a segmentation approach. Because there was no publicly available dataset for this task at the time, they had to construct their own. \ac{RSDS} is captured from the ego perspective of the train driver and is a collection of 3000 images. They used 2500 for training, 200 for validation and 300 for testing. The dataset only includes one \textit{railroad} label. It is described that the labels only incorporate pixels between the two rails and intentionally ignore railway sleepers outside this area. Images are of size 1920 x 1080.
 Although it is not mentioned in the paper, it seems as if all images of \ac{RSDS} are captured from a specific rail line in China. Additionally, from the images in the paper alone one can tell that this particular rail line has very distinctive structural characteristics. The colors are bright and it seems like the area between the rails is mostly concrete, which is unusual for most railways. \ref{fig:RSDS_example_image_GT} shows that structures besides the rails are specific too.
 One additional detail of this dataset, which can present a disadvantage for this work, is that switches are not addressed.
