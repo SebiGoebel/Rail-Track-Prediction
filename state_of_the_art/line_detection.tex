@@ -1,0 +1,16 @@
+\section{Line Detection}
+\label{sec:lineDetection}
+
+blidtext
+
+Für die nächstem kapitel:\\
+was gibt es?\\
+was gibt es in der rail domaine?\\
+
+
+Many line detection algorithms stem from the road domain, to detect lanes. This is done for autonomous or safety systems for cars. Most algorithms are trained on datasets like TuSimple <Quelle: TuSimple: https://github.com/TuSimple/tusimple-benchmark/tree/master> or CULane <Quelle: Spatial As Deep: Spatial CNN for Traffic Scene Understanding>, which include images taken in the front view of cars. While TuSimple is captured on US highways CULane's images are from Beijing. <Figure xy> shows examples of TuSimple.
+
+Bild: https://github.com/TuSimple/tusimple-benchmark/blob/master/doc/lane_detection/assets/examples/lane_example.jpg
+
+
+<Quelle: 2019 Lane Detection and Classification using Cascaded CNNs> proposed one of the first lane detection approaches on TuSimple. The proposed method detects lanes and their kinds. Two cascaded CNNs are utilized, the first one is an instance segmentation network and the second one is a classification network.

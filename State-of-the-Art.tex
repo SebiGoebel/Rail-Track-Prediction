@@ -24,40 +24,17 @@ Then, the most promising approaches for the rail track prediction use case are s
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%% Line Detection %%%%%%%%%%%%%%%%%%%%%
 
-\begin{itemize}
-    \item Image Classification
-    \item Object Detection
-    \item Semantic Segmentation (detection und keine direction prediction) hat normalerweise probleme wenn mehrere rails in der scene sind --> weichen schwer trennbar weil der pixelhaufen dazwischen irgendwas ist
-    \item Instance Segmentation
-    \item panoptic Segmentation
-    \item line detection (detection und keine direction prediction) anzahl der rails in einer scene ist das problem
-\end{itemize}
+\clearpage                                                       % Beginne neue Seite
+\input{state_of_the_art/line_detection}
 
-Für die nächstem kapitel:\\
-was gibt es?\\
-was gibt es in der rail domaine?\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Line detection algorithms (2 bis 3 Seiten)}
+%%%%%%%%%%%%%%%%%%%%% Baseline Paper %%%%%%%%%%%%%%%%%%%%%
 
-Rail Detection: An Efficient Row-based Network and A New Benchmark --> hat auch Lane Detection \& Railroad Detection
-
-\subsection{mögliches Baseline Paper vielleicht (wenn die Aufteilung geändert werden muss)}
-
-\subsection{verwendetes Baseline Paper vielleicht (wenn die Aufteilung geändert werden muss)}
-
-\subsection{Temporal Models (2 Seiten)}
-
-\begin{itemize}
-    \item LSTM -> 1 Seite
-    \item GRU -> 1 Seite
-    \item ...
-\end{itemize}
-
-%%%%%%%%%%%%%%%%%%%%% Datasets %%%%%%%%%%%%%%%%%%%%%
-
-\clearpage
-\input{state_of_the_art/network_architectures.tex}
+\clearpage                                                       % Beginne neue Seite
+\input{state_of_the_art/Baseline.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -68,10 +45,29 @@ Rail Detection: An Efficient Row-based Network and A New Benchmark --> hat auch 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%% network architectures %%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%% Baseline Paper %%%%%%%%%%%%%%%%%%%%%
-
-\clearpage                                                       % Beginne neue Seite
-\input{state_of_the_art/Baseline.tex}
+\clearpage
+\input{state_of_the_art/network_architectures.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%% temporal network architectures %%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+\input{state_of_the_art/temporal_network_architectures.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{mögliches Baseline Paper vielleicht (wenn die Aufteilung geändert werden muss)}
+
+\section{verwendetes Baseline Paper vielleicht (wenn die Aufteilung geändert werden muss)}
+
+\begin{itemize}
+    \item Image Classification
+    \item Object Detection
+    \item Semantic Segmentation (detection und keine direction prediction) hat normalerweise probleme wenn mehrere rails in der scene sind --> weichen schwer trennbar weil der pixelhaufen dazwischen irgendwas ist
+    \item Instance Segmentation
+    \item panoptic Segmentation
+    \item line detection (detection und keine direction prediction) anzahl der rails in einer scene ist das problem
+\end{itemize}
