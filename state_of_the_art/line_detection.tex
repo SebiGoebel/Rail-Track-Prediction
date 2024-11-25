@@ -5,11 +5,16 @@ Many line detection algorithms stem from the road domain, to detect lanes.
 This is done for autonomous or safety systems for cars.
 Most algorithms are trained on datasets like TuSimple \cite{tuSimpleDataset} or CULane \cite{cuLaneDataset}, which include images taken in the front view of cars.
 While TuSimple is captured on US highways CULane's images are from Beijing.
-<Figure xy> shows examples of TuSimple.
+\autoref{fig:tusimpleExample} shows examples of TuSimple.
 
 \vspace{1cm}
 
-Bild: $https://github.com/TuSimple/tusimple-benchmark/blob/master/doc/lane_detection/assets/examples/lane_example.jpg$
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{PICs/lineDetection/tusimple_example.jpg}
+    \caption{Example Images of TuSimple with annotations \cite{tuSimpleDatasetExampleImage}. Red lines are horizontal anchor lines. Green circles mark image coordinates, where road lanes and anchor lines intersect.}
+    \label{fig:tusimpleExample}
+\end{figure}
 
 \vspace{1cm}
 
@@ -20,7 +25,7 @@ Two cascaded CNNs are utilized, the first one is an encoder-decoder network for 
 However encoder-decoder structures are very similar to the techniques used for semantic segmentation.
 Other structures for lane detection include key point extraction, grid systems, or polyline regression.
 
-Keypoint detection on the road
+\textbf{Keypoint detection on the road}
 
 \cite{LineCNN2020} proposed Line-CNN, which includes a ResNet backbone and an introduced Line Proposal Unit.
 The model suggests a series of lines to locate road lanes.
@@ -36,13 +41,13 @@ This added module results in higher accuracy and a much faster model with speeds
 Another approach that uses key points is introduced in \cite{GANet2022}.
 This architecture utilizes a Lane-aware Feature Aggregation module to strengthen the connection between neighboring key points and archives state-of-the-art performance.
 
-Grid system
+\textbf{Grid system}
 
 An approach that uses grid systems is proposed by \cite{laneDetectionGrid2020}.
 Here a row-wise classification is done for a predefined number of grids.
 The number of grids is equivalent to the number of lanes that can be detected.
 
-polyline regression
+\textbf{polyline regression}
 
 A regression approach is proposed in \cite{PolyLaneNetRoad2021}, that predicts the polynomials of lanes.
 ResNet and EfficientNet backbones are used to extract features, that are then used to forecast lines.
@@ -57,6 +62,7 @@ A typical backbone like ResNet with additional feature flip fusion modules is ut
 After a pooling and two convolutional layers, the model outputs the prediction.
 Compared to polynomial fitting the approach proposed in \cite{DetectingLanesWithBezierCurves2023} is superior.
 
+\textbf{rail domain}
 
 Even though much has been done in the road domain, and the rail domain is usually not considered, some research has still been conducted to adapt lane detection algorithms for trains.
 
@@ -78,12 +84,17 @@ On the other hand, no records of speed are available.
 
 Another state-of-the-art approach to filtering out rails is to divide the output into grids \cite{li2022rail}.
 This technique is also adapted from the road domain from \cite{laneDetectionGrid2020}.
-Each rail is predicted in a separate grid and the number of rails is predefined with the hyperparameter $C$.
+Each rail is predicted in a separate grid and the number of rails is predefined with the hyperparameter $C$, as shown in \autoref{fig:gridLineDetection}.
 In each grid, a row-wise classification problem is solved, where the target class corresponds to the cell that encompasses the target rail.
 After that, the grid system with the predicted cells is translated into image coordinates to calculate the final output.
-The architecture is shown in <Figure xy> that also shows the focus on detecting all rails in an image.
+The architecture is shown in \autoref{fig:gridLineDetection}, which also shows the focus on detecting all rails in an image.
 This approach relies only on the feature extractor and therefore does not need a decoder.
 In 2024 this approach is also used by TEP-Net \cite{tepNet2024} with just the train's own two rails for state-of-the-art comparison.
 
-<Figrue xy Figure 5 von 2023 Rail Detection: An Efficient Row-based Network and A New Benchmark>
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{PICs/lineDetection/gridDetection.jpg}
+    \caption{Rail detection with Gridsystem \cite{li2022rail}. Hyperparameters: $C$ is the number of rails (number of grids). $h$ is the number of cells vertically. $w+1$ is the number of cells horizontally with an additional column for a background class, when no rail is detected in a row.}
+    \label{fig:gridLineDetection}
+\end{figure}
 
