@@ -77,16 +77,17 @@ On the one hand, it is stated that the algorithm's accuracy relies too much on t
 On the other hand, no records of speed are available.
 Due to the intricacy of the proposed approach, the complex and cascaded algorithms could easily exceed real-time requirements.
 
-\vspace{1cm}
+%\vspace{1cm}
 
 Another state-of-the-art approach to filtering out rails is to divide the output into grids \cite{li2022rail}.
-This technique is also adapted from the road domain from \cite{laneDetectionGrid2020}.
+This technique is adapted from the road domain from \cite{laneDetectionGrid2020}.
 Each rail is predicted in a separate grid and the number of rails is predefined with the hyperparameter $C$, as shown in \autoref{fig:gridLineDetection}.
 In each grid, a row-wise classification problem is solved, where the target class corresponds to the cell that encompasses the target rail.
-After that, the grid system with the predicted cells is translated into image coordinates to calculate the final output.
-The architecture is shown in \autoref{fig:gridLineDetection}, which also shows the focus on detecting all rails in an image.
+After that, the predicted cells are translated into image coordinates to calculate the final output.
+The architecture is shown in \autoref{fig:gridLineDetection}.
+The output image shows the focus on detecting all rails in an image.
 This approach relies only on the feature extractor and therefore does not need a decoder.
-In 2024 this approach is also used by TEP-Net \cite{tepNet2024} with just the train's own two rails for state-of-the-art comparison.
+In 2024 this approach is also used by TEP-Net \cite{tepNet2024} with only the train's own two rails ($C=2$) for state-of-the-art comparison.
 
 \begin{figure}[H]
     \centering
@@ -95,3 +96,10 @@ In 2024 this approach is also used by TEP-Net \cite{tepNet2024} with just the tr
     \label{fig:gridLineDetection}
 \end{figure}
 
+\noindent \ac{TEP}-Net \cite{tepNet2024} introduces another regression approach.
+\cite{RailraodSemanticPossibleTracks2020} and \cite{TPENet2023} act with the thought that switch states cannot accurately be determined.
+Therefore they try to filter out possible tracks.
+\cite{tepNet2024} extends the problem formulation with the assumption that switch states can be correctly predicted.
+This leads to a model architecture that predicts the right and left rail of the trains path.
+Other rails are ignored.
+Since the use case of \cite{tepNet2024} and the goal of this work overlap in almost all aspects, this paper is described in more detail in \autoref{sec:baselinepaper}.
