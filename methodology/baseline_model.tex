@@ -1,12 +1,11 @@
 \section{TEP-Net Model}
 \label{sec:baselineModel}
 
-In the literature, the particular problem of rail detection is usually solved with segmentation-based approaches.
-One limitation of these approaches is the lack of distinction between all rails visible in the image and the rail the train continues.
-The unique approach introduced by \cite{tepNet2024} takes a regression-based approach, which restricts the model to predict a single track.
+In the literature rails are often detected without distinction between all rails visible in an image and the rail the train continues.
+\cite{tepNet2024} therefore proposes a regression-based approach, which restricts the model to predict a single track.
 The idea comes from various lane detection methods in autonomous driving applications for road cars and is fitted the rail domain.
 
-Although rails can be represented by second or third-degree polynomials in curves, they may also take more complex geometric shapes.
+Although rails can be represented by second or third-degree polynomials in curves \cite{PolyLaneNetRoad2021}, they may also take more complex geometric shapes.
 Hence, limiting the output to presumed forms is discouraged.
 Therefore, the method used in \cite{tepNet2024} employs spline interpolation to describe such complex structures.
 
