@@ -1,6 +1,9 @@
 \section{Semantic Segmentation}
 \label{sec:SemanticSegmentation}
 
+Semantic Segmentation models are used to create a mask of an image, in which every pixel is assigned to a class.
+This method can be used to segment rails or rail tracks to obtain the direction of the train.
+
 The first approach to filter out the rail tracks in front of the train was proposed by \cite{firstRailSegmentation2018} in 2018.
 A SegNet \cite{SegNet2017} inspired network for semantic segmentation is extended with mixed pooling \cite{mixedPooling2014} and \ac{ASPP} from DeepLab \cite{deepLab2018}.
 After the proposed semantic segmentation network outputs a binary mask with pixel labels being track or no track, a polygon fitting technique is utilized to refine the tracks further.
@@ -46,7 +49,7 @@ The network combines a ResNet-34 \cite{ResNet} backbone and includes connections
 At the deepest level, a \ac{SPP} \cite{spatialPyramidPooling2014} and on the skip connections squeeze-and-excitation blocks \cite{SqueezeAndExcitation2019} are used.
 Tests on RailSem19, show that it outperforms the first proposed RailNet \cite{railNet2019} in accuracy with a speed of 20 \ac{FPS}.
 
-\vspace{1cm}
+\vspace{0.5cm}
 
 \begin{figure}[H]
     \centering
@@ -55,7 +58,7 @@ Tests on RailSem19, show that it outperforms the first proposed RailNet \cite{ra
     \label{fig:possibleTracks}
 \end{figure}
 
-\vspace{1cm}
+\vspace{0.5cm}
 
 In 2023 \cite{TPENet2023} further investigated the task of possible tracks and introduced \ac{TPE-Net}.
 It consists of a DenseNet-inspired \cite{DenseNets} architecture, which is trained and tested on RailSem19 and outputs regressed heatmaps besides the segmented rails.
