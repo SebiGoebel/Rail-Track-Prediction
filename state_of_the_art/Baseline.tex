@@ -8,53 +8,39 @@ Efforts in rail detecting with the trains path in consideration have been made i
 However, because of the assumption that switch states cannot be accurately determined all "possible rail tracks" are considered in those two papers, leading to complex post-processing.
 In \cite{tepNet2024}, the train's rails are defined as the "ego-path" and others are ignored.
 To realize a system with this output \cite{tepNet2024} presents a novel regression-based approach, inspired by autonomous driving applications for road cars.
+Contributions include: new annotations tailored for this use case, two data augmentation strategies, a novel model architecture and a custom loss function.
 
-\vspace{0.5cm}
+\vspace{1cm} % Größerer Abstand zwischen den Reihen
 
-\noindent The main contributions of this work consist of several aspects.
-First, unique annotations are created specifically for this project.
-Furthermore, a data augmentation strategy is presented, incorporating two distinct cropping techniques for training and inference.
-Additionally, a new Regression-based model architecture is developed, to meet the requirements of the novel problem formulation.
-A custom loss function is introduced.
-In the next few sections, each of these novelties is described in more detail.
+\noindent \textbf{New annotations} are labeled for this project, which only cosiders the "ego-path".
+Images are taken from the RailSem19 dataset \cite{tepNet2024}.
+For further details of the dataset, please refer to section \ref{subsubsec:TEP-Net_dataset}.
 
-\subsection{Annotations}
+\vspace{1cm} % Größerer Abstand zwischen den Reihen
 
-Since, only the right and left rail of the trains path are detected the dataset needs to be in a corresponding manner.
-Therefore \cite{tepNet2024} works with new annotations tailored to this use case and images from the RailSem19 dataset.
-This dataset is in the so-called "ego-view", so the cameras are positioned in the driver's cabin and view the rails in front of the train.
-The perspective is similar to what a train conductor sees.
-For further details of the dataset utilized in this project, please refer to section \ref{subsubsec:TEP-Net_dataset}.
-
-\subsection{Data augmentation}
-
-\cite{tepNet2024} utilizes two data augmentation strategies, one for training and one for inference.
-In the Training along wiht usual methods like image color variations and horizontal flips, a cropping mechanism is implemented, which is dependent on th \ac{GT}.
-This allows to only focus on the most relevant part of the image, being the "ego-path".
-Since, only such crops are used for training, the use case in inference must reflect something similar.
+\noindent \textbf{Two data augmentation strategies} are deployed: one for training and one for inference \cite{tepNet2024}.
+In the training along with usual methods like image color variations and horizontal flips, a cropping mechanism is implemented, which is dependent on the \ac{GT}.
+This allows to only focus on the most relevant part of the image.
+Since, only crops are used for training, the use case in inference must reflect something similar.
 Therefore an autocrop method is developed, which crops images according to a running average of previous predictions.
 Both of those techniques are described in \autoref{sec:dataaugmentation} in more detail.
 
+\vspace{1cm} % Größerer Abstand zwischen den Reihen
 
-\subsection{TEP-Net Model}
-
-\cite{tepNet2024} proposed a regression-based approach.
-For this a model architecture is introduced, which includes a backbone for feature extraction followed by a predictions head.
+\noindent \textbf{The model architecture} introduced by \cite{tepNet2024}, includes a backbone for feature extraction followed by a prediction head.
 The head is constructed out of fully connected layers and forms the output at the end.
 The output vector, includes the $x$-values for the left and the right rail on anchor lines and a value for the horizon line.
 \autoref{fig:TEP-Net_sota_models} shows the proposed regression model in the middle.
 A more detailed describtion is given in \autoref{sec:baselineModel}.
 
-\subsection{Loss function}
+\vspace{1cm} % Größerer Abstand zwischen den Reihen
 
-One of the main contributions is the loss function.
-Tailored to the specific use case it is constructed of two functions.
-The first one is the trajectory loss, which is responsible for the horizonal error.
-The second one is the y-limit loss, which takes the horizon line into account.
-Then the two losses are weighted and addded.
+\noindent \textbf{The loss function} is tailored to the regression approach and is constructed of two functions.
+The trajectory loss, which is responsible for the horizonal error and the y-limit loss, which takes the horizon line into account.
+Both losses are weighted and addded.
 For a detailed describtion, plese refer to \autoref{sec:lossFunction}.
 
-\subsection{Experiments, Results and Comparison other state-of-the-art approaches of TEP-Net}
+\subsection{Comparison other state-of-the-art approaches}
 
 \cite{tepNet2024} compared its appraoch to promising and common methods in the literature: a segmentation and a classifiaction approach.
 To fairly compare the novel regression-based architecture, \cite{tepNet2024} uses the same backbone and replaces the prediction heads, as illustrated in \autoref{fig:TEP-Net_sota_models}.
@@ -75,9 +61,9 @@ For experiments, the same dataset is utilized with various preprocessing steps t
     \label{fig:TEP-Net_sota_models}
 \end{figure}
 
-Experiments include trainings with different backbones: ResNet18, 34, 50 and EfficientNet B0, B1, B2, B3.
-Results of \cite{tepNet2024} show that the segmentation-based approach is the most accurate when it comes to the \ac{IoU}.
-However, the difference in \ac{IoU} performances is within a range of only 1.4 percent.
+Experiments include trainings with different versions ResNet and EfficientNet backbones.
+According to the \ac{IoU} the segmentation  model is the most accurate \cite{tepNet2024}.
+However, the difference in performances is within a range of only 1.4 percent.
 Classification with ResNet18 performs worst.
 While segmenation with EfficientNet-B3 achieves the highest accuracy, it is also the slowest.
 In terms of speed the regression-based approach outperforms other models.
@@ -87,7 +73,7 @@ For more detailed results, please refer to \cite{tepNet2024}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{PICs/Baselinepaper/comparison_sota_tep-net_modified.jpg}
+    \includegraphics[width=0.7\linewidth]{PICs/Baselinepaper/comparison_sota_tep-net.jpg}
     \caption{Comparison between classification (CLS), regression (REG) and segmentation (SEG) models with challenging scenes.
     The worst backbone (ResNet18) is used for this figure to clearly show difference in behaviours \cite{tepNet2024}.}
     \label{fig:TEP-Net_sota_comparison}
