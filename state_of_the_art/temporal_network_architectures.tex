@@ -1,10 +1,60 @@
 \section{Temporal Model Architectures}
 \label{sec:temporalModelArchitecture}
 
-blidtext
-
 \begin{itemize}
-    \item LSTM -> 1 Seite
-    \item GRU -> 1 Seite
-    \item ...
+    \item LSTM -> 1/2 Seite
+    \item GRU -> 1/2 Seite
+    \item Approaches 1/2 bis 1 Seite
+\end{itemize}
+
+2020 Robust Lane Detection from Continuous Driving Scenes Using Deep Neural Networks
+\begin{itemize}
+    \item Encoder
+    \item LSTM
+    \item Decoder
+\end{itemize}
+
+2021 Lane Detection Model Based on Spatio-Temporal Network With Double Convolutional Gated Recurrent Units
+\begin{itemize}
+    \item Encoder
+    \item GRU
+    \item Decoder
+\end{itemize}
+
+2022 A hybrid spatial–temporal deep learning architecture for lane detection (U-net based)
+\begin{itemize}
+    \item Encoder
+    \item ST-RNN blocks
+    \item Decoder
+\end{itemize}
+
+2022 Sequential Neural Network Model with Spatial-Temporal Attention Mechanism for Robust Lane Detection Using Multi Continuous Image Frames
+\begin{itemize}
+    \item Encoder
+    \item attention module:
+    \begin{itemize}
+        \item skip connections
+        \item fc layer
+        \item LSTM
+    \end{itemize}
+    \item Decoder
+\end{itemize}
+
+2023 Robust Lane Detection through Self Pre-training with Masked Sequential Autoencoders and Fine-tuning with Customized PolyLoss (https://paperswithcode.com/paper/robust-lane-detection-through-self-pre)
+\begin{itemize}
+    \item self pre-training
+    \begin{itemize}
+        \item pretraining for lstm initialization
+    \end{itemize}
+    \item fine tuning with segmentation architecture:
+    \begin{itemize}
+        \item Encoder
+        \item LSTM
+        \item Decoder
+    \end{itemize}
+    \item post-processing:
+    \begin{itemize}
+        \item DBSCAN
+        \item Curve Fitting
+    \end{itemize}
 \end{itemize}
