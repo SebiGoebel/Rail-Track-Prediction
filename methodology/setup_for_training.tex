@@ -1,0 +1,24 @@
+\section{Setup used for Training CNNs}
+
+% Hardware (GPU, CPU, CUDA)
+For training \ac{CNN}s a powerful hardware setup is necessary.
+In this work, one main setup is used to train all models.
+This work is based on a project proposed and supported by the \ac{ICT} at the \ac{TU}, which also provides the necessary resources.
+The department has a server with two NVIDIA Tesla V100S-PCIE-32GB \ac{GPU}s \cite{nvidia_v100_datasheet}.
+Since the \ac{GPU}s utilized are equipped with 32 GB of memory and this is sufﬁcient for the needs of this study, all trainings are done on a single \ac{GPU}.
+No multi-\ac{GPU} setup is needed.
+For this project, CUDA version 12.6 is used, which provides an environment for developing GPU-accelerated applications \cite{nvidia_cuda_126}.
+The server employs two Intel(R) Xeon(R) Gold 5118 CPUs @ 2.30GHz \cite{intel_xeon_gold_prozessor_5118}.
+These \ac{CPU}s have 24 threads and 12 cores each.
+
+%Weights & Biases
+
+All trainings are logged with the "Weights \& Biases" \cite{wandb}, a developer platform for training and ﬁne-tuning machine learning models.
+\cite{wandb} is utilized for logging conﬁgurations and results in this work.
+The \textit{train loss} and \textit{validation loss} of each training is tracked and visualized in a graph.
+The \textit{test \ac{IoU}} and the \textit{best validation loss} are displayed at the end of each training.
+Additionally, the \ac{GPU}'s power usage and allocated memory are tracked and graphs are plotted.
+Moreover, "Weights \& Biases" \cite{wandb} assigns a unique name to each training session, a critical feature when starting hundreds of training sessions.
+All training logs are available at \href{https://wandb.ai/sebiorganization/train-ego-path-detection}{\texttt{https://wandb.ai/sebiorganization/train-ego-path-detection}}.
+
+%PyTorch beschreiben
