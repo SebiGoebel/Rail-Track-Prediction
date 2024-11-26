@@ -3,7 +3,8 @@
 
 To do justice to the contributions of \cite{tepNet2024}, it is addressed in a separate section highlighting the paper's specific insights and relevance. 
 To the best of the author's knowledge, \cite{tepNet2024} is the only paper in the literature, which only filters out the two rails the train continuous on, presenting a solution to the rail track prediction problem.
-Contrary to most literature, which filter out all rails, often without any distinction between rails, efforts in this direction have been made in \cite{RailraodSemanticPossibleTracks2020} and \cite{TPENet2023}.
+Contrary to most literature, in which often all rails are detected without any distinction between different rails.
+Efforts in rail detecting with the trains path in consideration have been made in \cite{RailraodSemanticPossibleTracks2020} and \cite{TPENet2023}.
 However, because of the assumption that switch states cannot be accurately determined all "possible rail tracks" are considered in those two papers, leading to complex post-processing.
 In \cite{tepNet2024}, the train's rails are defined as the "ego-path" and others are ignored.
 To realize a system with this output \cite{tepNet2024} presents a novel regression-based approach, inspired by autonomous driving applications for road cars.
@@ -19,9 +20,11 @@ In the next few sections, each of these novelties is described in more detail.
 
 \subsection{Annotations}
 
-A new dataset is required for this. \cite{tepNet2024} works with its annotations and the RailSem19 dataset.
+Since, only the right and left rail of the trains path are detected the dataset needs to be in a corresponding manner.
+Therefore \cite{tepNet2024} works with new annotations tailored to this use case and images from the RailSem19 dataset.
 This dataset is in the so-called "ego-view", so the cameras are positioned in the driver's cabin and view the rails in front of the train.
-For further details of the dataset utilized in this project, refer to section \ref{subsubsec:TEP-Net_dataset}.
+The perspective is similar to what a train conductor sees.
+For further details of the dataset utilized in this project, please refer to section \ref{subsubsec:TEP-Net_dataset}.
 
 \subsection{Data augmentation}
 

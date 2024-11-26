@@ -97,9 +97,8 @@ In 2024 this approach is also used by TEP-Net \cite{tepNet2024} with only the tr
 \end{figure}
 
 \noindent \ac{TEP}-Net \cite{tepNet2024} introduces another regression approach.
-\cite{RailraodSemanticPossibleTracks2020} and \cite{TPENet2023} act with the thought that switch states cannot accurately be determined.
-Therefore they try to filter out possible tracks.
+\cite{RailraodSemanticPossibleTracks2020} and \cite{TPENet2023} expect that switch states cannot accurately be determined.
+Therefore they try to filter out all possible tracks.
 \cite{tepNet2024} extends the problem formulation with the assumption that switch states can be correctly predicted.
-This leads to a model architecture that predicts the right and left rail of the trains path.
-Other rails are ignored.
+This eliminates the need for heavy post processing and leads to a lightweight model that only predicts the right and left rail of the trains path.
 Since the use case of \cite{tepNet2024} and the goal of this work overlap in almost all aspects, this paper is described in more detail in \autoref{sec:baselinepaper}.
