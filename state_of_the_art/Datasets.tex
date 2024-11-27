@@ -334,32 +334,28 @@ Due to the necessity of re-labeling for this work and the fact that only data fr
     \label{fig:OSDaR23_captured_data}
 \end{figure}
 
-% labeled scene
 \begin{figure}[H]
     \centering
-    % Erste Reihe: Zwei Bilder nebeneinander
-    \begin{subfigure}{0.45\textwidth}
+    % Vier Bilder in einer Reihe, jeweils 0.24 der Textbreite
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\textwidth]{PICs/datasets/OSDaR23_dataset/labeled_image.png}
         \caption{\ac{RGB} center camera}
     \end{subfigure}%
-    \hspace{0.05\textwidth}
-    \begin{subfigure}{0.45\textwidth}
+    \hfill
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\textwidth]{PICs/datasets/OSDaR23_dataset/labeled_3D.png}
         \caption{merged lidar point cloud}
-    \end{subfigure}
-
-    \vspace{0.5cm} % Abstand zwischen den Reihen
-
-    % Zweite Reihe: Zwei Bilder nebeneinander
-    \begin{subfigure}{0.45\textwidth}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\textwidth]{PICs/datasets/OSDaR23_dataset/labeled_IR.png}
         \caption{IR center camera}
     \end{subfigure}%
-    \hspace{0.05\textwidth}
-    \begin{subfigure}{0.45\textwidth}
+    \hfill
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\textwidth]{PICs/datasets/OSDaR23_dataset/labeled_Radar.png}
         \caption{Radar (zoomed)}
@@ -369,40 +365,6 @@ Due to the necessity of re-labeling for this work and the fact that only data fr
     \label{fig:OSDaR23_annotated}
 \end{figure}
 
-
-
-\begin{figure}[H]
-    \centering
-    % Erste Reihe: Zwei Bilder nebeneinander, feste Breite und Höhe
-    \begin{subfigure}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth,height=5cm]{PICs/datasets/OSDaR23_dataset/labeled_image.png}
-        \caption{Bild 1}
-    \end{subfigure}%
-    \hspace{0.05\textwidth}
-    \begin{subfigure}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth,height=5cm]{PICs/datasets/OSDaR23_dataset/labeled_3D.png}
-        \caption{Bild 2}
-    \end{subfigure}
-
-    \vspace{0.5cm} % Abstand zwischen den Reihen
-
-    % Zweite Reihe: Zwei Bilder nebeneinander, gleiche feste Breite und Höhe
-    \begin{subfigure}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth,height=5cm]{PICs/datasets/OSDaR23_dataset/labeled_IR.png}
-        \caption{Bild 3}
-    \end{subfigure}%
-    \hspace{0.05\textwidth}
-    \begin{subfigure}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth,height=5cm]{PICs/datasets/OSDaR23_dataset/labeled_Radar.png}
-        \caption{Bild 4}
-    \end{subfigure}
-    
-    \caption{OSDaR23 labels skaliert}
-\end{figure}
 
 % TEP-Net annotations
 \subsubsection{TEP-Net dataset}

@@ -1,54 +1,55 @@
 \chapter{Methodology}
 \label{sec:methodology}
-blindtext
+
+%%%%%%%%%%%%%%%%%%%%% Kurze Einführung %%%%%%%%%%%%%%%%%%%%%
+
+In this section, the methodology of this work is described.
+In <section> used and implemented models are explained.
+<section> describes datasets, which are used to train and evaluate models and other algorithms.
+The data augmentation of these datasets is depicted in <section>.
+<section> deals with loss functions. After that, setups for training and inference measurements are described in <section> and <section>.
+Keep in mind that the main contributions of this work include three parts:
+1. an initial approach to combine object detection with semantic segmentation;
+2. TEP-Net \cite{tepNet2024} is the new baseline for further experiments to improve this model's accuracy and robustness;
+3. An RNN is integrated into the model to increase robustness further.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Models %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Models}
+%\input{methodology/yolo_models.tex}
+\input{methodology/baseline_model.tex}
+% Improvements to baseline model
+%\input{methodology/temporal models.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Datasets %%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Datasets}
-blindtext
 
-\subsection{RailSem19 and used subsets}
-blindtext
+%subsets of RailSem19
+%TEP-annotations
+%Switch evaluation dataset
+%auto labeler + (nur dass ich es verwendet habe: CVAT) + temporal dataset
 
-\subsection{vielleicht: Rail-DB for multi rail setection}
-blindtext
+%%%%%%%%%%%%%%%%%%%% Data augmentation %%%%%%%%%%%%%%%%%%%%%
 
-\subsection{used annotations}
-blindtext
-
-\section{Switch evaluation dataset}
-blindtext
-
-\section{labeling task for temporal models}
-
-\subsubsection{CVAT}
-\subsubsection{Autolabler}
-blindtext
-
-%%%%%%%%%%%%%%%%%%%%% Data augmentation %%%%%%%%%%%%%%%%%%%%%
+%grobe Einteilung:
+% - Data augmentation for Training
+% - Data augmentation for Temporal Training
+% - Cropping in inference
+% - improved auto crop 
 
 \input{methodology/data_augmentation.tex}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%% Baseline model %%%%%%%%%%%%%%%%%%%%%
-
-\input{methodology/baseline_model.tex}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%% Loss function %%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% Loss function %%%%%%%%%%%%%%%%%%%%%%%
 
 \input{methodology/loss_function.tex}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%% Setup used for Training CNNs %%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%% Setup used for Training CNNs %%%%%%%%%%%%%%%
 
 \input{methodology/setup_for_training.tex}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%% Measuing Inference on NVIDIA Jetson Device %%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% Measuing Inference on NVIDIA Jetson Device %%%%%%%%
 
 \input{methodology/measuring_inference_jetson.tex}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
