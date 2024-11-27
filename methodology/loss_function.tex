@@ -2,7 +2,8 @@
 \label{sec:lossFunction}
 
 One of the main contributions of \cite{tepNet2024} is the loss function, which is tailored to the particular problem formulation of the regression-based approach.
-The final loss function \autoref{func:combinedLoss} \cite{tepNet2024} consists of two sub-functions, where the outputs are added together, with the $y$-limit loss weighted by a multiplication factor of $\lambda=0.5$ before summing.
+Since, this loss function demonstrates to be functional, it is adopted unchanged in this work.
+This loss function \autoref{func:combinedLoss} \cite{tepNet2024} consists of two sub-functions, where the outputs are added together, with the $y$-limit loss weighted by a multiplication factor of $\lambda=0.5$ before summing.
 
 \begin{align}
     L = L_{traj} + \lambda \times L_{ylim}
@@ -14,7 +15,9 @@ For the following functions, $\hat{\mathbf{X}}$ and $\mathbf{X}$ represent the p
 These include the points for the left and right rails.
 For the $y$-limit, the predicted and \ac{GT} values are $\hat{y}_{lim}$ and $y_{lim}$.
 
-\textbf{Trajectory Loss} $L_{traj}$ determines the error between the predicted and actual $x$-values.
+\vspace{1cm}
+
+\noindent \textbf{Trajectory Loss} $L_{traj}$ determines the error between the predicted and actual $x$-values.
 To calculate this error, the sum of smoothL1 is used as shown in the numerator \autoref{func:trajectoryLoss}.
 This is done with a $\beta_{1} = 0.005$. As shown in figure \autoref{fig:smoothL1}, this function allows a linearly proportional relationship between loss and error.
 Additionally, for noise in the data, it includes a smooth transition at zero.
@@ -23,7 +26,7 @@ One issue of the front view perspective is the so-called linear perspective effe
 This effect occurs when rails continue into the distance.
 The same pixel error represents a small distance when near the camera's capturing point and a larger distance when far away.
 This ratio grows linearly the greater the distance to the camera.
-To consider this effect, the results of the $L_{rails}(\hat{\mathbf{X}}_{i},\mathbf{X}_{i})$ are multiplied by the $w_{i}$ factor, which is inversely proportional to the width of the rail.
+To counteract this effect, the results of the $L_{rails}(\hat{\mathbf{X}}_{i},\mathbf{X}_{i})$ are multiplied by the $w_{i}$ factor, which is inversely proportional to the width of the rail.
 To prevent distortion of the results due to unreasonable weighting $W_{max}$ is used.
 This value is the %95^{\text{th}}
 percentile of all $w_{i}$ values from the training set.
@@ -72,17 +75,19 @@ This is done by summing all $m_{i}$ values in the denominator of \autoref{func:t
     \label{func:maskingFactor}
 \end{align}
 
-\textbf{Y-Limit Loss} $L_{ylim}$ is responsible for calculating the error of the horizon line.
+\vspace{1cm}
+
+\noindent \textbf{Y-Limit Loss} $L_{ylim}$ is responsible for calculating the error of the horizon line.
 For this sub-function also the $SmoothL1$ loss is taken with a $beta_{2} = 0.015$.
 The value of $\beta_{2}$ is chosen to be higher, because of greater inaccuracy of annotations.
-Due to images from the dataset stemming from low-resolution YouTube videos, it becomes difficult to accurately label the horizon line, especially when the end of the rail track is located at a significant distance.
+Due to images of the dataset stemming from low-resolution YouTube videos, it becomes difficult to accurately label the horizon line, especially when the end of the rail track is located at a significant distance.
 
 \begin{align}
     L_{ylim} = SmoothL1(\hat{y_{lim}} - y_{lim}, \beta_{2})
     \label{func:ylimLoss}
 \end{align}
 
-\autoref{fig:smoothL1} shows a plot of the \autoref{func:smoothL1} because it is an important part of this loss function.
+\autoref{fig:smoothL1} shows a plot of the \autoref{func:smoothL1} being the $SmoothL1$ Loss function which is widely used in the literature.
 
 \vspace{1cm}
 
