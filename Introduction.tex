@@ -81,9 +81,9 @@ The main contributions of this work can be roughly divided into three parts.
 \begin{enumerate}
     \item Firstly, an initial approach was taken that aimed to combine object detection and semantic segmentation.
     However, due to unsatisfactory results, this methodology was deemed ineffective, leading to the pursuit of a fundamentally different solution.
-    \item Secondly, TEP-Net \cite{tepNet2024} was chosen as the new baseline for further experiments.
+    \item Secondly, \ac{TEP}-Net \cite{tepNet2024} was chosen as the new baseline for further experiments.
     Improvements are implemented with a specific focus on correct path prediction in the presence of switches.
-    \item Thirdly, as further improvements were anticipated through the use of the temporal component with RNNs, the system was adjusted to accept video information rather than single frames as input.
+    \item Thirdly, as further improvements were anticipated through the use of the temporal component with \ac{RNN}s, the system was adjusted to accept video information rather than single frames as input.
     Thus, the data loading logic was adapted and models were modified.
     Additionally, a temporal dataset was created.
     To minimize the workload for annotation, an auto labeler was developed utilizing the improved single-frame-based model.

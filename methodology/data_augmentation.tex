@@ -1,25 +1,28 @@
 \section{Data augmentation}
 \label{sec:dataaugmentation}
 
-This section describes both the data augmentation strategy for training and the cropping augmentation for inference.
+In this section a thorough explanation of the data augmentation of \cite{tepNet2024} is given, for training and the cropping augmentation for inference.
+Additionally, all data augmentation strategies that are used in this work are described.
+%This includes a brief description of Yolos data augmentation.
+This includes the methods adapted for training temporal models and an improved "Autocropper" technique for inference.
 
-\subsubsection{Data augmentation for Training}
+\subsection{Data augmentation for Training single-frame-based models}
 
-Three data augmentation techniques are implemented to train the model.
-The first two are commonly used in CV tasks, including random horizontal flips and traditional image adjustments like brightness, contrast, saturation, and hue variations.
+\cite{tepNet2024} utilizes three data augmentation techniques in the training process.
+The first two are commonly used in \ac{CV} tasks, including random horizontal flips and traditional image adjustments like brightness, contrast, saturation, and hue variations.
 For this, the standard ColorJitter method from PyTorch is used \cite{pytorch_colorJitter_docu}.
 The third augmentation is the cropping mechanism, which reduces the image to the most relevant part.
 Randomness is also introduced to enhance generalization.
 
 \autoref{fig:tepNet_dataaugmentation} visualizes the cropping algorithm steps schematically.
-At first, there are two green lines, which follow the train's ego-path and represent the \ac{GT} in the form of polylines.
-Then the yellow rectangle is computed with this information, being the smallest possible rectangle around the \ac{GT}.
-In the next step, the orange box, the start pixels of the rails \ac{GT} are centered by expanding the yellow borders in one direction.
-Important to mention is that in this tailored dataset the rails always begin in the first row at the bottom of each image.
+The \ac{GT} is in the form of polylines and are represented by the two green lines.
+Then the yellow rectangle is computed, being the smallest possible rectangle around the \ac{GT}.
+In the next step, the start pixels of the rails \ac{GT} are centered by expanding the yellow borders in one direction resulting in the orange box.
+All start pixels of rails are in the lowest row of an image.
 After that margins are added shown by the red rectangle.
 These margins are predefined with hyperparameters.
-After calculating the borders of the outermost box variability is added to enhance generalization and prevent biases.
-The left, right, and top borders are moved by a distance calculated with a normal distribution, which is defined by hyperparameters.
+After calculating the borders of the outermost box, variability is added to enhance generalization and prevent biases.
+The left, right, and top borders are moved by a distance calculated with a predefined normal distribution.
 This introduced variability follows the policy, which ensures that the starting pixels of the rails at the bottom stay in the cropped image.
 \autoref{fig:tepNet_dataaugmentation} illustrates four augmented variations of the top image in the bottom row.
 
@@ -30,7 +33,11 @@ This introduced variability follows the policy, which ensures that the starting 
     \label{fig:tepNet_dataaugmentation}
 \end{figure}
 
-\subsubsection{Cropping in inference}
+\subsection{Data augmentation for Training temporal models}
+
+
+
+\subsection{Cropping in inference}
 
 In \cite{tepNet2024} only cropped images are used for training the model to minimize the images to their most relevant \ac{ROI}.
 For training and validating the model on the dataset, the \ac{GT} allows the computation of crop coordinates (left, top, right).

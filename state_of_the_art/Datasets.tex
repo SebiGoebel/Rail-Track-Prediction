@@ -386,7 +386,7 @@ These two classes consist of poly lines, which are annotated by the correspondin
 Only the tracks on which the train is located are labeled.
 Even if a switch appears in the image and the train would travel over it, only the tracks in the correct direction are further labeled.
 This way, switches are indirectly included in this dataset, providing information on the direction a train would continue, even though there is no explicit label for switches.
-The poly lines start from lowest pixel row of the images and extend up to a specific horizon line.
+The poly lines always start from lowest pixel row of the images and extend up to a specific horizon line.
 Above this horizon further labeling is not possible.
 This may occur for various reasons.
 The first reason can be an obstruction of the view by the environment or other trains, as shown in \ref{fig:tep-net-annotated-images}.
