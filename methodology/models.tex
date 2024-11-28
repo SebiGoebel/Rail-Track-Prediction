@@ -1,3 +1,24 @@
+\section{Models}
+
+In this section all models are discussed which are used or created in this work.
+This section is divided into three subsections.
+Each of them corresponds to one of the main contributions of this work.
+Therefore the first section gives a brief overview of used object detection models, the second one with the \ac{TEP}-Net \cite{tepNet2024} because it is used as a baseline.
+Additionally, further improvements of this model are described in this section.
+The last section describes all temporal models.
+
+\subsection{Object Detection Models}
+
+The state of the art in \autoref{sec:ObjectDetection} shows that one-stage detectors have the most promising characteristics to be successfully utilized in this work.
+The most interesting ones are the models from the \ac{YOLO} series, especially the most recent ones because they focus on improved parameter usage.
+This makes the models light weight and presents an advantage for this work, because operation on limited hardware is aimed for.
+At the start of this work the most recent model from the \ac{YOLO} series is the \ac{YOLO}v9 \cite{YOLOv9}.
+For object detection different models of the \ac{YOLO}v9 and the \ac{GELAN} series are available.
+However, the \ac{YOLO}v9 models were not fully supported at that time.
+Therefore the models used for experiments include the \ac{GELAN}-c and \ac{GELAN}-e.
+These are obtained trough the GitHub repository \cite{YOLOv9GitHub} and used unchanged.
+An additional model which is used for experiments is the \ac{YOLO}v7 \cite{yolov7} model, which is also utilized unchanged from the GitHub repository \cite{YOLOv7GitHub}.
+
 \subsection{TEP-Net Model}
 \label{subsec:baselineModel}
 
