@@ -2,7 +2,7 @@
 \label{sec:lossFunction}
 
 One of the main contributions of \cite{tepNet2024} is the loss function, which is tailored to the particular problem formulation of the regression-based approach.
-Since, this loss function demonstrates to be functional, it is adopted unchanged in this work.
+Since, this loss function demonstrates to be functional, it is adopted unchanged in this work for training single-frame-based models and temporal models.
 This loss function \autoref{func:combinedLoss} \cite{tepNet2024} consists of two sub-functions, where the outputs are added together, with the $y$-limit loss weighted by a multiplication factor of $\lambda=0.5$ before summing.
 
 \begin{align}

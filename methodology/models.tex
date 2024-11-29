@@ -113,7 +113,7 @@ DenseNet and MobileNet are additionally integrated in this work.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\linewidth]{PICs/improvedModel/backbone_logic.jpg}
-    \caption{Backbone logic (Backbone graphic taken from\cite{tepNet2024}).}
+    \caption{Backbone logic (Backbone graphic taken from \cite{tepNet2024}).}
     \label{fig:backboneLogic}
 \end{figure}
 
@@ -168,7 +168,7 @@ Besides the extra positional encoding, a further gained advantage is that the st
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{PICs/improvedModel/poolingLayers.jpg}
-    \caption{Integration of a true Pooling Layer (Model graphic taken from\cite{tepNet2024}).}
+    \caption{Integration of a true Pooling Layer (Model graphic taken from \cite{tepNet2024} and changed).}
     \label{fig:truePoolingLayer}
 \end{figure}
 
@@ -262,3 +262,124 @@ All heads use linear layers \cite{pytorch_linearLayer_docu} and \ac{ReLU} activa
     \caption{$ReLU$ Activation Function \cite{pytorch_relu_docu}}
     \label{fig:ReLU}
 \end{figure}
+
+\subsection{Temporal Models}
+\label{sec:temporalModels}
+
+As described in \autoref{sec:limitationBaseline} there is a limitation to this model presented by the single-frame-based approach.
+This becomes a disadvantage especially when focusing on switches.
+While there are many possible approaches to dampen this issue, the most promising solution incorporates an \ac{RNN} in the model.
+The \ac{RNN} module should consider the temporal component and learn the dependencies between successive frames.
+Therefore, this \ac{CNN}-\ac{RNN} architecture inputs a video stream or in simpler terms, several consecutive frames instead of a single one.
+Since the wanted prediction output is the same as the single-frame-based model, it stays the same.
+This effectively makes this approach a sequence-to-one problem, in which only the output of the last frame is considered.
+A schematic visualization is shown in \autoref{fig:schematicTemporalModel} in which the \ac{RNN} module is in the prediction head before the \ac{FC} layers.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{PICs//temporalModels/schematicDrawing.jpg}
+    \caption{Schematic Drawing of temporal model with an integrated \ac{RNN} module (Model graphic taken from \cite{tepNet2024} and changed).}
+    \label{fig:schematicTemporalModel}
+\end{figure}
+
+The new problem formulation demands the development of new implementations and solutions.
+However, the single-frame-based model shows satisfactory performance in almost every scenario except the ones including switches.
+This led to the concept of reusing all parts of the single-frame-based model training, as long as the new temporal problem formulation allows for their re-usability.
+Since the new formulation deals with a sequence-to-one problem, the output is on a single frame. This allows the loss function to be used as it is.
+Another idea is to not waste any past experiments or model trainings.
+Therefore, all temporal models use as many pre-trained weights as possible.
+Transfer learning approaches up to the point where in the model the temporal component is learned.
+This means the weights from the best single-frame-based model are used for initialization.
+Furthermore, in all experiments, backbones are frozen.
+This strategy does not allow weights to be changed during training.
+The idea is, that backbones are already trained to extract the most relevant features of images from single-frame-based trainings.
+
+Following these rules leads to 8 different model structures, which have been trained and evaluated on a new dataset tailored for this use case.
+The dataset, which is described in more detail in <section>, includes video sequences of a train driving over switches from the perspective of a train driver.
+There are two kinds of temporal models tested for this application.
+The first kind incorporates \ac{RNN} modules.
+Models are shown in <Figure xy>.
+For the second kind, the idea is to learn temporal dependencies only with \ac{FC} layers.
+These models are visualized in <Figure xy>.
+
+\begin{figure}[htbp]
+    \centering
+    % Erste Zeile
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/temporalModels/CNN_LSTM_FC.jpg}
+        \caption{CNN\_LSTM\_FC}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/temporalModels/CNN_FC_LSTM.jpg}
+        \caption{CNN\_FC\_LSTM}
+    \end{subfigure}
+    
+    \vspace{0.5cm} % Abstand zwischen den Zeilen
+
+    % Zweite Zeile
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/temporalModels/CNN_LSTM_V1_V2.jpg}
+        \caption{CNN\_LSTM: $x=1$ (V1), $x=3$ (V2)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/temporalModels/CNN_LSTM_HEAD.jpg}
+        \caption{CNN\_LSTM\_HEAD}
+    \end{subfigure}
+    
+    \vspace{0.5cm} % Abstand zwischen den Zeilen
+
+    % Dritte Zeile
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/temporalModels/CNN_FC_FCOUT_V1_V2.jpg}
+        \caption{CNN\_FC\_FCOUT: $x=1$ (V1), $x=3$ (V2)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/temporalModels/CNN_FLAT_FC.jpg}
+        \caption{CNN\_FLAT\_FC}
+    \end{subfigure}
+\end{figure}
+
+
+\subsubsection{Temporal Dataloading}
+
+Training process flowchart
+
+Dataset[C, H, W] -> online Data augmentaiton
+temporal Dataset list([C, H, W]) or [seq\_len, C, H, W] -> online Data augmentation 
+
+Split funktion splits datasets indices
+temporal split funktion splits dataset indices between sequences
+
+Dataloader forms batches from [C, H, W] -> [B, C, H, W]
+temporal Dataloader also forms batches [seq\_len, C, H, W] -> [seq\_len, B, C, H, W]
+Dataloader is an iterator and iterats through the dataset indices
+
+Sampler is written --> solves indexing problem
+--> jumps to a desired location:
+    - one sequence 8 times for one batch (size 8) being the same sequence with 8 different augmentations
+    - jumps forward one index and just prevents indexing errors at the ende and beginning of sequences (no overlaps) [batch size: 8 -> 8 differnt sequences]
+
+epoch:
+- train:
+    - model.train() -> sets model in training mode
+    - output = model(data) -> predicts train data
+    - loss = criterion(output, target) -> calculates loss
+    - loss.backward() -> does backpropagation
+    - optimizer.step() -> performs a single optimization step to update parameter.
+
+- validation:
+    - model.eval()
+    - output = model(data) -> predicts train data
+    - loss = criterion(output, target) -> calculates loss
+
+- scheduler.step()
+- saves model when val\_loss < best\_val\_loss
