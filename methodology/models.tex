@@ -116,12 +116,16 @@ DenseNet and MobileNet are additionally integrated in this work.
     \label{fig:backboneLogic}
 \end{figure}
 
-When exchanging backbone architectures it is important, that the dimensions of input and output tensors are the same for every backbone otherwise the next layers would get different input dimensions than they are designed for. Standardizing the input tensor is done by resizing an image to 512x512 after augmentation. While B is set by a hyperparameter, C = 3 because images are in the 3-channel RGB format. For the output dimensions, the backbone architectures and their operations must be analyzed. When inspecting all four backbones in more detail it becomes clear that they all share the following characteristics:
+When exchanging backbone architectures it is important, that the dimensions of input and output tensors are the same for every backbone otherwise the next layers would get different input dimensions than they are designed for.
+Standardizing the input tensor is done by resizing an image to $512 \times 512$ after augmentation.
+While $B$ is set by a hyperparameter, $C = 3$ because images are in the 3-channel \ac{RGB} format.
+For the output dimensions, the backbone architectures and their operations must be analyzed.
+When inspecting all four backbones in more detail it becomes clear that they all share the following characteristics:
 
 \begin{itemize}
-    \item The input resolution in all papers is 224x224.
-    \item At the end, there is either a pooling layer, a 1x1 convolutional layer, or both in combination with fully connected layers forming a prediction head for classification tasks.
-    \item Before the prediction head, the spatial resolution of feature maps is 7x7.
+    \item The input resolution in all papers is $224 \times 224$.
+    \item At the end, there is either a pooling layer, a $1 \times 1$ convolutional layer, or both in combination with fully connected layers forming a prediction head for classification tasks.
+    \item Before the prediction head, the spatial resolution of feature maps is $7 \times 7$.
 \end{itemize}
 
 With this information, the last layers of each backbone can be discarded, so all backbones output tensors with the same $H$ and $W$.
@@ -149,6 +153,31 @@ EfficientNet            &                                               & [ & 8 
 blindtext
 
 \subsubsection{prediction Heads}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.2\textwidth}
+        \centering
+        \includegraphics[height=3.35cm, keepaspectratio]{PICs/improvedModel/originalHead.jpg}
+        \caption{Original Head \cite{tepNet2024}}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.3\textwidth}
+        \centering
+        \includegraphics[height=3.35cm, keepaspectratio]{PICs/improvedModel/depthHead.jpg}
+        \caption{Depth Head}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.25\textwidth}
+        \centering
+        \includegraphics[height=3.35cm, keepaspectratio]{PICs/improvedModel/widthHead.jpg}
+        \caption{Width Head}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.3\textwidth}
+        \centering
+        \includegraphics[height=3.35cm, keepaspectratio]{PICs/improvedModel/trapezHead.jpg}
+        \caption{Trapez Head}
+    \end{subfigure}
+    \caption{Different architectures for prediction heads.}
+\end{figure}
 
 blindtext
 
