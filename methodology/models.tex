@@ -112,7 +112,7 @@ DenseNet and MobileNet are additionally integrated in this work.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\linewidth]{PICs/improvedModel/backbone_logic.jpg}
-    \caption{Backbone logic (backbone graphic taken from\cite{tepNet2024}).}
+    \caption{Backbone logic (Backbone graphic taken from\cite{tepNet2024}).}
     \label{fig:backboneLogic}
 \end{figure}
 
@@ -150,34 +150,40 @@ EfficientNet            &                                               & [ & 8 
 
 \subsubsection{Pooling Layer}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{PICs/improvedModel/poolingLayers.jpg}
+    \caption{Integration of a true Pooling Layer (Model graphic taken from\cite{tepNet2024}).}
+    \label{fig:truePoolingLayer}
+\end{figure}
+
 blindtext
 
 \subsubsection{prediction Heads}
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[t]{0.2\textwidth}
+    \begin{subfigure}[t]{0.21\textwidth}
         \centering
-        \includegraphics[height=3.35cm, keepaspectratio]{PICs/improvedModel/originalHead.jpg}
+        \includegraphics[height=3.3cm, keepaspectratio]{PICs/improvedModel/originalHead.jpg}
         \caption{Original Head \cite{tepNet2024}}
     \end{subfigure}
-    \begin{subfigure}[t]{0.3\textwidth}
+    \begin{subfigure}[t]{0.27\textwidth}
         \centering
-        \includegraphics[height=3.35cm, keepaspectratio]{PICs/improvedModel/depthHead.jpg}
+        \includegraphics[height=3.3cm, keepaspectratio]{PICs/improvedModel/depthHead.jpg}
         \caption{Depth Head}
     \end{subfigure}
-    \begin{subfigure}[t]{0.25\textwidth}
+    \begin{subfigure}[t]{0.24\textwidth}
         \centering
-        \includegraphics[height=3.35cm, keepaspectratio]{PICs/improvedModel/widthHead.jpg}
+        \includegraphics[height=3.3cm, keepaspectratio]{PICs/improvedModel/widthHead.jpg}
         \caption{Width Head}
     \end{subfigure}
-    \begin{subfigure}[t]{0.3\textwidth}
+    \begin{subfigure}[t]{0.26\textwidth}
         \centering
-        \includegraphics[height=3.35cm, keepaspectratio]{PICs/improvedModel/trapezHead.jpg}
+        \includegraphics[height=3.3cm, keepaspectratio]{PICs/improvedModel/trapezHead.jpg}
         \caption{Trapez Head}
     \end{subfigure}
     \caption{Different architectures for prediction heads.}
 \end{figure}
 
 blindtext
-
