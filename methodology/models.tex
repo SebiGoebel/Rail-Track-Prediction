@@ -174,27 +174,91 @@ Besides the extra positional encoding, a further gained advantage is that the st
 
 \subsubsection{prediction Heads}
 
+Another improvement to \ac{TEP}-Net \cite{tepNet2024} is a different prediction head.
+Experiments are conducted with four variations of architectures shown in \autoref{fig:differentpredHeads}.
+
 \begin{figure}[H]
     \centering
     \begin{subfigure}[t]{0.21\textwidth}
         \centering
         \includegraphics[height=3.3cm, keepaspectratio]{PICs/improvedModel/originalHead.jpg}
         \caption{Original Head \cite{tepNet2024}}
+        \label{fig:predHeadOriginal}
     \end{subfigure}
     \begin{subfigure}[t]{0.27\textwidth}
         \centering
         \includegraphics[height=3.3cm, keepaspectratio]{PICs/improvedModel/depthHead.jpg}
         \caption{Depth Head}
+        \label{fig:predHeadDepth}
     \end{subfigure}
     \begin{subfigure}[t]{0.24\textwidth}
         \centering
         \includegraphics[height=3.3cm, keepaspectratio]{PICs/improvedModel/widthHead.jpg}
         \caption{Width Head}
+        \label{fig:predHeadWidth}
     \end{subfigure}
     \begin{subfigure}[t]{0.26\textwidth}
         \centering
         \includegraphics[height=3.3cm, keepaspectratio]{PICs/improvedModel/trapezHead.jpg}
-        \caption{Trapez Head}
+        \caption{Trapeze Head}
+        \label{fig:predHeadTrapez}
     \end{subfigure}
     \caption{Different architectures for prediction heads.}
+    \label{fig:differentpredHeads}
+\end{figure}
+
+For comparison, the original head is displayed in \autoref{fig:predHeadOriginal}, which has 2 \ac{FC} layers \cite{pytorch_linearLayer_docu}.
+The first one has input and output sizes of 2048 and the second one reduces the 2048 features to the output size $2 \times H + 1$ as explained in \autoref{subsec:baselineModel}.
+The Depth and Width head, shown in \autoref{fig:predHeadDepth} and \autoref{fig:predHeadWidth} are inspired by the EfficientNet \cite{EfficientNet} scaling technique.
+The Depth head increases the number of \ac{FC} layers to 4 and keeps the feature size at 2048.
+The Width head doubles the feature size of layers.
+Before that, a \ac{FC} layer gets the flattened feature vector from the backbone of site 2048 and increases it to 4096.
+Then two wider \ac{FC} layers are used, while the second one reduces the features to the output size.
+\autoref{fig:predHeadTrapez} shows the Trapeze head.
+This had is named after its rough form and is a combination of the Depth and Width head.
+First, it increases the number of features then it gradually compresses data until the last \ac{FC} layer reduces the size to the defined output.
+The exact input and output size of each layer is shown in \autoref{tab:trapezHeadStructure}.
+All heads use linear layers \cite{pytorch_linearLayer_docu} and \ac{ReLU} activation functions \cite{pytorch_relu_docu} in between visualized in \autoref{fig:ReLU}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|}
+    %\begin{tabular}{| p{0.3\linewidth} | p{0.6\linewidth} |}
+        \hline
+        \textbf{Layers} & \textbf{Input size} & \textbf{Output size}\\
+        \hline
+        1. FC-Layer & 2048 & 3584 ($2048 \times 1.75$)\\
+        \hline
+        2. FC-Layer & 3584 & 2560 ($2048 \times 1.25$)\\
+        \hline
+        3. FC-Layer & 2560 & 2048\\
+        \hline
+        4. FC-Layer & 2048 & \(2 \times H + 1\)\\
+        \hline
+    \end{tabular}
+    \caption{Detailed network structure of Trapeze Head}
+    \label{tab:trapezHeadStructure}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines=middle,
+            xlabel={$x$},
+            ylabel={$y$},
+            domain=-3:3,
+            samples=100,
+            ymin=0, ymax=3,
+            grid=both,
+            %enlargelimits=true % zeigt nur jede 2 zahl an auf einer achse
+            %xmin=-3, xmax=3, % Zoom Bereich auf der x-Achse
+            width=0.7\textwidth, % Breitere Grafik
+            height=6cm, % Schmalere Höhe der Grafik
+        ]
+            \addplot[blue, thick] {max(0, x)};
+        \end{axis}
+        \end{tikzpicture}
+    \caption{$ReLU$ Activation Function \cite{pytorch_relu_docu}}
+    \label{fig:ReLU}
 \end{figure}

@@ -95,9 +95,9 @@ Due to images of the dataset stemming from low-resolution YouTube videos, it bec
     \centering
     \begin{tikzpicture}
         \begin{axis}[
-            title={Smooth L1 Loss Function},
+            title={},
             xlabel={$x$},
-            ylabel={SmoothL1($x$)},
+            ylabel={$y$},
             grid=major,
             domain=-3:3, % Bereich der x-Achse
             samples=100, % Anzahl der Punkte
@@ -115,6 +115,6 @@ Due to images of the dataset stemming from low-resolution YouTube videos, it bec
             ]{(abs(x) < 1) * (0.5 * x^2) + (abs(x) >= 1) * (abs(x) - 0.5)};
         \end{axis}
     \end{tikzpicture}
-    \caption{$SmoothL1$ Loss Funktion}
+    \caption{$SmoothL1$ Loss Function}
     \label{fig:smoothL1}
 \end{figure}
