@@ -78,8 +78,9 @@ Thirdly, experiments with different prediction heads are conducted.
 The following sections describe the structure of these architecture changes in detail.
 
 \subsubsection{Backbones}
+\label{subsubsec:backbones}
 
-Backbones are used for extracting features from images.
+Backbones are used to extract features from images.
 These are parts of \ac{CNN}s that input and output tensors.
 Common \ac{CNN} architectures usually work with 4D tensors with $B \times C \times H \times W$ as shown in \autoref{fig:backboneLogic}.
 $B$ is the batch size, $C$ is the channel size, $H$ and $W$ are the height and width of the input image.
@@ -150,14 +151,26 @@ EfficientNet            &                                               & [ & 8 
 
 \subsubsection{Pooling Layer}
 
-\begin{figure}
+In \autoref{subsubsec:backbones} the spatial resolution is standardized across multiple backbones.
+However, \autoref{tab:backboneDimensions} shows that after different backbones different numbers of channels $C$ are obtained.
+To solve this and make the backbones interchangeable, \cite{tepNet2024} proposed a pooling layer at the start of the prediction head.
+However, when analyzing the code \cite{tepNet2024GitHub}, it becomes clear that \cite{tepNet2024} used a convolution with a $1 \times 1$ kernel instead of a pooling.
+This \textit{conv2D1x1} transforms the feature map of the backbone to a predefined channel size.
+In \cite{tepNet2024GitHub} it is set to 8, resulting in the dimensions $8 \times 16 \times 16$.
+Then this feature map is flattened to a vector for further processing with fully connected layers.
+
+A critical positional encoding is missed when directly flattening this feature map.
+Therefore in this work after standardizing the dimensions with the \textit{conv2D1x1} layer, a true pooling layer is integrated.
+This additional layer consists of either an adaptive average pooling \cite{pytorch_averagePool_docu} or an adaptive max pooling \cite{pytorch_maxPool_docu}.
+An additional encoding takes place resulting in a vector-like tensor with dimensions $C \times 1 \times 1$.
+Besides the extra positional encoding, a further gained advantage is that the structure of data stays the same when flattening this feature map to a vector.
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{PICs/improvedModel/poolingLayers.jpg}
     \caption{Integration of a true Pooling Layer (Model graphic taken from\cite{tepNet2024}).}
     \label{fig:truePoolingLayer}
 \end{figure}
-
-blindtext
 
 \subsubsection{prediction Heads}
 
@@ -185,5 +198,3 @@ blindtext
     \end{subfigure}
     \caption{Different architectures for prediction heads.}
 \end{figure}
-
-blindtext
