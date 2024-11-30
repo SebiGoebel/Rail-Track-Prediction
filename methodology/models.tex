@@ -343,21 +343,38 @@ All models are visualized in \autoref{fig:temporalModels}.
         \includegraphics[width=\textwidth]{PICs/temporalModels/CNN_FLAT_FC.jpg}
         \caption{CNN\_FLAT\_FC}
     \end{subfigure}
-    \caption{8 different temporal models for experiments. \textbf{(c)} and \textbf{(e)} have two versions in which the number of \ac{FC} layers vary. One \ac{FC} layer is used in for V1 and three Layers are used for the V2 model. Models \textbf{(a)}, \textbf{(b)}, \textbf{(c)} and \textbf{(d)} include LSTMs modules. Models \textbf{(e)} and \textbf{(f)} try to learn temporal dependencies only with \ac{FC} layers.}
+    \caption{8 different temporal models for experiments. \textbf{(c)} and \textbf{(e)} have two versions in which the number of \ac{FC} layers vary. One \ac{FC} layer is used in for V1 and three Layers are used for the V2 model. Models \textbf{(a)}, \textbf{(b)}, \textbf{(c)} and \textbf{(d)} include LSTMs modules. Models \textbf{(e)} and \textbf{(f)} try to learn temporal dependencies only with \ac{FC} layers. Shape of heads resemble the architecture e.g. trapeze shaped contour is the trapeze head shown in \autoref{fig:predHeadTrapez}}
     \label{fig:temporalModels}
 \end{figure}
 
-Was ich noch erklären muss
+Since the temporal modules need data in other formats, the logic of data processing before and within the model has to be changed as well.
+In typical models that take single images into account, the network gets tensors with four dimensions consisting of batch size $B$, channels $C$, high $H$, and width $W$ also shown in \autoref{fig:backboneLogic}.
+However, in this work, an additional dimension of the video stream length is introduced.
+$S$ therefore defines how many sequential frames the model is fed with, resulting in a 5D tensor $[B, S, C, H, W]$.
+Since the backbone is the same as the single-frame-based model it only supports 4D tensors shown in \autoref{fig:backboneLogic}.
+For that reason, before the backbone, the tensor is transformed into a 4D one with the view function \cite{pytorch_view_docu}.
+$B$ and $S$ are multiplied, resulting in $[B \times S, C, H, W]$.
+This feature map is then processed by the backbone.
+After flattening the tensor, only two dimensions remain $[B \times S, C]$.
+In \autoref{fig:temporalModels} this feature map is visualized with three blocks indicating multiple feature maps from numerous images.
+It stays that way until either a \textit{reshape} or a \textit{stack} transformation is conducted.
+In this work, \textit{reshaping} is done by transforming $[B \times S, C]$ to $[B, S, C]$ as this form is needed for LSTMs.
+\textit{Stacking}, on the other hand, stacks the feature map into one big vector, resulting in a tensor where all images are in the $C$ dimension. 
 
-\begin{itemize}
-    \item stack of features
-    \item reshape -> The dataset, which is described in more detail in <section>, includes video sequences of a train driving over switches from the perspective of a train driver.
-    \item stack
-    \item last\_out
-    \item trapez ist der trapez head
-\end{itemize}
+LSTMs output sequence tensors with the same dimensions $[B, S, C]$.
+Since only the features of the last sequence part are considered, the last\_out transformation takes the channels of those images resulting in $[B, C]$ which is then further processed by \ac{FC} layers.
+Even though almost all transformations support multi-batch training, to ease the logic all experiments with temporal models are done with a batch size of 1.
+Similarly, when inferring these models a video stream consisting of multiple frames is transformed into a 4D tensor with dimensions $[S, C, H, W]$.
+Therefore, to support inference this tensor must be extended with a batch size of 1 resulting in a tensor with dimensions $[1, S, C, H, W]$, which the model can take as input.
 
 \subsubsection{Temporal Dataloading}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{PICs/temporalModels/Datahandling.png}
+    \caption{Enter Caption}
+    \label{fig:enter-label}
+\end{figure}
 
 Training process flowchart
 
