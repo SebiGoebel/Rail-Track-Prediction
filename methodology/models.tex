@@ -348,6 +348,7 @@ All models are visualized in \autoref{fig:temporalModels}.
 \end{figure}
 
 Since the temporal modules need data in other formats, the logic of data processing before and within the model has to be changed as well.
+The comparison between the data handling of single-frame training and the one proposed in this work for temporal training described in \autoref{sec:datahandling}.
 In typical models that take single images into account, the network gets tensors with four dimensions consisting of batch size $B$, channels $C$, high $H$, and width $W$ also shown in \autoref{fig:backboneLogic}.
 However, in this work, an additional dimension of the video stream length is introduced.
 $S$ therefore defines how many sequential frames the model is fed with, resulting in a 5D tensor $[B, S, C, H, W]$.
@@ -357,54 +358,12 @@ $B$ and $S$ are multiplied, resulting in $[B \times S, C, H, W]$.
 This feature map is then processed by the backbone.
 After flattening the tensor, only two dimensions remain $[B \times S, C]$.
 In \autoref{fig:temporalModels} this feature map is visualized with three blocks indicating multiple feature maps from numerous images.
-It stays that way until either a \textit{reshape} or a \textit{stack} transformation is conducted.
-In this work, \textit{reshaping} is done by transforming $[B \times S, C]$ to $[B, S, C]$ as this form is needed for LSTMs.
-\textit{Stacking}, on the other hand, stacks the feature map into one big vector, resulting in a tensor where all images are in the $C$ dimension. 
+It stays that way until either a $reshape$ or a $stack$ transformation is conducted.
+In this work, $reshaping$ is done by transforming $[B \times S, C]$ to $[B, S, C]$ as this form is needed for LSTMs.
+$Stacking$, on the other hand, stacks the feature map into one big vector, resulting in a tensor where all images are in the $C$ dimension. 
 
 LSTMs output sequence tensors with the same dimensions $[B, S, C]$.
-Since only the features of the last sequence part are considered, the last\_out transformation takes the channels of those images resulting in $[B, C]$ which is then further processed by \ac{FC} layers.
+Since only the features of the last sequence part are considered, the $last\_out$ transformation takes the channels of those images resulting in $[B, C]$ which is then further processed by \ac{FC} layers.
 Even though almost all transformations support multi-batch training, to ease the logic all experiments with temporal models are done with a batch size of 1.
 Similarly, when inferring these models a video stream consisting of multiple frames is transformed into a 4D tensor with dimensions $[S, C, H, W]$.
 Therefore, to support inference this tensor must be extended with a batch size of 1 resulting in a tensor with dimensions $[1, S, C, H, W]$, which the model can take as input.
-
-\subsubsection{Temporal Dataloading}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\linewidth]{PICs/temporalModels/Datahandling.png}
-    \caption{Enter Caption}
-    \label{fig:enter-label}
-\end{figure}
-
-Training process flowchart
-
-Dataset[C, H, W] -> online Data augmentaiton
-temporal Dataset list([C, H, W]) or [seq\_len, C, H, W] -> online Data augmentation 
-
-Split funktion splits datasets indices
-temporal split funktion splits dataset indices between sequences
-
-Dataloader forms batches from [C, H, W] -> [B, C, H, W]
-temporal Dataloader also forms batches [seq\_len, C, H, W] -> [seq\_len, B, C, H, W]
-Dataloader is an iterator and iterats through the dataset indices
-
-Sampler is written --> solves indexing problem
---> jumps to a desired location:
-    - one sequence 8 times for one batch (size 8) being the same sequence with 8 different augmentations
-    - jumps forward one index and just prevents indexing errors at the ende and beginning of sequences (no overlaps) [batch size: 8 -> 8 differnt sequences]
-
-epoch:
-- train:
-    - model.train() -> sets model in training mode
-    - output = model(data) -> predicts train data
-    - loss = criterion(output, target) -> calculates loss
-    - loss.backward() -> does backpropagation
-    - optimizer.step() -> performs a single optimization step to update parameter.
-
-- validation:
-    - model.eval()
-    - output = model(data) -> predicts train data
-    - loss = criterion(output, target) -> calculates loss
-
-- scheduler.step()
-- saves model when val\_loss < best\_val\_loss
