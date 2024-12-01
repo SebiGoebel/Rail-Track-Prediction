@@ -9,7 +9,43 @@
 
 \subsection{RailSem19 and subsets for training object detection models}
 
-blindtext
+The first approach to creating a Rail Track Prediction system includes combining an object detection model with a semantic segmentation model.
+Since RailSem19 supports both of these methods this dataset is chosen for training.
+Furthermore, state-of-the-art research in \autoref{sec:datasets} shows that this dataset is the only one that not only includes switch annotations but also labels for switch states: $switch\_left$, $switch\_right$.
+Since not all states are identifiable even though a switch is visible there also is the $switch\_unknwon$ label.
+
+In this work, the bounding boxes are utilized to train the \ac{YOLO} object detection models.
+Experiments have been conducted with three versions of this dataset.
+An overview of these subsets is shown in \autoref{tab:usedSubsetsforYOLOs}.
+The first set is the whole dataset, which includes 8500 images with all different bounding box labels.
+The second subset only considers images with switch labels including the $switch\_unknown$ label.
+For this subset, 2764 images remain. The third subset only considers the switch labels in which the state is identifiable.
+This is because when focusing on the direction the train takes, the $switch\_unknown$ label does not hold any valuable information.
+To prevent confusion, all images containing $switch\_unknown$ annotations are intentionally excluded, resulting in a final set of 1,240 images.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|}
+    %\begin{tabular}{| p{0.3\linewidth} | p{0.6\linewidth} |}
+        \hline
+        \textbf{RailSem19} & \textbf{RailSem19\_onlySwitches} & \textbf{RailSem19\_onlySwitchesLeftRight}\\
+        \hline
+        8500 images & 2764 images & 1240 images\\
+        \hline
+        all bounding box labels & $switch\_left$ & $switch\_left$\\
+        \hline
+        & $switch\_right$ & $switch\_right$\\
+        \hline
+        & $switch\_unknown$ & images with $switch\_unknown$ excluded\\
+        \hline
+    \end{tabular}
+    \caption{Used dataset subsets of RailSem19 for training \ac{YOLO} object detection models}
+    \label{tab:usedSubsetsforYOLOs}
+\end{table}
+
+Since the experiments of training object detection models showed unsatisfactory results also described in <section>, this methodology was deemed ineffective.
+This leads to the pursuit of a different solution and experiments with semantic segmentation models are therefore not accomplished.
+Consequently the corresponding dense labels of the RailSem19 dataset are not utilized.
 
 \subsection{TEP annotations}
 
