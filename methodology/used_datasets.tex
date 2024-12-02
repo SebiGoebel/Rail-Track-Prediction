@@ -61,7 +61,49 @@ This dataset is described in more detail in \autoref{subsubsec:TEP-Net_dataset}.
 
 \subsection{Switch evaluation dataset}
 
-blindtext
+For a practical application, it is important to make the output as useful and visible as possible.
+Therefore, the output should be the whole track, not only the rails.
+This is realized in the post-processing by filling out the area between the rails resulting in a binary mask.
+This mask is similar to the output of semantic segmentation techniques.
+It gives each pixel either the class label $track$ or $no\_track$.
+For these methods, the most common evaluation metric is the \ac{IoU}, which is also used by \cite{tepNet2024} to evaluate models on the test set.
+
+This metric has its justification for general rail track prediction scenarios because it is a good indicator of model performance.
+However, when switches are present in the scene the \ac{IoU} loses meaningfulness.
+This issue is visualized in <Figure xy>.
+In this example, the model cannot correctly predict the train's path at the switch.
+Contrary to this uncertainty, the \ac{IoU} still gives a high value indicating a good performance even though the direction of the train is wrong.
+The reason for this lies in the calculation of the \ac{IoU} and this specific problem case.
+Since the switch is in the distance and the track is mostly correct up to this point, the predicted mask and the mask of the \ac{GT} still share a great portion of their areas.
+This leads to high values of the \ac{IoU} metric, even though the track is incorrect.
+
+\vspace{1cm}
+<Bild wo ich zeige dass die IoU nicht sehr aussage kräftig ist wenn es um weichen geht>
+\vspace{1cm}
+
+Since this work especially focuses on correctly predicting the train's direction in scenarios with switches, a solution to this evaluation issue must be found.
+Therefore a switch evaluation dataset is created, which solely focuses on switch scenarios.
+Furthermore, a points system is created that gives insight into the model performance.
+This point system is shown in <Figure xy>.
+The dataset consists of all images that contain switch cases out of the validation and test dataset that are obtained from the $80\%-10\%-10\%$ split of \cite{tepNet2024}.
+This results in 67 images which include 72 switches in total.
+The model gets 1 point for each correctly predicted switch.
+There are cases where models correctly filter out the track and set the horizon line before the switch.
+This behavior is rewarded with 0,5 points.
+This behavior is assumed to come from the labeling policy with $switch\_unknown$ labels.
+In \cite{tepNet2024} in images with $switch\_unknown$ labels, the track is annotated up to this label.
+This shows that the model is uncertain about the switch state.
+However, setting the horizon line before the switch is preferred over predicting the track incorrectly.
+In other cases, the model does not get any points.
+
+\vspace{1cm}
+<Bild vom punkte system, siehe präsi>
+\vspace{1cm}
+
+This switch dataset deals with a qualitative performance evaluation and no technique is found to automate this process.
+Therefore, a model predicts the track of each image, and the points are given by manually observing outputs.
+Since the prediction process should resemble a real application, the autocrop technique is utilized.
+By predicting each image 50 times crop coordinates have time to converge to a crop similar to one in real applications.
 
 \subsection{Temporal Dataset}
 
