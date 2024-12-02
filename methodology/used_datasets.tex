@@ -1,11 +1,11 @@
 \section{Datasets}
 
-\begin{itemize}
-    \item RailSem19 for Yolos + used subsets [1/2 bis 1 Seite] fertig
-    \item TEP-annotations [1/2 Seite bzw. ein kurzer Absatz] fertig
-    \item Switch evaluation dataset (all images with switches from val and test dataset) [1/2 Seite bzw. ein kurzer Absatz]
-    \item auto labler + temporal dataset + dass ich CVAT versendet habe[1 bis 2 Seiten]
-\end{itemize}
+In this section all datasets are described that are used in this work.
+The first subsection describes which subsets of RailSem19 are used for the first attempt for the training of object detection models.
+Then the annotations of \cite{tepNet2024} are briefly discussed, which are used to train all single-frame-based models.
+After that a switch evaluation dataset is described that is used to evaluate singe-frame models on switch scenarios.
+The last subsection deals with the temporal dataset and its creation.
+
 
 \subsection{RailSem19 and subsets for training object detection models}
 
@@ -69,17 +69,20 @@ It gives each pixel either the class label $track$ or $no\_track$.
 For these methods, the most common evaluation metric is the \ac{IoU}, which is also used by \cite{tepNet2024} to evaluate models on the test set.
 
 This metric has its justification for general rail track prediction scenarios because it is a good indicator of model performance.
-However, when switches are present in the scene the \ac{IoU} loses meaningfulness.
-This issue is visualized in <Figure xy>.
+However, when switches are present in the scene the \ac{IoU} often loses meaningfulness.
+This issue is visualized in \autoref{fig:incorrectButHighIoU}.
 In this example, the model cannot correctly predict the train's path at the switch.
 Contrary to this uncertainty, the \ac{IoU} still gives a high value indicating a good performance even though the direction of the train is wrong.
 The reason for this lies in the calculation of the \ac{IoU} and this specific problem case.
 Since the switch is in the distance and the track is mostly correct up to this point, the predicted mask and the mask of the \ac{GT} still share a great portion of their areas.
 This leads to high values of the \ac{IoU} metric, even though the track is incorrect.
 
-\vspace{1cm}
-<Bild wo ich zeige dass die IoU nicht sehr aussage kräftig ist wenn es um weichen geht>
-\vspace{1cm}
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{PICs//usedDatasets/falsch_aber_hohe_IoU.jpg}
+    \caption{Example of a switch scene that is incorrectly predicted, but the \ac{IoU} metric still returns high values presenting potentially misleading performance scores. Track continuous to the left.}
+    \label{fig:incorrectButHighIoU}
+\end{figure}
 
 Since this work especially focuses on correctly predicting the train's direction in scenarios with switches, a solution to this evaluation issue must be found.
 Therefore a switch evaluation dataset is created, which solely focuses on switch scenarios.
@@ -96,9 +99,36 @@ This shows that the model is uncertain about the switch state.
 However, setting the horizon line before the switch is preferred over predicting the track incorrectly.
 In other cases, the model does not get any points.
 
-\vspace{1cm}
-<Bild vom punkte system, siehe präsi>
-\vspace{1cm}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/usedDatasets/0,5punkte.jpg}
+        \caption{0.5 points}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/usedDatasets/1punkt.jpg}
+        \caption{1 point}
+    \end{subfigure}
+    
+    \vspace{0.5cm} % Abstand zwischen den Zeilen
+
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/usedDatasets/2punkte.jpg}
+        \caption{2 points (2 switches)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/usedDatasets/0punkte.jpg}
+        \caption{0 points}
+    \end{subfigure}
+    \caption{Scoring system of the switch evaluation dataset.}
+    \label{fig:pointSystem}
+\end{figure}
 
 This switch dataset deals with a qualitative performance evaluation and no technique is found to automate this process.
 Therefore, a model predicts the track of each image, and the points are given by manually observing outputs.
@@ -107,4 +137,49 @@ By predicting each image 50 times crop coordinates have time to converge to a cr
 
 \subsection{Temporal Dataset}
 
-blindtext
+To train temporal models a dataset must be used that consists of videos and not only single images.
+\cite{tepNet2024} stated that there is no public temporal dataset available for the rail domain, which can be used for this use case.
+This statement is correct, to the best of the authors knowledge.
+Therefore a YouTube video \cite{temporalDataset_youtube_video} from the RailSem19 dataset is used.
+No frames that are used in the RailSem19 dataset are used in the proposed temporal dataset.
+Since the focus on the problem formulation of all temporal models is to improve the performance when driving over switches, the new dataset consists of short sequences dealing with this exact used case.
+All seconds in the video \cite{temporalDataset_youtube_video} are marked in which the train is located over a switch.
+Frames before and after these marked seconds are saved, resulting in 38 sequences with 76 frames each. These are annotated like the dataset used to train single-frame models.
+
+Labeling 2888 images is very time-intensive and repetitive.
+Therefore, an auto-labeling strategy is implemented.
+The best-performing single-frame-based model in combination with the adapted auto-crop method is utilized.
+Each image is processed 50 times so the auto-crop coordinates can adapt and only the most relevant region is considered.
+<Figure xy> shows the process from this point.
+First, the mask's borders are taken, and then the horizon line is deleted leaving the lines of the rails.
+Only two pixels remain in each row as visualized in <Figure xy b>.
+These represent the final polylines. To minimize data only every fifth point is saved.
+This results in polylines consisting of roughly 62 points, which is the average number of points used to build polylines in the original dataset.
+Not all frames are correctly labeled because the temporal dataset focuses on scenes where the single-frame model is bound to fail.
+All incorrect annotated images are therefore manually edited in CVAT \cite{cvat}.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\linewidth,height=5cm,keepaspectratio]{PICs/usedDatasets/predictedImage.jpg}
+        \caption{}
+        \label{fig:autolabler_a}
+    \end{subfigure}
+    \hspace*{0.02\textwidth} % Abstand manuell steuern
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\linewidth,height=5cm,keepaspectratio]{PICs/usedDatasets/maskBorders.jpg}
+        \caption{}
+        \label{fig:autolabler_b}
+    \end{subfigure}
+    \hspace*{0.02\textwidth} % Abstand manuell steuern
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\linewidth,height=5cm,keepaspectratio]{PICs/usedDatasets/justLines.jpg}
+        \caption{}
+        \label{fig:autolabler_c}
+    \end{subfigure}
+    \caption{Process steps of auto-labeling: \textbf{(a)} prediction of best single-frame model and autocrop with 50 interations, \textbf{(b)} borders of prediction mask, \textbf{(c)} droped horizon line resulting in auto labeled polylines. All images are zoomed in for better visualization.}
+    \label{fig:autolabler}
+\end{figure}
