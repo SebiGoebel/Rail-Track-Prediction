@@ -1,0 +1,48 @@
+\section{Object detection Experiments}
+
+The first approach pursued in this work is to combine an object detection model and a semantic segmentation model.
+The semantic segmentation model should predict the track on a pixel level, and the object detection model predicts the direction of the train in scenarios where switches divide the track.
+
+Experiments started with training object detection models from the \ac{YOLO} series.
+The models \ac{YOLO}v7 \cite{yolov7} and \ac{YOLO}v9 \cite{YOLOv9} are selected to investigate their ability to predict switches and their states.
+Experiments have been conducted with RailSem19 and subsets of this dataset, which are further described in \autoref{sec:usedDatasetsYOLOs}.
+At the time \ac{YOLO}v9 has just been released.
+Consequently, not all models were fully supported during the experiments.
+Therefore, the versions \ac{GELAN}-c and \ac{GELAN}-e are utilized.
+For the \ac{YOLO}v7 the smallest version with the highest reported speed is used.
+Many experiments are conducted with these three models, however only the best-performing are described.
+
+All \ac{YOLO} models have built-in data augmentation.
+This includes a horizontal flip of images.
+Since this horizontal flip of images only flips images but does not change the label $switch\_left$ to $switch\_right$ and vice versa, this strategy cannot be used.
+Consequently, the probability of such flips is defined to be zero. The remaining default data augmentation is utilized in all experiments.
+Additionally, all other default hyperparameters are not changed, and parameters that are specified in the training command are used as they are recommended in the GitHub repositories \cite{YOLOv7GitHub} and \cite{YOLOv9GitHub}.
+All changed and specified parameters of the best-performing experiments are shown in \autoref{tab:usedParametersYOLOs}.
+Furthermore, all models come with pre-trained weights trained on the COCO dataset.
+In all experiments, these weights are used as initialization.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|c|}
+    %\begin{tabular}{| p{0.3\linewidth} | p{0.6\linewidth} |}
+        \hline
+        \textbf{Parameters} & \textbf{YOLOv9 models} & \textbf{YOLOv7}\\
+        \hline
+        epochs & 500 & 500\\
+        \hline
+        fliplr & 0.0 & $0.0$\\
+        \hline
+        batch\_size& 16 & 16\\
+        \hline
+        img\_size & 640 & 640\\
+        \hline
+        workers & 8 & 8\\
+        \hline
+        min-items & 0 & \\
+        \hline
+        close-mosaic & 15 & \\
+        \hline
+    \end{tabular}
+    \caption{Used parameters for training \ac{YOLO} object detection models}
+    \label{tab:usedParametersYOLOs}
+\end{table}
