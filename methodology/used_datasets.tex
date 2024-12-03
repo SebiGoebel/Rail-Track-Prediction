@@ -1,4 +1,5 @@
 \section{Datasets}
+\label{sec:usedDatasets}
 
 In this section all datasets are described that are used in this work.
 The first subsection describes which subsets of RailSem19 are used for the first attempt for the training of object detection models.
@@ -47,7 +48,6 @@ Since the experiments of training object detection models showed unsatisfactory 
 This leads to the pursuit of a different solution and experiments with semantic segmentation models are therefore not accomplished.
 Consequently the corresponding dense labels of the RailSem19 dataset are not utilized.
 
-\clearpage
 \subsection{TEP annotations}
 
 For training single-frame-based models \cite{tepNet2024} published its annotations for the images of RailSem19.
@@ -87,7 +87,7 @@ This leads to high values of the \ac{IoU} metric, even though the track is incor
 Since this work especially focuses on correctly predicting the train's direction in scenarios with switches, a solution to this evaluation issue must be found.
 Therefore a switch evaluation dataset is created, which solely focuses on switch scenarios.
 Furthermore, a points system is created that gives insight into the model performance.
-This point system is shown in <Figure xy>.
+This point system is shown in \autoref{fig:pointSystem}.
 The dataset consists of all images that contain switch cases out of the validation and test dataset that are obtained from the $80\%-10\%-10\%$ split of \cite{tepNet2024}.
 This results in 67 images which include 72 switches in total.
 The model gets 1 point for each correctly predicted switch.
@@ -150,9 +150,9 @@ Labeling 2888 images is very time-intensive and repetitive.
 Therefore, an auto-labeling strategy is implemented.
 The best-performing single-frame-based model in combination with the adapted auto-crop method is utilized.
 Each image is processed 50 times so the auto-crop coordinates can adapt and only the most relevant region is considered.
-<Figure xy> shows the process from this point.
+\autoref{fig:autolabler} shows the process from this point.
 First, the mask's borders are taken, and then the horizon line is deleted leaving the lines of the rails.
-Only two pixels remain in each row as visualized in <Figure xy b>.
+Only two pixels remain in each row as visualized in \autoref{fig:autolabler_c}.
 These represent the final polylines. To minimize data only every fifth point is saved.
 This results in polylines consisting of roughly 62 points, which is the average number of points used to build polylines in the original dataset.
 Not all frames are correctly labeled because the temporal dataset focuses on scenes where the single-frame model is bound to fail.
