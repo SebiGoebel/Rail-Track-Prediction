@@ -3,7 +3,41 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\linewidth]{PICs/temporalModels/Datahandling.png}
+    \begin{tikzpicture}[every node/.style={font=\tiny}]
+        \tikzstyle{block} = [rectangle, rounded corners, draw=black, minimum width=2.5cm, minimum height=1.5cm, align=center, anchor=center]
+    
+        \newcommand{\emphasize}[1]{\scriptsize{\textbf{#1}}}
+        \def\vsep{.6cm}
+        \def\hsep{2cm}
+    
+        % linke Abfolge
+        \node (image) at (0,0) [block] {\emphasize{Image} (RGB)};
+        \node (Dataset)     [block, below=\vsep of image, align=center]     {\emphasize{Dataset}\\Data Augmentation\\out: [C, H, W]};
+        \node (Dataloader)  [block, below=\vsep of Dataset, align=center]   {\emphasize{Dataloader}\\divides into batches\\out: [B, C, H, W]};
+        \node (Model)       [block, below=\vsep of Dataloader, align=center]{\emphasize{Model}};
+    
+        % rechte Abfolge 
+        \node (Video)       [block, right=\hsep of image, align=center]         {\emphasize{Video}};
+        \node (Dataset2)    [block, below=\vsep of Video, align=center]         {\emphasize{Dataset}\\Data Augmentation\\out: [S, C, H, W]};
+        \node (Dataload2)   [block, below=\vsep of Dataset2, align=center]      {\emphasize{Dataloader}\\divides into batches\\out: [B, S, C, H, W]};
+        \node (TempModel)   [block, below=\vsep of Dataload2, align=center]     {\emphasize{Temporal Model}};
+        \node (Sampler)     [block, right=.5*\hsep of Dataload2, align=center]  {\emphasize{Sampler}\\indexing for\\sequences};
+    
+        % Überschriften
+        \node   [align=center, above=.2cm of image] {\emphasize{Single frame training Process}};
+        \node   [align=center, above=.2cm of Video] {\emphasize{Temporal training Process}};
+    
+        \draw[-Stealth, thick] (image)       -- (Dataset);
+        \draw[-Stealth, thick] (Dataset)     -- (Dataloader);
+        \draw[-Stealth, thick] (Dataloader)  -- (Model);
+    
+        \draw[-Stealth, thick] (Video)            -- (Dataset2);
+        \draw[-Stealth, thick] (Dataset2)         -- (Dataload2);
+        \draw[-Stealth, thick] (Dataload2)        -- (TempModel);
+        \draw[Stealth-Stealth, thick] (Dataload2) -- (Sampler);
+        
+    
+    \end{tikzpicture}
     \caption{Comparison between data handling processes for single-frame training and the proposed temporal training.}
     \label{fig:dataHandlingProcess}
 \end{figure}
@@ -25,7 +59,7 @@ Furthermore the Datalaoder creates batches and therefore adds the dimension $B$ 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{PICs//usedDatasets/slidingWindow.jpg}
+    \includegraphics[width=0.5\linewidth]{PICs/usedDatasets/slidingWindow.jpg}
     \caption{Sampler is responsible for the sliding window approach in temporal training: bottom lines represents the sequence with a length of 76 frames; the box is the window of frames used as the input for the model with x being the length of this window (with $x \leq 76$); the blue part of the sliding window represents the output frame, because this temporal method deals with a sequence-to-one problematic.}
     \label{fig:slidingWindow}
 \end{figure}
