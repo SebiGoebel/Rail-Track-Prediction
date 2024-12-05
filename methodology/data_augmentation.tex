@@ -89,6 +89,7 @@ This allows the crop coordinates to converge to these global averages and preven
 \end{figure}
 
 \subsection{Improved Autocrop for inference}
+\label{sec:imporvedAutocrop}
 
 \cite{tepNet2024} incorporates a \ac{RA} \autoref{func:runningAverage} with rule-based policies to prevent collapse to the inside and consider image borders when adding a margin. After that, the newly calculated and checked average is weighted and added to form the new crop coordinates, like in \autoref{func:weightingAverage}. In these formulas $AVG$ is the average, $x$ is the crop coordinates and $pred$ is the values obtained from the prediction. In \autoref{func:weightingAverage} the same annotations are used with $c$ being the coefficient, which is 0.1. All notations but $c$ include all three crop coordinates: left, top right.
 

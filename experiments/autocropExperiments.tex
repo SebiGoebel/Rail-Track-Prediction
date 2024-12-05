@@ -1,33 +1,35 @@
 \section{Autocrop Experiments}
 
 Since in the training of all regression models, only image crops are used, in inference the model must get similar inputs.
-Therefore an Autocrop technique is introduced in \cite{tepNet2024} and an improved version is proposed in this work in <section: Improved Autocrop for inference>.
-The introduced version of this mechanism includes an EWMA instead of the RA and a proposed reset rule.
+Therefore an Autocrop technique is introduced in \cite{tepNet2024} and an improved version is proposed in this work in \autoref{sec:imporvedAutocrop}.
+The introduced version of this mechanism includes an \ac{EMA} instead of the \ac{RA} and a proposed reset rule.
 It results from many experiments described in this section.
 
 First, behaviors from the original cropping method proposed by \cite{tepNet2024} are analyzed.
-After that, the improved version is implemented with an EWMA.
+After that, the improved version is implemented with an \ac{EMA}.
 The next version includes a reset rule.
 Observations show that all models result in similar behaviors when uncertain.
 The horizon line of the prediction converges to the bottom of the image.
 This behavior is used for the reset rule, which resets the image crop to pre-defined crop coordinates.
-This is done when the prediction falls below a threshold that is calculated with a pre-defined percentage of the crop height.
+This is done when the prediction falls below a threshold calculated with a pre-defined percentage of the crop height.
 Experiments with other versions of this reset rule are conducted.
 On the one hand, various percentages are tested and on the other hand, different reset crop coordinates are used.
 Thresholds include 30\%, 40\%, 50\%, and 60\% of the crop height and crop coordinates include the whole image $(left=0, top=1, right=1)$, and smaller crops with $(1/4*image\_width, 1/3*image\_height, 3/4*image\_width)$ or $(1/3*image\_width, 1/2*image\_height, 2/3*image\_width)$.
-These experiments are tested on real and difficult video footage in a scenario that resembles a practical application and a scenario in which the reset is forced every five seconds to intensively test its capabilities.
+These experiments have been tested on real and difficult video footage in a scenario that resembles a practical application and a scenario in which the reset is forced every five seconds to test its capabilities intensively.
 
 Further experiments are conducted with versions that stay in a fixed aspect ratio.
 This ratio depends on the crop-top parameter.
 First, the middle is found between the left and right coordinates.
 From this middle line, the distances are calculated considering the aspect ratio and the top parameter of the crop.
-Then left and right coordinates are overwritten. Two aspect ratios are tested.
-On the one hand, a ratio of 16:9 because images of the dataset also have this aspect ratio with a resolution of 1920x1080.
+Then, the left and right coordinates are overwritten.
+Two aspect ratios are tested.
+On the one hand, a ratio of 16:9 because images of the dataset also have this aspect ratio with a resolution of 1920 $\times$ 1080.
 On the other hand, a 1:1 or a quadratic one is utilized.
-Both experiments also include the EWMA and the rest rule with (1/3, 1/2, 1/3) because it showed the best results and the most advantageous behavior.
+Both experiments also include the \ac{EMA} and the rest rule with $(1/3, 1/2, 1/3)$ because it showed the best results and the most advantageous behavior.
 
 An additional experiment is conducted, in which the initial crop starts with the whole image width but only 10\% of the image height.
 This should allow the model to find the right rail faster and build the correct crop from the bottom instead of slowly converging from the whole image to a smaller crop.
-For this experiment also the EWMA and the reset rule with (1/3, 1/2, 1/3) is used.
+For this experiment also the \ac{EMA} and the reset rule with $(1/3, 1/2, 1/3)$ is used.
 
 All of these different versions of the auto crop mechanism are evaluated either on videos through behavioral analysis or on the switch evaluation dataset.
+
