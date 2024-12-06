@@ -1,0 +1,32 @@
+\section{improved TEP-Net}
+
+blindtext
+
+\subsection{Backbones}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lcccccc}
+        \hline
+        \rowcolor{white} \textbf{Model} & \textbf{Parameters} & \textbf{Flops} & \textbf{MACs} & \textbf{Latency TRT FP32 / FP16} & \textbf{IoU} & \textbf{Switch Eval} \\
+        \hline
+        \rowcolor[gray]{0.9} TEP-ENB3   & 14.57M            &                & 4.87G          & 24.89 / 15.26 ms        & \textbf{0.9753} & 91.18 \% \\ 
+        \rowcolor{white}     TEP-RN18   & 15.64M            &                & 9.48G          & 9.48 / 3.25 ms          & 0.9695          & 80.15 \% \\ 
+        \hline
+        \rowcolor[gray]{0.9} MNV3-Small & \textbf{5.33M}    & \textbf{1.09B} & \textbf{0.30G} & \textbf{3.13 / 2.05 ms} & 0.9619          & 73.53 \% \\ 
+        \rowcolor{white}     MNV3-Large & 7.27M             & 4.3B           & 1.17G          & 6.41 / 3.75 ms          & 0.9649          &  \\ 
+        \rowcolor[gray]{0.9} DN121      & 11.42M            & 59.22B         & 15.14G         & 29.53 / 16.52 ms        & 0.9750          &  \\ 
+        \rowcolor{white}     DN161      & 30.9M             & 161.47B        & 40.98G         & 75.77 / 34.02 ms        & 0.9746          &  \\ 
+        \rowcolor[gray]{0.9} DN169      & 16.96M            & 70.19B         & 17.95G         & 38.87 / 22.51 ms        & 0.9748          &  \\ 
+        \rowcolor{white}     DN201      & 22.57M            & 89.66B         & 22.93G         & 52.14 / 29.94 ms        & 0.9751          & \textbf{93.38 \%}  \\
+        \hline
+    \end{tabular}
+    \caption{Backbone Results}
+    \label{tab:backboneResults}
+\end{table}
+
+\subsection{Pooling Layers}
+blindtext
+
+\subsection{Prediction Heads}
+blindtext
