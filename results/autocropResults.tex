@@ -124,13 +124,49 @@ Additionally, the ResNet18 backbone is used because it is the worst-performing o
 
     % Beschriftung unter dem Grid
     \vspace{0.5cm}
-    \caption{Autocrop video comparison}
+    \caption{Comparison between the original and the adapted auto-crop including frames 100, 700, 1000, 1600, and 1900 of the evaluation video \cite{temporalDataset_youtube_video}.
+    First row is the original auto-crop from \cite{tepNet2024} and the second row is the proposed one.}
     \label{fig:autocropVideoComparison}
 \end{figure}
 
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{PICs/experiments/autocropExperiments/original.jpg} % erstes Bild
-    \includegraphics[width=\textwidth]{PICs/experiments/autocropExperiments/improved.jpg} % zweites Bild
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/experiments/autocropExperiments/original.jpg} % erstes Bild
+        \caption{Original auto-crop mechanism}
+        \label{fig:autocropResultsTrends_a}
+    \end{subfigure}
+    %\hspace*{0.02\textwidth} % Abstand manuell steuern
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/experiments/autocropExperiments/improved.jpg} % zweites Bild
+        \caption{Adapted auto-crop mechanism (Version 2)}
+        \label{fig:autocropResultsTrends_b}
+    \end{subfigure}
+    \caption{Tred of the evalutation video \cite{temporalDataset_youtube_video} shown in \autoref{fig:autocropVideoComparison}.
+    The first and second graphs with a single green line show the rail width at the first anchor line.
+    The second and fourth graph show crop coordinates (blue=left, red=right, green=top).
+    Jumps in graphs from the adapted mechanism indicate resets, like the one at around frame 600.
+    It also shows that with the original technique crop coords are stable and the prediction is not and the improved auto-crop reverses this relationship.}
+    \label{fig:autocropResultsTrends}
 \end{figure}
+
+
+Models with a ResNet18 backbone show an additional behavior when uncertain.
+The width of the predicted track becomes unstable, especially at the first few anchors.
+This is because the camera is in a fixed position in this video \cite{temporalDataset_youtube_video}, and when correctly predicting the track, the width does not change at the bottom of the image.
+Therefore, the track width at the first anchor line is a good indicator of uncertainty.
+\autoref{fig:autocropVideoComparison} and \autoref{fig:autocropResultsTrends} show the evaluation of a model with the ResNet18 backbone on the evaluation video \cite{temporalDataset_youtube_video}.
+\autoref{fig:autocropVideoComparison} shows the frames 100, 700, 1000, 1600, and 1900.
+\autoref{fig:autocropResultsTrends} visualizes the trend of track width and crop coordinates.
+
+As shown in frames 100, both models need time to find the right track.
+The unstable rail width of both models also indicates this.
+\autoref{fig:autocropResultsTrends_b} displays a jump of crop coords and rail width at around frame 600, indicating a reset.
+After that, the adapted auto-crop mechanism proves to be correct and stable.
+However, in the video with the original cropping mechanism, the crop converges to an area that does not include the rail.
+Since the system does not include a reset rule, it cannot recover from the mistake at the start.
+When comparing both techniques in a broader scope, the original cropping mechanism shows stable crop coordinates, but the prediction is often incorrect.
+On the other hand, the adapted technique moves more freely and quickly adapts to challenging scenarios.
+Consequently, the prediction becomes more stable, which is the desired output.
