@@ -46,7 +46,7 @@ blindtext
         \rowcolor[gray]{0.9} MNV3-Small-AP & 5.53M             & 1.19B          & 0.35G          & 3.24 / 2.1 ms           & 0.9502          & 58.82 \% \\ 
         \rowcolor{white}     DN201-AP      & -                 & -              & -              & Expected to be high     & -               & - \\ 
         \hline
-        \rowcolor[gray]{0.9} TEP-ENB3-MP   & 15.35M            & 19.86B         & 5.36G          & 25.68 / 15.5 ms         & 0.9730          & 94.85 \% \\ 
+        \rowcolor[gray]{0.9} TEP-ENB3-MP   & 15.35M            & 19.86B         & 5.36G          & 25.68 / 15.5 ms         & 0.9730          & \textbf{94.85} \% \\ 
         \rowcolor{white}     TEP-RN18-MP   & 16.69M            & 38.45B         & 9.8G           & 9.89 / 3.41 ms          & 0.9688          & 91.91 \% \\ 
         \rowcolor[gray]{0.9} MNV3-Small-MP & 5.53M             & 1.19B          & 0.35G          & 3.25 / 2.11 ms          & 0.9595          & 68.38 \% \\ 
         \rowcolor{white}     DN201-MP      & -                 & -              & -              & Expected to be high     & -               & - \\ 
@@ -58,4 +58,22 @@ blindtext
 \end{table}
 
 \subsection{Prediction Heads}
-blindtext
+
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lcccccc}
+        \hline
+        \rowcolor{white} \textbf{Model} & \textbf{Parameters} & \textbf{Flops} & \textbf{MACs} & \textbf{Latency TRT FP32 / FP16} & \textbf{IoU} & \textbf{Switch Eval} \\
+        \hline
+        \rowcolor[gray]{0.9} ENB3-MP      & \textbf{15.35M} & \textbf{19.86B} & \textbf{5.36G} & \textbf{25.68 / 15.5 ms}  & \textbf{0.9730} & 94.85 \% \\ 
+        \hline
+        \rowcolor{white}     DEPTH-HEAD   & 23.75M & 19.88B & 5.37G & 25.57 / 15.74 ms & 0.9721 & 91.91 \% \\ 
+        \rowcolor[gray]{0.9} WIDTH-HEAD   & 36.59M & 19.91B & 5.38G & 26.51 / 16.09 ms & 0.9723 & 97.06 \% \\ 
+        \rowcolor{white}     TRAPEZE-HEAD & 32.92M & 19.90B & 5.38G & 25.87 / 16.09 ms & 0.9715 & \textbf{97.79} \% \\ 
+        \hline
+    \end{tabular}
+    }
+    \caption{Prediction Heads Results}
+    \label{tab:predHeadsResults}
+\end{table}
