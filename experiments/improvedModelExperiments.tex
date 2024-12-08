@@ -1,11 +1,61 @@
 \section{improved TEP-Net}
-blindtext
+
+Various adaptations improve the performance of the model.
+Experiments always consider one aspect of the architecture.
+Then, the best model is used to improve performance further.
+First experiments utilize different backbones.
+After evaluating models' performances with various backbone versions, one is selected based on the best combination of accuracy and speed for further experiments.
+The next stage applies pooling layers.
+The best-performing model is then equipped with different prediction heads, resulting in models of which one again outperforms its competitors.
+This model defines the final model architecture.
+
+All trainings of different architectures utilize the same hyperparameters to compare resulting models fairly.
+Numerous parameters from \cite{tepNet2024} are utilized as a basis for the guideline.
+All experiments, which include adaptations of the baseline model, are pre-trained on COCO and fine-tuned on the RailSem19 dataset with the annotations of \cite{tepNet2024}.
+Images of this dataset are randomly assigned to one of three subdatasets for training, validation, and testing with proportions of $80\%-10\%-10\%$.
+For reproducibility of experiments, a seed of 42 is given.
+Since models are solely trained on image crops, the size of these crops is set to $3 \times 512 \times 512$, which is nearest to crops from practical use cases.
+Furthermore, the Adam optimizer \cite{pytorchAdamOptimizer}, in combination with the OneCycle scheduler \cite{pytorch_oneCycleLR_docu} from PyTorch, is used for training models.
+First, the scheduler increases the learning rate to 0.0001 and then reduces it.
+Models are all trained with a batch size of 8 for 400 epochs.
+
+Additionally, the settings for data augmentation stay the same for all experiments with various models.
+The image variation settings include factors for brightness, contrast, and saturation of 0.5.
+The hue factor is set to 0.2.
+These values are inspired by \cite{tepNet2024}.
+However, changes in this work have been done for cropping parameters.
+The margins to the top and the sides are increased to 0.2.
+The standard deviation factors for the sides and the top are set to 0.3 and 0.1, respectively.
 
 \subsection{Backbones}
-blindtext
+
+In this work, experiments with four different backbones are conducted.
+\cite{tepNet2024} has experimented with various ResNet and EfficienNets versions.
+Literature shows that MobileNets and DenseNets have also introduced significant advancements.
+The expected results of tests with DenseNets are high accuracies.
+When training models that incorporate MobileNets, an advantage in latency speed is expected;
+therefore, all versions of those two network architectures are implemented that are available in PyTorch \cite{pytorchmobilenetv3} \cite{pytorchdensenet}.
+\autoref{tab:backboneVersions} overviews all backbones and their versions utilized in this work.
+Additionally, section \autoref{subsubsec:backbones} explains the used layers.
+Since all backbones must be interchangeable, this work discards some backbone layers.
 
 \subsection{Pooling Layers}
-blindtext
+
+This work either uses an adaptive average pool or an adaptive max pool to transform the output tensor of the backbone.
+After reducing this tensor to a defined channel size with a \textit{conv2D1x1} layer, the pooling layers are responsible for additionally encoding spatial features into a vector-like tensor with dimensions of $C \times 1 \times 1$.
+\autoref{subsubsec:pooling} gives a detailed description of the pooling layer's implementation.
 
 \subsection{Prediction Heads}
-blindtext
+
+Furthermore, experiments include various prediction heads.
+This work implements a depth-head, a width-head, and a trapeze-head.
+These parts of the architecture differ in number of \ac{FC} layers and the size of these layers.
+All of them result in an output vector with a pre-defined size.
+A size of 129 ($2 \times H + 1$ with $H = 64$) was predominantly utilized.
+
+\vspace{1cm}
+
+Additional experiments include an input size of $3 \times 224 \times 224$, batch normalization before each ReLu activation function, and various numbers of anchors like 257 ($2 \times H + 1$ with $H = 128$).
+A performance gain is strived for in each of those experiments.
+The reduced image size is chosen because all four papers of the backbones recommend this size.
+The increased number of anchors should give a more detailed description of the predicted rail track.
