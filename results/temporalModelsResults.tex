@@ -1,0 +1,32 @@
+\subsection{Sliding Window Approach}
+blindtext
+
+\subsection{Temporal Models}
+blindtext
+
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lcccccc}
+        \hline
+        \rowcolor{white} \textbf{Model} & \textbf{Parameters} & \textbf{Flops} & \textbf{MACs} & \textbf{Latency TRT FP32 / FP16} & \textbf{IoU} & \textbf{Switch Eval} \\
+        \hline
+        \rowcolor[gray]{0.9} single-frame-based          & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
+        \hline
+        \rowcolor{white}     CNN\_LSTM\_FC               & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
+        \rowcolor[gray]{0.9} CNN\_FC\_LSTM               & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
+        \rowcolor{white}     CNN\_LSTM\_V1               & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
+        \rowcolor[gray]{0.9} CNN\_LSTM\_V2               & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
+        \rowcolor{white}     CNN\_LSTM\_HEAD             & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
+        \rowcolor[gray]{0.9} CNN\_FC\_FCOUT\_V1          & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
+        \rowcolor{white}     CNN\_FC\_FCOUT\_V2          & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
+        \rowcolor[gray]{0.9} CNN\_FLAT\_FC               & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
+        \rowcolor{white}     CNN\_LSTM\_SKIP\_CAT        & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
+        \rowcolor[gray]{0.9} CNN\_LSTM\_SKIP\_MUL\_FRAME & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
+        \rowcolor{white}     CNN\_LSTM\_SKIP\_MUL\_TIME  & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
+        \hline
+    \end{tabular}
+    }
+    \caption{Temporal Models Results}
+    \label{tab:temporalModelsResults}
+\end{table}
