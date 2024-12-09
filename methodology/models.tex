@@ -286,8 +286,8 @@ A schematic visualization is shown in \autoref{fig:schematicTemporalModel} in wh
 \end{figure}
 
 The new problem formulation demands the development of new implementations and solutions.
-However, the single-frame-based model shows satisfactory performance in almost every scenario except the ones including switches.
-This led to the concept of reusing all parts of the single-frame-based model training, as long as the new temporal problem formulation allows for their re-usability.
+The single-frame-based model shows satisfactory performance in almost every scenario except ones including switches.
+This led to the concept of reusing all parts of the single-frame-based system, as long as the new temporal problem formulation allows their re-usability.
 Since the new formulation deals with a sequence-to-one problem, the output is on a single frame. This allows the loss function to be used as it is.
 Another idea is to not waste any past experiments or model trainings.
 Therefore, all temporal models use as many pre-trained weights as possible resulting in transfer learning approaches up to the point where in the model the temporal component is learned.
