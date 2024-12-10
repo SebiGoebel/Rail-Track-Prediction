@@ -1,5 +1,96 @@
-\section{Sliding Window Approach}
-blindtext
-
 \subsection{Temporal Models}
-blindtext
+
+Training temporal models requires changes in the data-handling logic of the training processes and a new temporal dataset.
+Models are trained with videos instead of single images.
+Therefore, this work creates a novel sequential dataset consisting of 38 sequences with 76 frames each of trains driving over switches.
+It includes polyline labels for the left and right rail, like the dataset used to train all single-frame-based models.
+<section: sec:tempDataset> describes this dataset in more detail.
+
+The sequential approach in this work resembles a sequence-to-one problem.
+The input consists of a predefined number of images, and the model predicts the rails in the last image.
+Therefore, this work follows a sliding window method, which iterates through sequences.
+
+In most cases, the single-frame-based model achieves high accuracy except when the train is located directly on the switch, and the switchblades are not visible.
+Therefore, all temporal experiments use feature extractors that are pre-trained on the single-frame dataset.
+Additionally, since these backbones already extract the most relevant features, their weights are frozen, so they do not change in training.
+
+In order to find the best-performing network architecture and training strategy, a large amount of experiments and evaluations are conducted in this work.
+These include different data augmentation strategies, various model architectures trained on different versions of the temporal dataset, and multiple evaluation techniques.
+
+\subsubsection{Data Augmentation}
+
+Augmenting temporal data is similar to augmenting single-frame data.
+However, they must be adjusted to augment a set of images instead of creating new augmentations for each video frame.
+The data augmentation strategy, described in <section>, incorporates color variations, random horizontal flips, and random crops.
+These three techniques are utilized in various combinations, using all three, only flips and crops, solely the random crops, or no augmentation at all.
+Data augmentation randomizes each window and not the whole sequence because it operates in an online fashion.
+The window that iterates through a sequence includes ten images in most experiments and is smaller than the sequence length of 76.
+The combination of online data augmentation and an iterating window presents an issue, especially for color variations and random flips, since different variations can appear in one sequence.
+Results show that restricting data augmentation to random crops is the most advantageous method.
+Leading to a new version of the sequential dataset.
+The whole dataset is flipped and attached at the back to compensate for the loss in data augmentation and variety in data.
+This way, the model trains without random flips within a sequence but still shows enhancements in accuracy because more data is available.
+
+\subsubsection{Temporal Dataset}
+
+Furthermore, while experimenting with temporal models, a key factor of the dataset is observed.
+The dataset also includes switch cases where one of the two possible paths continues in a straight line, and the other one splits off.
+The train often drives on the straight one.
+In these cases, single-frame-based models usually predict the rail track correctly, as visualized in <figure xy>.
+The dataset is reviewed to evaluate performances in various situations, resulting in one deleted sequence and a changed arrangement.
+The new version of the dataset consists of 37 sequences, of which four are still used for validation and four for testing.
+In both subsets, the single-frame model predicted each frame of these sequences with one sequence being completely wrong, one entirely correct, and two partly correct.
+These sequences are selected to represent possible situations.
+
+<Bilder von test dataset>
+(dazu schreibe wieviele frames richtig sind vom single-frame model)
+
+\subsubsection{Hyperparameters}
+
+Most experiments, especially the latest, are done with the same hyperparameters to provide a fair comparison.
+The best-performing single-frame-based model inspires the values used.
+That is why the input dimensions are set to $3 \times 512 \times 512$.
+All values for the data augmentation, like color factors, crop margins, or standard deviation factors, are the same.
+Furthermore, sequential experiments utilize the Adam optimizer and a OneCycle Scheduler with the same learning rate parameters.
+The best results of single-frame models are obtained with 64 anchors in the output vector.
+Therefore, temporal experiments use the same number of anchors.
+
+However, some parameters are altered.
+The added complexity of sequential models increases training durations significantly.
+Therefore, models train for only 100 epochs in most experiments.
+Additionally, the data-handling logic within and before the model sometimes requires a batch size of 1.
+Consequently, all different sequential models train with that batch size.
+
+Furthermore, this work adds two hyperparameters to manage sequences and the sliding window.
+The sequence length of 76 can be defined if the dataset changes, and the window length can be set.
+Most experiments use a window length of 10 frames.
+
+<table xy> describes the most relevant experiments and includes used parameters.
+
+\vspace{1cm}
+
+\textbf{Liste mit den wichtigsten experimenten:}
+\begin{itemize}
+    \item name des models
+    \item vortrainiert auf (bzw. welche weights übernommen worden sind)
+    \item was gefreezed worden ist
+    \item data augmentation
+    \item window size
+\end{itemize}
+
+\subsubsection{Evaluation}
+
+The switch evaluation dataset evaluates the single-frame model's ability to detect tracks in the presence of switches.
+This evaluation dataset is needed because the \ac{IoU} is not meaningful when the switch is in the distance, as shown in <figure in richtiger section>.
+However, evaluation can now be done on the temporal dataset.
+Since the dataset consists of sequences in which a train drivers over switches, this switch and the \ac{GT} of the rails are displayed from every possible distance, making the \ac{IoU} more meaningful.
+
+There are different approaches to how temporal models can be evaluated.
+However, the method that resembles a practical application the most is video inference with the auto-cropping mechanism.
+Therefore, this evaluation method is implemented and used for this work since it presents the most relevant metrics.
+Each test sequence has a lead time of over 500 frames so that crop coordinates can adjust to the situation.
+The \ac{IoU} is calculated using the prediction and the \ac{GT} in labeled frames.
+This results in a total \ac{IoU} for each sequence and a trend graph that plots the \ac{IoU} of each frame.
+Consequently, sequences can be analyzed more thoroughly.
+The implemented technique is also used to evaluate the single-frame-based model on the test set of the sequential dataset.
+A fair comparison between single-frame and sequence models can be established this way.
