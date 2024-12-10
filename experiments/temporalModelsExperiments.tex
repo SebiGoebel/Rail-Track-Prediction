@@ -42,8 +42,37 @@ The new version of the dataset consists of 37 sequences, of which four are still
 In both subsets, the single-frame model predicted each frame of these sequences with one sequence being completely wrong, one entirely correct, and two partly correct.
 These sequences are selected to represent possible situations.
 
-<Bilder von test dataset>
-(dazu schreibe wieviele frames richtig sind vom single-frame model)
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/experiments/temporalModels/allesRichtig.png}
+        \caption{76/76 frames correct}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/experiments/temporalModels/allesFalsch.png}
+        \caption{0/76 frames correct}
+    \end{subfigure}
+    
+    \vspace{0.5cm} % Abstand zwischen den Zeilen
+
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/experiments/temporalModels/partlyRichtig.png}
+        \caption{36/76 frames correct}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/experiments/temporalModels/partlyRichtig2.png}
+        \caption{39/76 frames correct}
+    \end{subfigure}
+    \caption{Temporal test set with annotation. Visualized are the first images of a sequence. The amount of correctly predicted frames from the single-frame-based model.}
+    \label{fig:temporalTestSet}
+\end{figure}
 
 \subsubsection{Hyperparameters}
 
