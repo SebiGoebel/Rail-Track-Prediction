@@ -4,7 +4,7 @@ Training temporal models requires changes in the data-handling logic of the trai
 Models are trained with videos instead of single images.
 Therefore, this work creates a novel sequential dataset consisting of 38 sequences with 76 frames each of trains driving over switches.
 It includes polyline labels for the left and right rail, like the dataset used to train all single-frame-based models.
-<section: sec:tempDataset> describes this dataset in more detail.
+\autoref{sec:tempDataset} describes this dataset in more detail.
 
 The sequential approach in this work resembles a sequence-to-one problem.
 The input consists of a predefined number of images, and the model predicts the rails in the last image.
@@ -21,7 +21,8 @@ These include different data augmentation strategies, various model architecture
 
 Augmenting temporal data is similar to augmenting single-frame data.
 However, they must be adjusted to augment a set of images instead of creating new augmentations for each video frame.
-The data augmentation strategy, described in <section>, incorporates color variations, random horizontal flips, and random crops.
+The data augmentation strategy is described in \autoref{sec:dataAugmentationTemporal} in more detail.
+It incorporates color variations, random horizontal flips, and random crops.
 These three techniques are utilized in various combinations, using all three, only flips and crops, solely the random crops, or no augmentation at all.
 Data augmentation randomizes each window and not the whole sequence because it operates in an online fashion.
 The window that iterates through a sequence includes ten images in most experiments and is smaller than the sequence length of 76.
@@ -36,7 +37,7 @@ This way, the model trains without random flips within a sequence but still show
 Furthermore, while experimenting with temporal models, a key factor of the dataset is observed.
 The dataset also includes switch cases where one of the two possible paths continues in a straight line, and the other one splits off.
 The train often drives on the straight one.
-In these cases, single-frame-based models usually predict the rail track correctly, as visualized in <figure xy>.
+In these cases, single-frame-based models usually predict the rail track correctly, as visualized in \autoref{fig:temporalTestSet_a}.
 The dataset is reviewed to evaluate performances in various situations, resulting in one deleted sequence and a changed arrangement.
 The new version of the dataset consists of 37 sequences, of which four are still used for validation and four for testing.
 In both subsets, the single-frame model predicted each frame of these sequences with one sequence being completely wrong, one entirely correct, and two partly correct.
@@ -49,6 +50,7 @@ These sequences are selected to represent possible situations.
         \centering
         \includegraphics[width=\textwidth]{PICs/experiments/temporalModels/allesRichtig.png}
         \caption{76/76 frames correct}
+        \label{fig:temporalTestSet_a}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
@@ -76,16 +78,17 @@ These sequences are selected to represent possible situations.
 
 \subsubsection{Hyperparameters}
 
-Most experiments, especially the latest, are done with the same hyperparameters to provide a fair comparison.
+Most experiments, especially the latest ones, are done with the same hyperparameters to provide a fair comparison.
 The best-performing single-frame-based model inspires the values used.
 That is why the input dimensions are set to $3 \times 512 \times 512$.
-All values for the data augmentation, like color factors, crop margins, or standard deviation factors, are the same.
-Furthermore, sequential experiments utilize the Adam optimizer and a OneCycle Scheduler with the same learning rate parameters.
+Features are extracted with the EfficientNet-B3 backbone in all temporal experiments.
+All values for data augmentation, such as color factors, crop margins, or standard deviation factors, are the same.
+Furthermore, sequential experiments utilize the Adam optimizer \cite{pytorchAdamOptimizer} and a OneCycle Scheduler \cite{pytorch_oneCycleLR_docu} with the same learning rate parameters.
 The best results of single-frame models are obtained with 64 anchors in the output vector.
 Therefore, temporal experiments use the same number of anchors.
 
 However, some parameters are altered.
-The added complexity of sequential models increases training durations significantly.
+The added complexity of sequential models significantly increases training durations.
 Therefore, models train for only 100 epochs in most experiments.
 Additionally, the data-handling logic within and before the model sometimes requires a batch size of 1.
 Consequently, all different sequential models train with that batch size.
@@ -94,7 +97,7 @@ Furthermore, this work adds two hyperparameters to manage sequences and the slid
 The sequence length of 76 can be defined if the dataset changes, and the window length can be set.
 Most experiments use a window length of 10 frames.
 
-<table xy> describes the most relevant experiments and includes used parameters.
+<table xy> describes the most relevant experiments and includes the parameters used.
 
 \vspace{1cm}
 
@@ -110,7 +113,7 @@ Most experiments use a window length of 10 frames.
 \subsubsection{Evaluation}
 
 The switch evaluation dataset evaluates the single-frame model's ability to detect tracks in the presence of switches.
-This evaluation dataset is needed because the \ac{IoU} is not meaningful when the switch is in the distance, as shown in <figure in richtiger section>.
+This evaluation dataset is needed because the \ac{IoU} is not meaningful when the switch is in the distance, as shown in \autoref{fig:incorrectButHighIoU}.
 However, evaluation can now be done on the temporal dataset.
 Since the dataset consists of sequences in which a train drivers over switches, this switch and the \ac{GT} of the rails are displayed from every possible distance, making the \ac{IoU} more meaningful.
 

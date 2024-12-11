@@ -9,11 +9,11 @@ blindtext
     \resizebox{\textwidth}{!}{
     \begin{tabular}{lcccccc}
         \hline
-        \rowcolor{white} \textbf{Model} & \textbf{Parameters} & \textbf{Flops} & \textbf{MACs} & \textbf{Latency TRT FP32 / FP16} & \textbf{IoU} & \textbf{Switch Eval} \\
+        \rowcolor{white} \textbf{Model} & \textbf{Parameters} & \textbf{Flops} & \textbf{MACs} & \textbf{Latency TRT FP32 / FP16} & \textbf{IoU} & \textbf{only Switch Section} \\
         \hline
         \rowcolor[gray]{0.9} single-frame-based          & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
         \hline
-        \rowcolor{white}     CNN\_LSTM\_FC               & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
+        \rowcolor{white}     CNN\_LSTM\_FC               & \multicolumn{6}{c}{canceled at epoch 107: no generalization} \\ 
         \rowcolor[gray]{0.9} CNN\_FC\_LSTM               & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
         \rowcolor{white}     CNN\_LSTM\_V1               & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
         \rowcolor[gray]{0.9} CNN\_LSTM\_V2               & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
