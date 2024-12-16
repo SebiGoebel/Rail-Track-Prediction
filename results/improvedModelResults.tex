@@ -12,15 +12,15 @@ blindtext
             \hline
             \rowcolor{white} \textbf{Model} & \textbf{Parameters} & \textbf{Flops} & \textbf{MACs} & \textbf{Latency TRT FP32 / FP16} & \textbf{IoU} & \textbf{Switch Eval} \\
             \hline
-            \rowcolor[gray]{0.9} ENB3 \cite{tepNet2024}   & 14.57M            &                & 4.87G          & 24.89 / 15.26 ms        & \textbf{0.9753} & 91.18 \% \\ 
-            \rowcolor{white}     RN18 \cite{tepNet2024}   & 15.64M            &                & 9.48G          & 9.48 / 3.25 ms          & 0.9695          & 80.15 \% \\ 
+            \rowcolor[gray]{0.9} ENB3 \cite{tepNet2024} & 14.57M & 9.74B          & 5.16G          & 24.89 / 15.26 ms        & \textbf{97.53 \%} & 91.18 \% \\ 
+            \rowcolor{white}     RN18 \cite{tepNet2024} & 15.64M & 18.98B         & 9.53G          & 9.48 / 3.25 ms          & 96.95 \%          & 80.15 \% \\ 
             \hline
-            \rowcolor[gray]{0.9} MNV3-Small & \textbf{5.33M}    & \textbf{0.55B} & \textbf{0.30G} & \textbf{3.13 / 2.05 ms} & 0.9619          & 73.53 \% \\ 
-            \rowcolor{white}     MNV3-Large & 7.27M             & 2.15B           & 1.17G          & 6.41 / 3.75 ms          & 0.9649          &  \\ 
-            \rowcolor[gray]{0.9} DN121      & 11.42M            & 29.61B         & 15.14G         & 29.53 / 16.52 ms        & 0.9750          &  \\ 
-            \rowcolor{white}     DN161      & 30.9M             & 80.74B        & 40.98G         & 75.77 / 34.02 ms        & 0.9746          &  \\ 
-            \rowcolor[gray]{0.9} DN169      & 16.96M            & 35.10B         & 17.95G         & 38.87 / 22.51 ms        & 0.9748          &  \\ 
-            \rowcolor{white}     DN201      & 22.57M            & 44.83B         & 22.93G         & 52.14 / 29.94 ms        & 0.9751          & \textbf{93.38 \%}  \\
+            \rowcolor[gray]{0.9} MNV3-Small & \textbf{5.33M}     & \textbf{0.55B} & \textbf{0.30G} & \textbf{3.13 / 2.05 ms} & 96.19 \%          & 73.53 \% \\ 
+            \rowcolor{white}     MNV3-Large & 7.27M              & 2.15B          & 1.17G          & 6.41 / 3.75 ms          & 96.49 \%          &  \\ 
+            \rowcolor[gray]{0.9} DN121      & 11.42M             & 29.61B         & 15.14G         & 29.53 / 16.52 ms        & 97.50 \%          &  \\ 
+            \rowcolor{white}     DN161      & 30.9M              & 80.74B         & 40.98G         & 75.77 / 34.02 ms        & 97.46 \%          &  \\ 
+            \rowcolor[gray]{0.9} DN169      & 16.96M             & 35.10B         & 17.95G         & 38.87 / 22.51 ms        & 97.48 \%          &  \\ 
+            \rowcolor{white}     DN201      & 22.57M             & 44.83B         & 22.93G         & 52.14 / 29.94 ms        & 97.51 \%          & \textbf{93.38 \%}  \\
             \hline
         \end{tabular}
     }
@@ -66,20 +66,20 @@ Until now, only DenseNets are excluded.
             \hline
             \rowcolor{white} \textbf{Model} & \textbf{Parameters} & \textbf{Flops} & \textbf{MACs} & \textbf{Latency TRT FP32 / FP16} & \textbf{IoU} & \textbf{Switch Eval} \\
             \hline
-            \rowcolor[gray]{0.9} ENB3 \cite{tepNet2024}     & 14.57M            &                & 4.87G          & 24.89 / 15.26 ms        & \textbf{0.9753} & 91.18 \% \\ 
-            \rowcolor{white}     RN18 \cite{tepNet2024}     & 15.64M            &                & 9.48G          & 9.48 / 3.25 ms          & 0.9695          & 80.15 \% \\ 
-            \rowcolor[gray]{0.9} MNV3-Small    & \textbf{5.33M}    & \textbf{0.55B} & \textbf{0.30G} & \textbf{3.13 / 2.05 ms} & 0.9619          & 73.53 \% \\ 
-            \rowcolor{white}     DN201         & 22.57M            & 44.83B         & 22.93G         & 52.14 / 29.94 ms        & 0.9751          & 93.38 \% \\
+            \rowcolor[gray]{0.9} ENB3 \cite{tepNet2024} & 14.57M   & 9.74B          & 5.16G          & 24.89 / 15.26 ms        & \textbf{97.53 \%} & 91.18 \% \\ 
+            \rowcolor{white}     RN18 \cite{tepNet2024} & 15.64M   & 18.98B         & 9.53G          & 9.48 / 3.25 ms          & 96.95 \%          & 80.15 \% \\ 
+            \rowcolor[gray]{0.9} MNV3-Small    & \textbf{5.33M}    & \textbf{0.55B} & \textbf{0.30G} & \textbf{3.13 / 2.05 ms} & 96.19 \%          & 73.53 \% \\ 
+            \rowcolor{white}     DN201         & 22.57M            & 44.83B         & 22.93G         & 52.14 / 29.94 ms        & 97.51 \%          & 93.38 \% \\
             \hline
-            \rowcolor[gray]{0.9} ENB3-AP   & 15.35M            & 10.13B         & 5.36G          & 25.64 / 15.25 ms        & 0.9134          & 93.38 \% \\ 
-            \rowcolor{white}     RN18-AP   & 16.69M            & 19.49B         & 9.8G           & 10.18 / 3.42 ms         & 0.9658          & 91.18 \% \\ 
-            \rowcolor[gray]{0.9} MNV3-Small-AP & 5.53M             & 0.65B          & 0.35G          & 3.24 / 2.1 ms           & 0.9502          & 58.82 \% \\ 
-            \rowcolor{white}     DN201-AP      & -                 & -              & -              & Expected to be high     & -               & - \\ 
+            \rowcolor[gray]{0.9} ENB3-AP       & 15.35M            & 10.13B         & 5.36G          & 25.64 / 15.25 ms        & 91.34 \%          & 93.38 \% \\ 
+            \rowcolor{white}     RN18-AP       & 16.69M            & 19.49B         & 9.8G           & 10.18 / 3.42 ms         & 96.58 \%          & 91.18 \% \\ 
+            \rowcolor[gray]{0.9} MNV3-Small-AP & 5.53M             & 0.65B          & 0.35G          & 3.24 / 2.1 ms           & 95.02 \%          & 58.82 \% \\ 
+            \rowcolor{white}     DN201-AP      & -                 & -              & -              & Expected to be high     & -                 & - \\ 
             \hline
-            \rowcolor[gray]{0.9} ENB3-MP   & 15.35M            & 10.13B         & 5.36G          & 25.68 / 15.5 ms         & 0.9730          & \textbf{94.85} \% \\ 
-            \rowcolor{white}     RN18-MP   & 16.69M            & 19.49B         & 9.8G           & 9.89 / 3.41 ms          & 0.9688          & 91.91 \% \\ 
-            \rowcolor[gray]{0.9} MNV3-Small-MP & 5.53M             & 0.65B          & 0.35G          & 3.25 / 2.11 ms          & 0.9595          & 68.38 \% \\ 
-            \rowcolor{white}     DN201-MP      & -                 & -              & -              & Expected to be high     & -               & - \\ 
+            \rowcolor[gray]{0.9} ENB3-MP       & 15.35M            & 10.13B         & 5.36G          & 25.68 / 15.5 ms         & 97.30 \%          & \textbf{94.85} \% \\ 
+            \rowcolor{white}     RN18-MP       & 16.69M            & 19.49B         & 9.8G           & 9.89 / 3.41 ms          & 96.88 \%          & 91.91 \% \\ 
+            \rowcolor[gray]{0.9} MNV3-Small-MP & 5.53M             & 0.65B          & 0.35G          & 3.25 / 2.11 ms          & 95.95 \%          & 68.38 \% \\ 
+            \rowcolor{white}     DN201-MP      & -                 & -              & -              & Expected to be high     & -                 & - \\ 
             \hline
         \end{tabular}
     \end{minipage}

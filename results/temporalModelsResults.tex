@@ -4,32 +4,64 @@ blindtext
 \subsection{Temporal Models}
 blindtext
 
+
+
 \begin{table}[H]
     \centering
     \resizebox{\textwidth}{!}{
-    \begin{tabular}{lcccccc}
+    \begin{tabular}{lcccc}
         \hline
-        \rowcolor{white} \textbf{Model} & \textbf{Parameters} & \textbf{Flops} & \textbf{MACs} & \textbf{Latency TRT FP32 / FP16} & \textbf{IoU} & \textbf{only Switch Section} \\
+        \rowcolor{white} \textbf{Model} & \textbf{Parameters} & \textbf{Flops} & \textbf{MACs} & \textbf{Latency TRT FP32 / FP16} \\
         \hline
-        \rowcolor[gray]{0.9} single-frame-based          & 32.92M & 10.17B & 5.38G & 25.87 / 16.09 ms & 0.xy & xy \% \\ 
+        \rowcolor[gray]{0.9} single-frame-based          & 32.92M & 10.17B & 5.38G & 25.87 / 16.09 ms \\ 
         \hline
-        \rowcolor{white}     CNN\_LSTM\_FC               & \multicolumn{6}{c}{canceled at epoch 107: no generalization} \\ 
-        \rowcolor[gray]{0.9} CNN\_FC\_LSTM               & 32.87M  & 101.72B & 53.81G & \textbf{223.07} / 129.69 ms & 0.xy & xy \% \\ 
-        \rowcolor{white}     CNN\_LSTM\_V1               & \textbf{11.10M}  & \textbf{101.28B} & \textbf{53.59G} & 246.90 / 156.04 ms & 0.xy & xy \% \\ 
-        \rowcolor[gray]{0.9} CNN\_LSTM\_V2               & 13.62M  & 101.33B & 53.62G & 246.94 / 155.09 ms & 0.xy & xy \% \\ 
-        \rowcolor{white}     CNN\_LSTM\_HEAD             & 13.15M  & 101.32B & 53.61G & 247.11 / 136.35 ms & 0.xy & xy \% \\ 
-        \rowcolor[gray]{0.9} CNN\_FC\_FCOUT\_V1          & 33.08M  & 101.72B & 53.81G & 265.14 / 128.91 ms & 0.xy & xy \% \\ 
-        \rowcolor{white}     CNN\_FC\_FCOUT\_V2          & 35.50M  & 101.72B & 53.81G & 328.86 / 156.09 ms & 0.xy & xy \% \\ 
-        \rowcolor[gray]{0.9} CNN\_FLAT\_FC               & 132.21M & 101.52B & 53.71G & 230.06 / \textbf{127.88} ms & 0.xy & xy \% \\ 
-        \rowcolor{white}     CNN\_LSTM\_SKIP\_CAT        & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
-        \rowcolor[gray]{0.9} CNN\_LSTM\_SKIP\_MUL\_FRAME & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
-        \rowcolor{white}     CNN\_LSTM\_SKIP\_MUL\_TIME  & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\ 
+        \rowcolor{white}     CNN\_LSTM\_FC               & \multicolumn{4}{c}{canceled at epoch 107: no generalization} \\ 
+        \rowcolor[gray]{0.9} CNN\_FC\_LSTM               & 32.87M  & 101.72B & 53.81G & \textbf{223.07} / 129.69 ms \\ 
+        \rowcolor{white}     CNN\_LSTM\_V1               & \textbf{11.10M}  & \textbf{101.28B} & \textbf{53.59G} & 246.90 / 156.04 ms \\ 
+        \rowcolor[gray]{0.9} CNN\_LSTM\_V2               & 13.62M  & 101.33B & 53.62G & 246.94 / 155.09 ms \\ 
+        \rowcolor{white}     CNN\_LSTM\_HEAD             & 13.15M  & 101.32B & 53.61G & 247.11 / 136.35 ms \\ 
+        \rowcolor[gray]{0.9} CNN\_FC\_FCOUT\_V1          & 33.08M  & 101.72B & 53.81G & 265.14 / 128.91 ms \\ 
+        \rowcolor{white}     CNN\_FC\_FCOUT\_V2          & 35.50M  & 101.72B & 53.81G & 328.86 / 156.09 ms \\ 
+        \rowcolor[gray]{0.9} CNN\_FLAT\_FC               & 132.21M & 101.52B & 53.71G & 230.06 / \textbf{127.88} ms \\ 
+        \rowcolor{white}     CNN\_LSTM\_SKIP\_CAT        & 35.05M  & 101.36B & 53.63G & 223.87 / 131.76 ms \\ 
+        \rowcolor[gray]{0.9} CNN\_LSTM\_SKIP\_MUL\_FRAME & 35.04M  & 101.76B & 53.83G & 227.75 / 130.14 ms \\ 
+        \rowcolor{white}     CNN\_LSTM\_SKIP\_MUL\_TIME  & 35.05M  & 101.76B & 53.83G & 265.56 / 130.15 ms \\ 
         \hline
-        \rowcolor[gray]{0.9} best with MNV3-Small & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\
-        \rowcolor{white}     best with MNV3-Large & xyM & xyB & xyG & xy / xy ms & 0.xy & xy \% \\
+        \rowcolor[gray]{0.9} best with MNV3-Small & xyM & xyB & xyG & xy / xy ms \\
+        \rowcolor{white}     best with MNV3-Large & xyM & xyB & xyG & xy / xy ms \\
         \hline
     \end{tabular}
     }
     \caption{Temporal Models Results}
     \label{tab:temporalModelsResults}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lcccccccccc}
+        \hline
+        \rowcolor{white} \textbf{Model} & \textbf{Testset} & \textbf{Sequence 1} & \textbf{Sequence 2} & \textbf{Sequence 3} & \textbf{Sequence 4} & \textbf{Switch 1} & \textbf{Switch 2} & \textbf{Switch 3} & \textbf{Switch 4} & \textbf{switch averages} \\
+        \hline
+        \rowcolor[gray]{0.9} single-frame-based           & 57.03 \%          & 60.66 \%          & 2.06 \%                            & 76.75 \%                            & 88.66 \%                            & 22.43 \%                            & 3.60 \%                            & 65.99 \%                            & 81.99 \%                            & 43.5 \%\\ 
+        \hline
+        \rowcolor{white}     CNN\_LSTM\_FC                & \multicolumn{10}{c}{canceled at epoch 107: no generalization} \\ 
+        \rowcolor[gray]{0.9} CNN\_FC\_LSTM                & 52.88 \%          & 43.60 \%          & \textcolor{blue}{4.22 \%}          & 74.71 \%                            & \textcolor{blue}{88.99 \%}          & \textcolor{blue}{23.89 \%}          & \textcolor{blue}{\textbf{6.61 \%}} & \textcolor{blue}{70.01 \%}          & \textcolor{blue}{84.47} \%          & 46.25 \% \\ 
+        \rowcolor{white}     CNN\_LSTM\_V1                & 52.93 \%          & 45.80 \%          & \textcolor{blue}{3.42 \%}          & \textcolor{blue}{85.19 \%}          & 77.29 \%                            & \textcolor{blue}{26.40 \%}          & \textcolor{blue}{4.59 \%}          & \textcolor{blue}{\textbf{83.77 \%}} & 69.55 \%                            & 46.08 \% \\ 
+        \rowcolor[gray]{0.9} CNN\_LSTM\_V2                & 50.96 \%          & 41.50 \%          & 0.76 \%                            & \textcolor{blue}{80.08 \%}          & 81.49 \%                            & \textcolor{blue}{32.11 \%}          & 0.62 \%                            & \textcolor{blue}{78.86 \%}          & 79.15 \%                            & 42.78 \% \\ 
+        \rowcolor{white}     CNN\_LSTM\_HEAD              & 52.04 \%          & 44.34 \%          & \textcolor{blue}{2.19 \%}          & \textcolor{blue}{80.19 \%}          & 81.44 \%                            & \textcolor{blue}{\textbf{40.59 \%}} & 2.98 \%                            & \textcolor{blue}{78.32 \%}          & 78.33 \%                            & 47.69 \% \\ 
+        \rowcolor[gray]{0.9} CNN\_FC\_FCOUT\_V1           & 50.57 \%          & 43.88 \%          & \textcolor{blue}{\textbf{5.49 \%}} & 68.44 \%                            & 84.47 \%                            & \textcolor{blue}{25.11 \%}          & 2.65 \%                            & 61.49 \%                            & 81.86 \%                            & 50.05 \% \\ 
+        \rowcolor{white}     CNN\_FC\_FCOUT\_V2           & 53.35 \%          & 50.59 \%          & \textcolor{blue}{4.05 \%}          & 68.22 \%                            & \textcolor{blue}{\textbf{90.52 \%}} & \textcolor{blue}{23.59 \%}          & \textcolor{blue}{3.67 \%}          & 61.82 \%                            & \textcolor{blue}{\textbf{86.68 \%}} & 47.76 \% \\ 
+        \rowcolor[gray]{0.9} CNN\_FLAT\_FC                & 50.17 \%          & 42.81 \%          & 0.75 \%                            & \textcolor{blue}{83.01 \%}          & 74.08 \%                            & \textcolor{blue}{30.47 \%}          & 0.45 \%                            & \textcolor{blue}{81.88 \%}          & 78.24 \%                            & 43.94 \% \\ 
+        \rowcolor{white}     CNN\_LSTM\_SKIP\_CAT         & 56.17 \%          & 56.27 \%          & 1.17 \%                            & \textcolor{blue}{78.66 \%}          & 88.58 \%                            & \textcolor{blue}{22.58 \%}          & 2.03 \%                            & \textcolor{blue}{70.02 \%}          & \textcolor{blue}{82.83 \%}          & 44.37 \% \\ 
+        \rowcolor[gray]{0.9} CNN\_LSTM\_SKIP\_MUL\_FRAME  & \textbf{56.97 \%} & 56.31 \%          & 1.79 \%                            & \textcolor{blue}{\textbf{80.27 \%}} & \textcolor{blue}{89.51 \%}          & 22.29 \%                            & 3.11 \%                            & \textcolor{blue}{72.55 \%}          & \textcolor{blue}{84.38 \%}          & 45.58 \% \\ 
+        \rowcolor{white}     CNN\_LSTM\_SKIP\_MUL\_TIME   & 56.41 \%          & \textbf{57.12 \%} & \textcolor{blue}{3.41 \%}          & 75.68 \%  	                         & \textcolor{blue}{89.45 \%}          & \textcolor{blue}{21.49 \%}          & \textcolor{blue}{5.39 \%}          & 65.90 \%                            & \textcolor{blue}{83.96 \%}          & 44.18 \% \\ 
+        \hline
+        \rowcolor[gray]{0.9} best with MNV3-Small & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% \\
+        \rowcolor{white}     best with MNV3-Large & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% \\
+        \hline
+    \end{tabular}
+    }
+    \caption{Temporal Models Results IoUs}
+    \label{tab:temporalModelsResultsIoUs}
 \end{table}
