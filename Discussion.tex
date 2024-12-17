@@ -11,6 +11,28 @@ blindtext
 \subsubsection{Erste Überschrift Tiefe 4 (subsubsection)}
 blindtext
 
+\section{Real-time capability}
+
+One goal of this work is to implement a real-time capable system.
+All datasets in this work are some variations of RailSem19.
+This dataset consists of images of YouTube videos primarily in 25 or 30 \ac{FPS}.
+The temporal dataset also includes such videos.
+Therefore, the system aims to speed up to 30 \ac{FPS}.
+This results in a latency of 33.33 ms or lower.
+However, this is a simplified assumption based on available data rather than on a practical application.
+
+When applied in an actual use case, the real-time capability primarily depends on the camera setup, the train velocity, the prediction, and the corresponding distances.
+\autoref{fig:cameraSetup} shows a systematic camera setup with the most essential parameters, distances, and angles.
+The green parts resemble the prediction with a length from the horizon line.
+
+\autoref{func:RealTime} calculates the \ac{FPS} needed for a real-time capable system according to $d_{horizon}$ and $v_{train}$.
+$d_{horizon}$ is defined by geometry of the camera setup.
+Theoretically, the system is still fast enough when the train travels a distance of $d_{horizon}$ between each frame.
+That corresponds to a $\lambda$ of 1.
+Lamda is an additional parameter that defines how much the predicted area of the previous frame must overlap with the next frame.
+Lambda must be between 0 and 1.
+The lower the value, the safer the system becomes.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{PICs/discussion/Kameraaufbau.pdf}
@@ -23,7 +45,15 @@ blindtext
     \label{func:RealTime}
 \end{align}
 
-<bild von einer prediction um zu zeigen dass es ca 1/3 des bildes ausmacht -> \autoref{fig:autocropVideoComparison} 
+\autoref{tab:variablesForRealTime} describes realistic values when the system is prepared for trains in Austria.
+A GoPro Hero 10 \cite{goproHero10} is chosen because of its integrated mounting abilities and high $FoV$.
+$\alpha$ and $height_{cam}$ are assumptions for Austrian trains.
+$v_{train}$ is the fastest speed a train can drive in Austria \cite{geschwindigkeitZugAustria}.
+Previous predictions like in \autoref{fig:autocropVideoComparison} lead to the assumption of $horizon_{pred}$.
+480 pixels are roughly a third of the image that fits most predictions in this work.
+\autoref{func:FPSValues} shows that only a speed of 5.1 \ac{FPS} is needed for a practical use case with the assumed parameters.
+However, to increase safety, the overlap factor $\lambda$ is set to 0.17, which results in a frame rate of 30 \ac{FPS}.
+Also interesting is that with this frame rate and the highest possible train speed, the distance traveled between frames is 2.45 m, as shown in \autoref{func:distanceBetweenFrameswith30FPS}.
 
 \begin{table}[H]
     \centering
@@ -50,11 +80,6 @@ blindtext
     \caption{Variables for real time calculation}
     \label{tab:variablesForRealTime}
 \end{table}
-
-\begin{align}
-    l_{blind} = \tan \left( \alpha-\frac{FoV}{2} \right) \times height_{cam} = \tan \left( 90^\circ-\frac{93^\circ}{2} \right) \times 3 = 2.85 \, {m}
-    \label{func:lBlind}
-\end{align}
 
 \begin{align}
     d_{horizon} = \tan \left( \left( \frac{image_{height} - horizon_{pred}}{image_{height}} \times FoV \right) + \alpha - \frac{FoV}{2} \right) \times height_{cam}
