@@ -101,14 +101,59 @@ Most experiments use a window length of 10 frames.
 
 \vspace{1cm}
 
-\textbf{Liste mit den wichtigsten experimenten:}
-\begin{itemize}
-    \item name des models
-    \item vortrainiert auf (bzw. welche weights übernommen worden sind)
-    \item was gefreezed worden ist
-    \item data augmentation
-    \item window size
-\end{itemize}
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lcccccccccc}
+        \hline
+        \rowcolor{white} \textbf{Model} & \multicolumn{2}{c}{\textbf{Pre-trained}} & \multicolumn{2}{c}{\textbf{Freezed}} & \multicolumn{3}{c}{\textbf{Data augmentation}} & \textbf{Sliding window} & \textbf{Epochs} & \textbf{Dataset} \\
+        \hline
+        \rowcolor[gray]{0.9} architecture                & BB & Head (anchors) & BB & Head   & color & flip & crop & length & number & version \\ 
+        \hline
+        \rowcolor{white}     CNN\_LSTM\_FC               & ENB3 & trapeze (64) & \checkmark &            & \checkmark & \checkmark & \checkmark & 10 & 107 & 1 \\ 
+        \rowcolor[gray]{0.9} CNN\_FC\_LSTM               & ENB3 & trapeze (32) & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & 10 & 400 & 1 \\ 
+        \rowcolor{white}     CNN\_LSTM\_V1               & ENB3 &              & \checkmark &            & \checkmark & \checkmark & \checkmark & 10 & 400 & 1 \\
+        \rowcolor[gray]{0.9} CNN\_FC\_FCOUT\_V1          & ENB3 & trapeze (64) & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & 10 & 600 & 1 \\
+        \hline
+        \rowcolor{white}     CNN\_FC\_LSTM               & ENB3 & trapeze (32) & \checkmark & \checkmark &            & \checkmark & \checkmark & 10 & 400 & 1 \\
+        \rowcolor{white}     CNN\_FC\_LSTM               & ENB3 & trapeze (32) & \checkmark & \checkmark &            &            & \checkmark & 10 & 400 & 1 \\
+        \rowcolor{white}     CNN\_FC\_LSTM               & ENB3 & trapeze (32) & \checkmark & \checkmark &            &            &            & 10 & 400 & 1 \\
+        \rowcolor[gray]{0.9} CNN\_LSTM\_V1               & ENB3 &              & \checkmark &            &            & \checkmark & \checkmark & 10 & 400 & 1 \\
+        \rowcolor[gray]{0.9} CNN\_LSTM\_V1               & ENB3 &              & \checkmark &            &            &            & \checkmark & 10 & 400 & 1 \\
+        \rowcolor[gray]{0.9} CNN\_LSTM\_V1               & ENB3 &              & \checkmark &            &            &            &            & 10 & 400 & 1 \\
+        \rowcolor[gray]{0.9} CNN\_FC\_FCOUT\_V1          & ENB3 & trapeze (64) & \checkmark & \checkmark &            & \checkmark & \checkmark & 10 & 600 & 1 \\
+        \rowcolor{white}     CNN\_FC\_FCOUT\_V1          & ENB3 & trapeze (64) & \checkmark & \checkmark &            &            & \checkmark & 10 & 600 & 1 \\
+        \hline
+        \rowcolor[gray]{0.9} CNN\_FC\_LSTM               & ENB3 & trapeze (32) & \checkmark & \checkmark &            & \checkmark & \checkmark & 30 & 400 & 1 \\
+        \rowcolor[gray]{0.9} CNN\_FC\_LSTM               & ENB3 & trapeze (32) & \checkmark & \checkmark &            &            & \checkmark & 30 & 400 & 1 \\
+        \rowcolor{white}     CNN\_LSTM\_V1               & ENB3 &              & \checkmark &            &            & \checkmark & \checkmark & 30 & 400 & 1 \\
+        \rowcolor{white}     CNN\_LSTM\_V1               & ENB3 &              & \checkmark &            &            &            & \checkmark & 30 & 400 & 1 \\
+        \rowcolor[gray]{0.9} CNN\_FC\_FCOUT\_V1          & ENB3 & trapeze (64) & \checkmark & \checkmark &            & \checkmark & \checkmark & 30 & 600 & 1 \\
+        \rowcolor[gray]{0.9} CNN\_FC\_FCOUT\_V1          & ENB3 & trapeze (64) & \checkmark & \checkmark &            &            & \checkmark & 30 & 600 & 1 \\
+        \hline
+        \rowcolor{white}     CNN\_FC\_LSTM               & ENB3 & trapeze (32) & \checkmark & \checkmark &            & \checkmark & \checkmark & 10 & 100 & 2 \\
+        \rowcolor[gray]{0.9} CNN\_LSTM\_V1               & ENB3 &              & \checkmark &            &            & \checkmark & \checkmark & 10 & 100 & 2 \\
+        \rowcolor{white}     CNN\_FC\_FCOUT\_V1          & ENB3 & trapeze (64) & \checkmark & \checkmark &            & \checkmark & \checkmark & 10 & 100 & 2 \\
+        \hline
+        \rowcolor[gray]{0.9} CNN\_FC\_LSTM               & ENB3 & trapeze (32) & \checkmark & \checkmark &            &            & \checkmark & 10 & 100 & 3 \\
+        \rowcolor{white}     CNN\_LSTM\_V1               & ENB3 &              & \checkmark &            &            &            & \checkmark & 10 & 100 & 3 \\
+        \rowcolor[gray]{0.9} CNN\_FC\_FCOUT\_V1          & ENB3 & trapeze (64) & \checkmark & \checkmark &            &            & \checkmark & 10 & 100 & 3 \\
+        \rowcolor{white}     CNN\_LSTM\_V2               & ENB3 &              & \checkmark &            &            &            & \checkmark & 10 & 100 & 3 \\
+        \rowcolor[gray]{0.9} CNN\_LSTM\_HEAD             & ENB3 & trapeze (64) & \checkmark &            &            &            & \checkmark & 10 & 100 & 3 \\
+        \rowcolor{white}     CNN\_FC\_FCOUT\_V2          & ENB3 & trapeze (64) & \checkmark & \checkmark &            &            & \checkmark & 10 & 100 & 3 \\
+        \rowcolor[gray]{0.9} CNN\_FLAT\_FC               & ENB3 & trapeze (64) & \checkmark &            &            &            & \checkmark & 10 & 100 & 3 \\
+        \rowcolor{white}     CNN\_LSTM\_SKIP\_CAT        & ENB3 & trapeze (32) & \checkmark & \checkmark &            &            & \checkmark & 10 & 100 & 3 \\
+        \rowcolor[gray]{0.9} CNN\_LSTM\_SKIP\_MUL\_FRAME & ENB3 & trapeze (32) & \checkmark & \checkmark &            &            & \checkmark & 10 & 100 & 3 \\
+        \rowcolor{white}     CNN\_LSTM\_SKIP\_MUL\_TIME  & ENB3 & trapeze (64) & \checkmark & \checkmark &            &            & \checkmark & 10 & 100 & 3 \\
+        \hline
+        %\rowcolor[gray]{0.9} best with MNV3-Small & xyM & xyB & xyG & xy / xy ms \\
+        %\rowcolor{white}     best with MNV3-Large & xyM & xyB & xyG & xy / xy ms \\
+        %\hline
+    \end{tabular}
+    }
+    \caption{Temporal Experiment Params}
+    \label{tab:temporalExperimetparams}
+\end{table}
 
 \subsubsection{Evaluation}
 
