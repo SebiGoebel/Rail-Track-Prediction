@@ -39,6 +39,46 @@ blindtext
 \begin{table}[H]
     \centering
     \resizebox{\textwidth}{!}{
+    \begin{tabular}{lccccccc}
+        \hline
+        \rowcolor{white} \textbf{Model} & \textbf{original Autocrop} & \textbf{Switch 1} & \textbf{Switch 2} & \textbf{Switch 3} & \textbf{Switch 4} & \textbf{AVG all Switches} & \textbf{AVG Switch 1 \& 3} \\
+        \hline
+        \rowcolor[gray]{0.9} TEP Net \cite{tepNet2024}    & \checkmark & 22.10 \%          & 18.47 \%          & 63.96 \%          & \textbf{94.76 \%} & 49.82 \%          & 43.03 \%          \\ 
+        \rowcolor{white}     single-frame-based           &            & 22.43 \%          &  3.68 \%          & 65.99 \%          & 81.99 \%          & 43.53 \%          & 44.21 \%          \\ 
+        \rowcolor[gray]{0.9} single-frame-based           & \checkmark & 22.57 \%          & 18.56 \%          & 63.85 \%          & 82.74 \%          & 46.93 \%          & 43.21 \%          \\ 
+        \hline
+        \rowcolor[gray]{0.9} CNN\_FC\_LSTM                &            & 23.89 \%          &  6.77 \%          & 70.01 \%          & 84.47 \%          & 46.29 \%          & 46.95 \%          \\ 
+        \rowcolor{white}     CNN\_LSTM\_V1                &            & 26.40 \%          &  4.70 \%          & \textbf{83.77 \%} & 69.55 \%          & 46.10 \%          & 55.09 \%          \\ 
+        \rowcolor[gray]{0.9} CNN\_LSTM\_V2                &            & 32.11 \%          &  0.64 \%          & 78.86 \%          & 79.15 \%          & 42.79 \%          & 43.30 \%          \\ 
+        \rowcolor{white}     CNN\_LSTM\_HEAD              &            & \textbf{40.59 \%} &  3.05 \%          & 78.32 \%          & 78.33 \%          & 47.69 \%          & 55.49 \%          \\ 
+        \rowcolor[gray]{0.9} CNN\_FC\_FCOUT\_V1           &            & 25.11 \%          &  2.71 \%          & 61.49 \%          & 81.86 \%          & 50.07 \%          & \textbf{59.46 \%} \\ 
+        \rowcolor{white}     CNN\_FC\_FCOUT\_V2           &            & 23.59 \%          &  3.76 \%          & 61.82 \%          & 86.68 \%          & 47.76 \%          & 56.18 \%          \\ 
+        \rowcolor[gray]{0.9} CNN\_FLAT\_FC                &            & 30.47 \%          &  0.46 \%          & 81.88 \%          & 78.24 \%          & 43.96 \%          & 42.70 \%          \\ 
+        \rowcolor{white}     CNN\_LSTM\_SKIP\_CAT         &            & 22.58 \%          &  2.08 \%          & 70.02 \%          & 82.83 \%          & 44.38 \%          & 46.30 \%          \\ 
+        \rowcolor[gray]{0.9} CNN\_LSTM\_SKIP\_MUL\_FRAME  &            & 22.29 \%          &  3.18 \%          & 72.55 \%          & 84.38 \%          & 45.60 \%          & 47.42 \%          \\ 
+        \rowcolor{white}     CNN\_LSTM\_SKIP\_MUL\_TIME   &            & 21.49 \%          &  5.52 \%          & 65.90 \%          & 83.96 \%          & 44.22 \%          & 43.69 \%          \\ 
+        \hline
+        \rowcolor[gray]{0.9} CNN\_FC\_LSTM                & \checkmark & 23.65 \%          & \textbf{23.43 \%} & 70.35 \%          & 88.23 \%          & \textbf{51.41 \%} & 47.00 \%          \\ 
+        \rowcolor{white}     CNN\_LSTM\_V1                & \checkmark & 26.22 \%          & 14.82 \%          & 80.69 \%          & 72.51 \%          & 48.56 \%          & 53.46 \%          \\ 
+        \rowcolor[gray]{0.9} CNN\_LSTM\_V2                & \checkmark & 28.50 \%          & 13.44 \%          & 76.83 \%          & 75.99 \%          & 45.72 \%          & 39.42 \%          \\ 
+        \rowcolor{white}     CNN\_LSTM\_HEAD              & \checkmark & 30.61 \%          &  9.93 \%          & 80.15 \%          & 76.68 \%          & 48.69 \%          & 52.66 \%          \\ 
+        \rowcolor[gray]{0.9} CNN\_FC\_FCOUT\_V1           & \checkmark & 23.40 \%          & 20.43 \%          & 55.45 \%          & 83.60 \%          & 49.34 \%          & 55.38 \%          \\ 
+        \rowcolor{white}     CNN\_FC\_FCOUT\_V2           & \checkmark & 21.40 \%          & 20.07 \%          & 59.29 \%          & 85.92 \%          & 50.60 \%          & 54.25 \%          \\ 
+        \rowcolor[gray]{0.9} CNN\_FLAT\_FC                & \checkmark & 27.80 \%          & 13.35 \%          & 80.70 \%          & 80.54 \%          & 46.67 \%          & 40.35 \%          \\ 
+        \rowcolor{white}     CNN\_LSTM\_SKIP\_CAT         & \checkmark & 22.92 \%          &  4.43 \%          & 78.36 \%          & 85.37 \%          & 47.77 \%          & 50.64 \%          \\ 
+        \rowcolor[gray]{0.9} CNN\_LSTM\_SKIP\_MUL\_FRAME  & \checkmark & 22.85 \%          &  2.27 \%          & 77.05 \%          & 86.57 \%          & 47.18 \%          & 49.95 \%          \\ 
+        \rowcolor{white}     CNN\_LSTM\_SKIP\_MUL\_TIME   & \checkmark & 22.53 \%          & 18.34 \%          & 64.79 \%          & 85.35 \%          & 47.75 \%          & 43.66 \%          \\ 
+        \hline
+    \end{tabular}
+    }
+    \caption{Temporal Models Results IoUs}
+    \label{tab:temporalModelsResultsIoUs}
+\end{table}
+
+
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{
     \begin{tabular}{lcccccccccc}
         \hline
         \rowcolor{white} \textbf{Model} & \textbf{Testset} & \textbf{Sequence 1} & \textbf{Sequence 2} & \textbf{Sequence 3} & \textbf{Sequence 4} & \textbf{Switch 1} & \textbf{Switch 2} & \textbf{Switch 3} & \textbf{Switch 4} & \textbf{switch averages} \\
@@ -63,7 +103,26 @@ blindtext
     \end{tabular}
     }
     \caption{Temporal Models Results IoUs}
-    \label{tab:temporalModelsResultsIoUs}
+    \label{tab:temporalModelsResultsIoUs_old}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lcccc}
+        \hline
+        \rowcolor{white} \textbf{} & \textbf{Switch 1} & \textbf{Switch 2} & \textbf{Switch 3} & \textbf{Switch 4} \\
+        \hline
+        \rowcolor[gray]{0.9} TEP \cite{tepNet2024} IoU                                                      & 22.10 \%      & 18.47 \%          & 63.96 \%    & 94.76 \% \\
+        \rowcolor{white}     improved single-frame-based model IoU                                          & 22.43 \%      &  3.68 \%          & 65.99 \%    & 81.99 \% \\
+        \rowcolor[gray]{0.9} improved single-frame-based model with original autocrop \cite{tepNet2024} IoU & 22.57 \%      & 18.56 \%          & 63.85 \%    & 82.74 \% \\
+        \rowcolor{white}     best temporal model                                                            & CNN\_LSTM\_HEAD & CNN\_FC\_LSTM (ogA) & CNN\_LSTM\_V1 & CNN\_FC\_LSTM (ogA) \\
+        \rowcolor[gray]{0.9} best temporla model IoU                                                        & 40.59 \%      & 23.43 \%          & 83.77 \%    & 88.23 \% \\
+        \hline
+    \end{tabular}
+    }
+    \caption{Temporal Models Results Switches}
+    \label{tab:temporalModelsResultsSwitches}
 \end{table}
 
 \begin{figure}[H]
