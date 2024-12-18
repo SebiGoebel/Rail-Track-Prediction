@@ -4,38 +4,6 @@ blindtext
 \subsection{Temporal Models}
 blindtext
 
-
-
-\begin{table}[H]
-    \centering
-    \resizebox{\textwidth}{!}{
-    \begin{tabular}{lcccc}
-        \hline
-        \rowcolor{white} \textbf{Model} & \textbf{Parameters} & \textbf{Flops} & \textbf{MACs} & \textbf{Latency TRT FP32 / FP16} \\
-        \hline
-        \rowcolor[gray]{0.9} single-frame-based          & 32.92M & 10.17B & 5.38G & 25.87 / 16.09 ms \\ 
-        \hline
-        \rowcolor{white}     CNN\_LSTM\_FC               & \multicolumn{4}{c}{canceled at epoch 107: no generalization} \\ 
-        \rowcolor[gray]{0.9} CNN\_FC\_LSTM               & 32.87M  & 101.72B & 53.81G & \textbf{223.07} / 129.69 ms \\ 
-        \rowcolor{white}     CNN\_LSTM\_V1               & \textbf{11.10M}  & \textbf{101.28B} & \textbf{53.59G} & 246.90 / 156.04 ms \\ 
-        \rowcolor[gray]{0.9} CNN\_LSTM\_V2               & 13.62M  & 101.33B & 53.62G & 246.94 / 155.09 ms \\ 
-        \rowcolor{white}     CNN\_LSTM\_HEAD             & 13.15M  & 101.32B & 53.61G & 247.11 / 136.35 ms \\ 
-        \rowcolor[gray]{0.9} CNN\_FC\_FCOUT\_V1          & 33.08M  & 101.72B & 53.81G & 265.14 / 128.91 ms \\ 
-        \rowcolor{white}     CNN\_FC\_FCOUT\_V2          & 35.50M  & 101.72B & 53.81G & 328.86 / 156.09 ms \\ 
-        \rowcolor[gray]{0.9} CNN\_FLAT\_FC               & 132.21M & 101.52B & 53.71G & 230.06 / \textbf{127.88} ms \\ 
-        \rowcolor{white}     CNN\_LSTM\_SKIP\_CAT        & 35.05M  & 101.36B & 53.63G & 223.87 / 131.76 ms \\ 
-        \rowcolor[gray]{0.9} CNN\_LSTM\_SKIP\_MUL\_FRAME & 35.04M  & 101.76B & 53.83G & 227.75 / 130.14 ms \\ 
-        \rowcolor{white}     CNN\_LSTM\_SKIP\_MUL\_TIME  & 35.05M  & 101.76B & 53.83G & 265.56 / 130.15 ms \\ 
-        \hline
-        \rowcolor[gray]{0.9} best with MNV3-Small & xyM & xyB & xyG & xy / xy ms \\
-        \rowcolor{white}     best with MNV3-Large & xyM & xyB & xyG & xy / xy ms \\
-        \hline
-    \end{tabular}
-    }
-    \caption{Temporal Models Results}
-    \label{tab:temporalModelsResults}
-\end{table}
-
 \begin{table}[H]
     \centering
     \resizebox{\textwidth}{!}{
@@ -162,3 +130,34 @@ blindtext
     \caption{Titel für alle vier Grafiken}
     \label{fig:4grafiken}
 \end{figure}
+
+
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lcccc}
+        \hline
+        \rowcolor{white} \textbf{Model} & \textbf{Parameters} & \textbf{Flops} & \textbf{MACs} & \textbf{Latency TRT FP32 / FP16} \\
+        \hline
+        \rowcolor[gray]{0.9} single-frame-based          & 32.92M & 10.17B & 5.38G & 25.87 / 16.09 ms \\ 
+        \hline
+        \rowcolor{white}     CNN\_LSTM\_FC               & \multicolumn{4}{c}{canceled at epoch 107: no generalization} \\ 
+        \rowcolor[gray]{0.9} CNN\_FC\_LSTM               & 32.87M  & 101.72B & 53.81G & \textbf{223.07} / 129.69 ms \\ 
+        \rowcolor{white}     CNN\_LSTM\_V1               & \textbf{11.10M}  & \textbf{101.28B} & \textbf{53.59G} & 246.90 / 156.04 ms \\ 
+        \rowcolor[gray]{0.9} CNN\_LSTM\_V2               & 13.62M  & 101.33B & 53.62G & 246.94 / 155.09 ms \\ 
+        \rowcolor{white}     CNN\_LSTM\_HEAD             & 13.15M  & 101.32B & 53.61G & 247.11 / 136.35 ms \\ 
+        \rowcolor[gray]{0.9} CNN\_FC\_FCOUT\_V1          & 33.08M  & 101.72B & 53.81G & 265.14 / 128.91 ms \\ 
+        \rowcolor{white}     CNN\_FC\_FCOUT\_V2          & 35.50M  & 101.72B & 53.81G & 328.86 / 156.09 ms \\ 
+        \rowcolor[gray]{0.9} CNN\_FLAT\_FC               & 132.21M & 101.52B & 53.71G & 230.06 / \textbf{127.88} ms \\ 
+        \rowcolor{white}     CNN\_LSTM\_SKIP\_CAT        & 35.05M  & 101.36B & 53.63G & 223.87 / 131.76 ms \\ 
+        \rowcolor[gray]{0.9} CNN\_LSTM\_SKIP\_MUL\_FRAME & 35.04M  & 101.76B & 53.83G & 227.75 / 130.14 ms \\ 
+        \rowcolor{white}     CNN\_LSTM\_SKIP\_MUL\_TIME  & 35.05M  & 101.76B & 53.83G & 265.56 / 130.15 ms \\ 
+        \hline
+        \rowcolor[gray]{0.9} best with MNV3-Small & xyM & xyB & xyG & xy / xy ms \\
+        \rowcolor{white}     best with MNV3-Large & xyM & xyB & xyG & xy / xy ms \\
+        \hline
+    \end{tabular}
+    }
+    \caption{Temporal Models Results}
+    \label{tab:temporalModelsResults}
+\end{table}
