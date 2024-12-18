@@ -1,5 +1,116 @@
 \subsection{Temporal Models}
-blindtext
+
+This chapter describes the results of the most essential experiments with sequential models.
+These include the last ten models from \autoref{tab:temporalExperimetparams}.
+For a fair comparison, all those models are trained with 100 epochs, the same window length of 10, and on the same version of the temporal dataset.
+Additionally, the data augmentation strategy remains consistent.
+
+Results are captured from inferring models on a video that includes scenes from the test set of the temporal dataset.
+The auto-cropping mechanism is also utilized to be as close to a practical application as possible.
+Furthermore, inference starts over 500 frames before the annotated sequence to give crop coordinators time to adapt to converge to their optimals.
+This process results in \ac{IoU}s for each frame.
+Consequently, \ac{IoU} trends for each model are plotted in \autoref{fig:IoUTrends}.
+The evaluation includes all models using the original and the adapted auto-crop to ensure thoroughness.
+
+Since sequences also include frames in which the train is located before the switch, these frames are excluded.
+Only the most problematic frames for single-frame-based models are considered.
+The real switch-\ac{IoU}s and their corresponding frames included in this evaluation are marked with a green area in \autoref{fig:IoUTrends}.
+The \ac{IoU}-trends show either a drop in accuracy or a rapid fluctuation.
+After those irregularities, models usually recover and show stable predictions again.
+These trends are expected from the behavior of uncertain models.
+Either the model chooses the wrong track at a switch, which results in a drop, or the prediction varies between the right and wrong track, which leads to a fluctuation like in \autoref{fig:IoUTrends_switch_3}.
+However, even though temporal models show similar behavior, it is visible that at least one model acts more robustly in sequences 1, 2, and 3.
+Either the model is more stable overall, or the drop in accuracy is time-delayed.
+
+\autoref{fig:IoUTrends} shows all trends of \ac{IoU}s for the 23 different methods listed in \autoref{tab:temporalModelsResults}.
+However, only 6 of them are highlighted in colors.
+The original model with the original auto-crop mechanism of \cite{tepNet2024} is in blue.
+Then, the adapted single-frame-based model with the adapted and the original auto-crop (ogA) is shown in yellow and green.
+Also included are the models CNN\_FC\_LSTM (ogA) and CNN\_FC\_FCOUT\_V1 in purple and cyan, which are the models with the highest average \ac{IoU} across all switches and switches 1 and 3, respectively.
+Furthermore, the red trend is the best-performing temporal model for the corresponding scene.
+In the first two graphs of \autoref{fig:IoUTrends}, CNN\_FC\_LSTM (ogA) is also the best-performing temporal model for these scenes.
+Therefore, only the red one is visible.
+\autoref{tab:temporalModelsResultsIoUsSummary} summarizes the \ac{IoU}s with the averages for the highlighted models across the switch scenarios.
+
+\begin{figure}[H]
+    \centering
+    % Erste Reihe
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/experiments/temporalModels/plot_ious_sequence_2.pdf}
+        \caption{Switch 2}
+        \label{fig:IoUTrends_switch_2}
+    \end{subfigure}
+    %\hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/experiments/temporalModels/plot_ious_sequence_4.pdf}
+        \caption{Switch 4}
+        \label{fig:IoUTrends_switch_4}
+    \end{subfigure}
+
+    \vspace{1em} % Vertikaler Abstand zwischen den Reihen
+
+    % Zweite Reihe
+    \begin{subfigure}[b]{1\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{PICs/experiments/temporalModels/plot_ious_sequence_1.pdf}
+        \caption{Switch 1}
+        \label{fig:IoUTrends_switch_1}
+    \end{subfigure}
+    %\hfill
+    \begin{subfigure}[b]{1\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{PICs/experiments/temporalModels/plot_ious_sequence_3.pdf}
+        \caption{Switch 3}
+        \label{fig:IoUTrends_switch_3}
+    \end{subfigure}
+
+    \caption{\ac{IoU}-Trends of all models on the temporal test dataset with four sequences. Red is the best-performing temporal model for the corresponding sequence.}
+    \label{fig:IoUTrends}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lcccc}
+        \hline
+        \rowcolor{white} \textbf{} & \textbf{Switch 1} & \textbf{Switch 2} & \textbf{Switch 3} & \textbf{Switch 4} \\
+        \hline
+        \rowcolor[gray]{0.9} TEP Net \cite{tepNet2024} IoU  & 22.10 \%      & 18.47 \%          & 63.96 \%    & 94.76 \% \\
+        \rowcolor{white}     single-frame-based IoU         & 22.43 \%      &  3.68 \%          & 65.99 \%    & 81.99 \% \\
+        \rowcolor[gray]{0.9} single-frame-based (ogA) IoU   & 22.57 \%      & 18.56 \%          & 63.85 \%    & 82.74 \% \\
+        \rowcolor{white}     best temporal model            & CNN\_LSTM\_HEAD & CNN\_FC\_LSTM (ogA) & CNN\_LSTM\_V1 & CNN\_FC\_LSTM (ogA) \\
+        \rowcolor[gray]{0.9} best temporal model IoU        & 40.59 \%      & 23.43 \%          & 83.77 \%    & 88.23 \% \\
+        \hline
+    \end{tabular}
+    }
+    \caption{Temporal Models Results Switches}
+    \label{tab:temporalModelsResultsIoUsSummary}
+\end{table}
+
+\autoref{tab:temporalModelsResults} presents a thorough evaluation.
+Each model is evaluated on the four test sequences, and an average of all switch \ac{IoU}s is given.
+Additionally, an average of only the first and the third switch is included in \autoref{tab:temporalModelsResults}.
+The reason for that lies in the particular scenarios of \textbf{Switch 2} and \textbf{Switch 4}.
+\autoref{fig:temporalTestSet} shows the first frame of each sequence and the number of frames that are predicted correctly from the single-frame-based model.
+In the video of \textbf{Switch 2}, 0/76 frames are predicted, which shows the complexity of this particular scene.
+In \textbf{Switch 4}, all frames are correctly predicted, which shows that the single-frame-based model has no issues predicting this scene.
+In general, there are switches where the track splits.
+However, only one route diverges, and the rail on which the train continues remains on a straight path.
+The \textbf{Switch 4} sequence is such a scenario therefore it is similar to a rail without any switches.
+The reason the original model performed with such high accuracy lies mainly in the original auto-crop mechanism.
+This method uses an \ac{RA}, so the crop coordinates coverage to global averages.
+This characteristic presents a disadvantage in most cases because it cannot adapt to different scenarios.
+However, in the cases of \textbf{Switch 2} and \textbf{Switch 4}, the behavior of not adapting to a new situation presents an advantage.
+Therefore, especially in those two scenes, the utilization of the original auto-crop is advantageous.
+It must be mentioned that the high accuracy is highly dependent on these two particular situations.
+This work focuses more on scenarios in which models correctly predict the track before the train drives over a switch, and only when the starting context of the switch is missing should the temporal model achieve an improvement.
+This situation occurs in scenarios \textbf{Switch 1} and \textbf{Switch 3}.
+Therefore, the additional average of just these two scenes is included in \autoref{tab:temporalModelsResults}.
+
+\autoref{tab:temporalModelsResults} shows that even when scenarios \textbf{Switch 2} and \textbf{Switch 4} are included, a temporal model (CNN\_FC\_LSTM (ogA)) still achieves the highest overall accuracy.
+When excluding those two scenes as expected, a temporal model with the adapted auto-crop mechanism (CNN\_FC\_FCOUT\_V1) outperforms other techniques.
 
 \begin{table}[H]
     \centering
@@ -37,97 +148,38 @@ blindtext
     \end{tabular}
     }
     \caption{Temporal Models Results IoUs}
-    \label{tab:temporalModelsResultsIoUs}
+    \label{tab:temporalModelsResults}
 \end{table}
 
-
-\begin{table}[H]
-    \centering
-    \resizebox{\textwidth}{!}{
-    \begin{tabular}{lcccccccccc}
-        \hline
-        \rowcolor{white} \textbf{Model} & \textbf{Testset} & \textbf{Sequence 1} & \textbf{Sequence 2} & \textbf{Sequence 3} & \textbf{Sequence 4} & \textbf{Switch 1} & \textbf{Switch 2} & \textbf{Switch 3} & \textbf{Switch 4} & \textbf{switch averages} \\
-        \hline
-        \rowcolor[gray]{0.9} single-frame-based           & 57.03 \%          & 60.66 \%          & 2.06 \%                            & 76.75 \%                            & 88.66 \%                            & 22.43 \%                            & 3.60 \%                            & 65.99 \%                            & 81.99 \%                            & 43.5 \%\\ 
-        \hline
-        \rowcolor{white}     CNN\_LSTM\_FC                & \multicolumn{10}{c}{canceled at epoch 107: no generalization} \\ 
-        \rowcolor[gray]{0.9} CNN\_FC\_LSTM                & 52.88 \%          & 43.60 \%          & \textcolor{blue}{4.22 \%}          & 74.71 \%                            & \textcolor{blue}{88.99 \%}          & \textcolor{blue}{23.89 \%}          & \textcolor{blue}{\textbf{6.61 \%}} & \textcolor{blue}{70.01 \%}          & \textcolor{blue}{84.47} \%          & 46.25 \% \\ 
-        \rowcolor{white}     CNN\_LSTM\_V1                & 52.93 \%          & 45.80 \%          & \textcolor{blue}{3.42 \%}          & \textcolor{blue}{85.19 \%}          & 77.29 \%                            & \textcolor{blue}{26.40 \%}          & \textcolor{blue}{4.59 \%}          & \textcolor{blue}{\textbf{83.77 \%}} & 69.55 \%                            & 46.08 \% \\ 
-        \rowcolor[gray]{0.9} CNN\_LSTM\_V2                & 50.96 \%          & 41.50 \%          & 0.76 \%                            & \textcolor{blue}{80.08 \%}          & 81.49 \%                            & \textcolor{blue}{32.11 \%}          & 0.62 \%                            & \textcolor{blue}{78.86 \%}          & 79.15 \%                            & 42.78 \% \\ 
-        \rowcolor{white}     CNN\_LSTM\_HEAD              & 52.04 \%          & 44.34 \%          & \textcolor{blue}{2.19 \%}          & \textcolor{blue}{80.19 \%}          & 81.44 \%                            & \textcolor{blue}{\textbf{40.59 \%}} & 2.98 \%                            & \textcolor{blue}{78.32 \%}          & 78.33 \%                            & 47.69 \% \\ 
-        \rowcolor[gray]{0.9} CNN\_FC\_FCOUT\_V1           & 50.57 \%          & 43.88 \%          & \textcolor{blue}{\textbf{5.49 \%}} & 68.44 \%                            & 84.47 \%                            & \textcolor{blue}{25.11 \%}          & 2.65 \%                            & 61.49 \%                            & 81.86 \%                            & 50.05 \% \\ 
-        \rowcolor{white}     CNN\_FC\_FCOUT\_V2           & 53.35 \%          & 50.59 \%          & \textcolor{blue}{4.05 \%}          & 68.22 \%                            & \textcolor{blue}{\textbf{90.52 \%}} & \textcolor{blue}{23.59 \%}          & \textcolor{blue}{3.67 \%}          & 61.82 \%                            & \textcolor{blue}{\textbf{86.68 \%}} & 47.76 \% \\ 
-        \rowcolor[gray]{0.9} CNN\_FLAT\_FC                & 50.17 \%          & 42.81 \%          & 0.75 \%                            & \textcolor{blue}{83.01 \%}          & 74.08 \%                            & \textcolor{blue}{30.47 \%}          & 0.45 \%                            & \textcolor{blue}{81.88 \%}          & 78.24 \%                            & 43.94 \% \\ 
-        \rowcolor{white}     CNN\_LSTM\_SKIP\_CAT         & 56.17 \%          & 56.27 \%          & 1.17 \%                            & \textcolor{blue}{78.66 \%}          & 88.58 \%                            & \textcolor{blue}{22.58 \%}          & 2.03 \%                            & \textcolor{blue}{70.02 \%}          & \textcolor{blue}{82.83 \%}          & 44.37 \% \\ 
-        \rowcolor[gray]{0.9} CNN\_LSTM\_SKIP\_MUL\_FRAME  & \textbf{56.97 \%} & 56.31 \%          & 1.79 \%                            & \textcolor{blue}{\textbf{80.27 \%}} & \textcolor{blue}{89.51 \%}          & 22.29 \%                            & 3.11 \%                            & \textcolor{blue}{72.55 \%}          & \textcolor{blue}{84.38 \%}          & 45.58 \% \\ 
-        \rowcolor{white}     CNN\_LSTM\_SKIP\_MUL\_TIME   & 56.41 \%          & \textbf{57.12 \%} & \textcolor{blue}{3.41 \%}          & 75.68 \%  	                         & \textcolor{blue}{89.45 \%}          & \textcolor{blue}{21.49 \%}          & \textcolor{blue}{5.39 \%}          & 65.90 \%                            & \textcolor{blue}{83.96 \%}          & 44.18 \% \\ 
-        \hline
-        \rowcolor[gray]{0.9} best with MNV3-Small & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% \\
-        \rowcolor{white}     best with MNV3-Large & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% \\
-        \hline
-    \end{tabular}
-    }
-    \caption{Temporal Models Results IoUs}
-    \label{tab:temporalModelsResultsIoUs_old}
-\end{table}
-
-\begin{table}[H]
-    \centering
-    \resizebox{\textwidth}{!}{
-    \begin{tabular}{lcccc}
-        \hline
-        \rowcolor{white} \textbf{} & \textbf{Switch 1} & \textbf{Switch 2} & \textbf{Switch 3} & \textbf{Switch 4} \\
-        \hline
-        \rowcolor[gray]{0.9} TEP \cite{tepNet2024} IoU                                                      & 22.10 \%      & 18.47 \%          & 63.96 \%    & 94.76 \% \\
-        \rowcolor{white}     improved single-frame-based model IoU                                          & 22.43 \%      &  3.68 \%          & 65.99 \%    & 81.99 \% \\
-        \rowcolor[gray]{0.9} improved single-frame-based model with original autocrop \cite{tepNet2024} IoU & 22.57 \%      & 18.56 \%          & 63.85 \%    & 82.74 \% \\
-        \rowcolor{white}     best temporal model                                                            & CNN\_LSTM\_HEAD & CNN\_FC\_LSTM (ogA) & CNN\_LSTM\_V1 & CNN\_FC\_LSTM (ogA) \\
-        \rowcolor[gray]{0.9} best temporla model IoU                                                        & 40.59 \%      & 23.43 \%          & 83.77 \%    & 88.23 \% \\
-        \hline
-    \end{tabular}
-    }
-    \caption{Temporal Models Results Switches}
-    \label{tab:temporalModelsResultsSwitches}
-\end{table}
-
-\begin{figure}[H]
-    \centering
-    % Erste Reihe
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{PICs/experiments/temporalModels/plot_ious_sequence_2.pdf}
-        \caption{Beschreibung 1}
-        \label{fig:grafik1}
-    \end{subfigure}
-    %\hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{PICs/experiments/temporalModels/plot_ious_sequence_4.pdf}
-        \caption{Beschreibung 2}
-        \label{fig:grafik2}
-    \end{subfigure}
-
-    \vspace{1em} % Vertikaler Abstand zwischen den Reihen
-
-    % Zweite Reihe
-    \begin{subfigure}[b]{1\textwidth}
-        \centering
-        \includegraphics[width=0.8\textwidth]{PICs/experiments/temporalModels/plot_ious_sequence_1.pdf}
-        \caption{Beschreibung 3}
-        \label{fig:grafik3}
-    \end{subfigure}
-    %\hfill
-    \begin{subfigure}[b]{1\textwidth}
-        \centering
-        \includegraphics[width=0.8\textwidth]{PICs/experiments/temporalModels/plot_ious_sequence_3.pdf}
-        \caption{Beschreibung 4}
-        \label{fig:grafik4}
-    \end{subfigure}
-
-    \caption{Titel für alle vier Grafiken}
-    \label{fig:4grafiken}
-\end{figure}
-
+%\begin{table}[H]
+%    \centering
+%    \resizebox{\textwidth}{!}{
+%    \begin{tabular}{lcccccccccc}
+%        \hline
+%        \rowcolor{white} \textbf{Model} & \textbf{Testset} & \textbf{Sequence 1} & \textbf{Sequence 2} & \textbf{Sequence 3} & \textbf{Sequence 4} & \textbf{Switch 1} & \textbf{Switch 2} & \textbf{Switch 3} & \textbf{Switch 4} & \textbf{switch averages} \\
+%        \hline
+%        \rowcolor[gray]{0.9} single-frame-based           & 57.03 \%          & 60.66 \%          & 2.06 \%                            & 76.75 \%                            & 88.66 \%                            & 22.43 \%                            & 3.60 \%                            & 65.99 \%                            & 81.99 \%                            & 43.5 \%\\ 
+%        \hline
+%        \rowcolor{white}     CNN\_LSTM\_FC                & \multicolumn{10}{c}{canceled at epoch 107: no generalization} \\ 
+%        \rowcolor[gray]{0.9} CNN\_FC\_LSTM                & 52.88 \%          & 43.60 \%          & \textcolor{blue}{4.22 \%}          & 74.71 \%                            & \textcolor{blue}{88.99 \%}          & \textcolor{blue}{23.89 \%}          & \textcolor{blue}{\textbf{6.61 \%}} & \textcolor{blue}{70.01 \%}          & \textcolor{blue}{84.47} \%          & 46.25 \% \\ 
+%        \rowcolor{white}     CNN\_LSTM\_V1                & 52.93 \%          & 45.80 \%          & \textcolor{blue}{3.42 \%}          & \textcolor{blue}{85.19 \%}          & 77.29 \%                            & \textcolor{blue}{26.40 \%}          & \textcolor{blue}{4.59 \%}          & \textcolor{blue}{\textbf{83.77 \%}} & 69.55 \%                            & 46.08 \% \\ 
+%        \rowcolor[gray]{0.9} CNN\_LSTM\_V2                & 50.96 \%          & 41.50 \%          & 0.76 \%                            & \textcolor{blue}{80.08 \%}          & 81.49 \%                            & \textcolor{blue}{32.11 \%}          & 0.62 \%                            & \textcolor{blue}{78.86 \%}          & 79.15 \%                            & 42.78 \% \\ 
+%        \rowcolor{white}     CNN\_LSTM\_HEAD              & 52.04 \%          & 44.34 \%          & \textcolor{blue}{2.19 \%}          & \textcolor{blue}{80.19 \%}          & 81.44 \%                            & \textcolor{blue}{\textbf{40.59 \%}} & 2.98 \%                            & \textcolor{blue}{78.32 \%}          & 78.33 \%                            & 47.69 \% \\ 
+%        \rowcolor[gray]{0.9} CNN\_FC\_FCOUT\_V1           & 50.57 \%          & 43.88 \%          & \textcolor{blue}{\textbf{5.49 \%}} & 68.44 \%                            & 84.47 \%                            & \textcolor{blue}{25.11 \%}          & 2.65 \%                            & 61.49 \%                            & 81.86 \%                            & 50.05 \% \\ 
+%        \rowcolor{white}     CNN\_FC\_FCOUT\_V2           & 53.35 \%          & 50.59 \%          & \textcolor{blue}{4.05 \%}          & 68.22 \%                            & \textcolor{blue}{\textbf{90.52 \%}} & \textcolor{blue}{23.59 \%}          & \textcolor{blue}{3.67 \%}          & 61.82 \%                            & \textcolor{blue}{\textbf{86.68 \%}} & 47.76 \% \\ 
+%        \rowcolor[gray]{0.9} CNN\_FLAT\_FC                & 50.17 \%          & 42.81 \%          & 0.75 \%                            & \textcolor{blue}{83.01 \%}          & 74.08 \%                            & \textcolor{blue}{30.47 \%}          & 0.45 \%                            & \textcolor{blue}{81.88 \%}          & 78.24 \%                            & 43.94 \% \\ 
+%        \rowcolor{white}     CNN\_LSTM\_SKIP\_CAT         & 56.17 \%          & 56.27 \%          & 1.17 \%                            & \textcolor{blue}{78.66 \%}          & 88.58 \%                            & \textcolor{blue}{22.58 \%}          & 2.03 \%                            & \textcolor{blue}{70.02 \%}          & \textcolor{blue}{82.83 \%}          & 44.37 \% \\ 
+%        \rowcolor[gray]{0.9} CNN\_LSTM\_SKIP\_MUL\_FRAME  & \textbf{56.97 \%} & 56.31 \%          & 1.79 \%                            & \textcolor{blue}{\textbf{80.27 \%}} & \textcolor{blue}{89.51 \%}          & 22.29 \%                            & 3.11 \%                            & \textcolor{blue}{72.55 \%}          & \textcolor{blue}{84.38 \%}          & 45.58 \% \\ 
+%        \rowcolor{white}     CNN\_LSTM\_SKIP\_MUL\_TIME   & 56.41 \%          & \textbf{57.12 \%} & \textcolor{blue}{3.41 \%}          & 75.68 \%  	                         & \textcolor{blue}{89.45 \%}          & \textcolor{blue}{21.49 \%}          & \textcolor{blue}{5.39 \%}          & 65.90 \%                            & \textcolor{blue}{83.96 \%}          & 44.18 \% \\ 
+%        \hline
+%        \rowcolor[gray]{0.9} best with MNV3-Small & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% \\
+%        \rowcolor{white}     best with MNV3-Large & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% & xy \% \\
+%        \hline
+%    \end{tabular}
+%    }
+%    \caption{Temporal Models Results IoUs}
+%    \label{tab:temporalModelsResultsIoUs_old}
+%\end{table}
 
 \begin{table}[H]
     \centering
@@ -156,5 +208,5 @@ blindtext
     \end{tabular}
     }
     \caption{Temporal Models Results}
-    \label{tab:temporalModelsResults}
+    \label{tab:temporalModelsResultsLatency}
 \end{table}
