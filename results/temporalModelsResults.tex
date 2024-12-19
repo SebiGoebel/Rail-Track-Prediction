@@ -210,3 +210,11 @@ When excluding those two scenes as expected, a temporal model with the adapted a
     \caption{Temporal Models Results}
     \label{tab:temporalModelsResultsLatency}
 \end{table}
+
+
+\autoref{tab:temporalModelsResultsLatency} shows the results for temporal Models considering Parameters, Flops, MACs, and the Latency measured on the NVIDIA Jetson device.
+Compared to the single-frame-based model, temporal ones are slower, with FP16 latencies between 127.88 ms and 156.09 ms and FP32 latencies between 223.07 ms and 328.86 ms.
+The fastest model is the CNN\_FLAT\_FC on FP16 with 127.88 ms, corresponding to a frame rate of 7.8 \ac{FPS}.
+When inferring videos with 30 \ac{FPS}, these models are not real-time capable anymore.
+However, there are methods to enable real-time capability for these temporal models.
+This topic falls outside the scope of this work and is therefore addressed in the \autoref{sec:discussion} section.
