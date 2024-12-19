@@ -154,3 +154,22 @@ Also interesting is that with this frame rate and the highest possible train spe
     \caption{Ratio between the train's speed and the distance it drives between frames with 30 \ac{FPS}. Red lines are top speeds of all different trains from Austria: 120 km/h, 140 km/h, 160 km/h, 200 km/h, 230 km/h, 265 km/h, \cite{geschwindigkeitAllTrainsAustria}}
     \label{fig:ratioSpeedDistanceBetweenFrames}
 \end{figure}
+
+\autoref{tab:temporalModelsResultsLatency} shows that the fastest temporal model is CNN\_FLAT\_FC in FP16.
+Compared to the single-frame-based model, this method suffers from an increased latency, which is too high for inferring videos with 30 \ac{FPS}.
+According to the calculations of \autoref{func:FPSValues}, the theoretical frame rate needed for real-time is 5.1 \ac{FPS}, which corresponds to a latency of 196.08 ms.
+Since all temporal FP16 models have latencies below that, they are all theoretically real-time-capable.
+FP32 models are too slow.
+
+However, various methods could allow higher frame rates in practical operations.
+An increase in speed can be achieved by utilizing a MobileNet backbone.
+\autoref{tab:temporalModelsResultsLatency} shows that this increases speed significantly and is within the limits of real-time capability when inferring 30 \ac{FPS} videos.
+Evaluations of these models' accuracy are out of this work's scope.
+
+A frame rate of 5.1 \ac{FPS} is an extreme case with an overlap factor of 1, which decreases the possible safety of the system.
+That leads to the thought that the optimal trade-off must be found between the overlap of the predicted areas of consecutive frames and the frame rate.
+For example, only every third or fourth frame can be used, which reduces the frame rate and increases the allowed latency.
+
+An additional advantage of only inputting every third or fourth frame into the model is that the temporal context window increases even when the length of the sliding window remains the same.
+Even though information between frames is lost, ten frames would cover a window of 30 or 40 frames.
+Furthermore, using this technique decreases the number of frames in which the train is located directly over the switch, resulting in a smaller time frame that needs to be bridged.
