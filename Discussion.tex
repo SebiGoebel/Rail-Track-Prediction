@@ -1,24 +1,20 @@
 \chapter{Discussion}
 \label{sec:discussion}
-Etwas Text... Hier kommen noch einige Abkürzunge vor zum Beispiel \ac{ABC},\ac{WWW} und \ac{ROFL}.
 
-\section{Erste Überschrift Tiefe 2 (section)}
-blindtext
+This chapter includes a discussion about gathered results.
+Furthermore, the research questions introduced in the beginning of this work are addressed comprehensively and ultimately answered.
+Therefore this chapter is devided into the individual research questions.
 
-\subsection{Erste Überschrift Tiefe 3 (subsection)}
-blindtext
+\subsubsection{1. What is the most effective vision-based approach for reliably identifying the rail track the train travels on, ensuring precise direction detection and robustness, especially in scenarios involving switches?}
 
-\subsubsection{Erste Überschrift Tiefe 4 (subsubsection)}
-blindtext
-
-\section{Real-time capability}
+\subsubsection{2. How can this application be implemented to run in real-time on an embedded device from the NVIDIA Jetson series?}
 
 One goal of this work is to implement a real-time capable system.
 All datasets in this work are some variations of RailSem19.
 This dataset consists of images of YouTube videos primarily in 25 or 30 \ac{FPS}.
 The temporal dataset also includes such videos.
 Therefore, the system aims to speed up to 30 \ac{FPS}.
-This results in a latency of 33.33 ms or lower.
+This results in a threshold for the latency of 33.33 ms or lower.
 However, this is a simplified assumption based on available data rather than on a practical application.
 
 When applied in an actual use case, the real-time capability primarily depends on the camera setup, the train velocity, the prediction, and the corresponding distances.
@@ -155,6 +151,12 @@ Also interesting is that with this frame rate and the highest possible train spe
     \label{fig:ratioSpeedDistanceBetweenFrames}
 \end{figure}
 
+Based on the calculated values required to assess a model's real-time capabilities, the following conclusions are drawn.
+Tables in \autoref{improvedTEPNetResults} show that almost every single-frame-based model achieves latencies below the threshold of 33.33 ms which comes from a high frame rate of 30 \ac{FPS}.
+This can be explained by the leight weight model architecture.
+Only some versions of DenseNet exceed the desired target.
+
+For answering this research question for the temporal models more factors must be considered.
 \autoref{tab:temporalModelsResultsLatency} shows that the fastest temporal model is CNN\_FLAT\_FC in FP16.
 Compared to the single-frame-based model, this method suffers from an increased latency, which is too high for inferring videos with 30 \ac{FPS}.
 According to the calculations of \autoref{func:FPSValues}, the theoretical frame rate needed for real-time is 5.1 \ac{FPS}, which corresponds to a latency of 196.08 ms.
@@ -162,14 +164,29 @@ Since all temporal FP16 models have latencies below that, they are all theoretic
 FP32 models are too slow.
 
 However, various methods could allow higher frame rates in practical operations.
-An increase in speed can be achieved by utilizing a MobileNet backbone.
+Firstly, an increase in speed can be achieved by utilizing a MobileNet backbone.
 \autoref{tab:temporalModelsResultsLatency} shows that this increases speed significantly and is within the limits of real-time capability when inferring 30 \ac{FPS} videos.
-Evaluations of these models' accuracy are out of this work's scope.
-
-A frame rate of 5.1 \ac{FPS} is an extreme case with an overlap factor of 1, which decreases the possible safety of the system.
-That leads to the thought that the optimal trade-off must be found between the overlap of the predicted areas of consecutive frames and the frame rate.
-For example, only every third or fourth frame can be used, which reduces the frame rate and increases the allowed latency.
-
+Secondly, only every third or fourth frame can be used, which reduces the frame rate and increases the allowed latency.
 An additional advantage of only inputting every third or fourth frame into the model is that the temporal context window increases even when the length of the sliding window remains the same.
 Even though information between frames is lost, ten frames would cover a window of 30 or 40 frames.
 Furthermore, using this technique decreases the number of frames in which the train is located directly over the switch, resulting in a smaller time frame that needs to be bridged.
+
+In conclusion, temporal models can operate in real-time with a frame rate of 5.1 \ac{FPS}.
+However, this presents an extreme case with an overlap factor of 1, which decreases the possible safety of the system.
+That leads to the thought that the optimal trade-off must be found between the overlap of the predicted areas of consecutive frames and the frame rate.
+Furthermore, in a practical application also the train's current speed can be incorporated which changes the real-time threshold and therefore frame rate adaptively.
+
+\subsubsection{3. To what extent can the temporal dimension be leveraged to improve the accuracy of predictions in switch situations where the necessary information is no longer present in the current frame?}
+
+\autoref{tab:temporalModelsResults} shows scenarios exist in which the original auto-crop is more advantageous than the adapted one, even though \autoref{sec:autocropResults} and \autoref{sec:qualitativeComparison} prove that the adapted one is more robust.
+After analyzing models in these test cases, it becomes evident that the higher accuracy in \textbf{Switch 2} and \textbf{Switch 4} highly depends on the specific situations of these sequences.
+\textbf{Switch 2} is a very complex situation with many steep angled switches present in the sequence, which is unusual and only in train stations or shunting yards.
+\textbf{Switch 4}, on the other hand, is easy and is similar to a simple straight rail in which a single-frame-based model performs with high accuracy, and there is no need for a temporal model.
+In conclusion, the temporal component of the system is an approach to stabilize the single-frame-based model in switch scenarios.
+However, when the scene is challenging, even the temporal models struggle, and when a scene is too easy, there is no need to try to stabilize the model.
+The results of these two sequences lead to the thought that the created temporal dataset is not optimal and needs to be reviewed and changed.
+In the fourth version of the dataset, questionable scenes like \textbf{Switch 2} and \textbf{Switch 4} can be removed.
+Additionally, the sequence length can be increased, and other scenarios can be included, like ones for trams, which is not the case until now.
+
+It must be mentioned that even though temporal models bring a performance gain at frames in which the train is located directly over a switch, single-frame-based models outperform temporal models in scenes without switches, according to the \ac{IoU}.
+That is because single-frame-based models hit the rail pixels more precisely.
