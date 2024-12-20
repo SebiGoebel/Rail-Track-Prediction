@@ -13,7 +13,7 @@ Consequently, \ac{IoU} trends for each model are plotted in \autoref{fig:IoUTren
 The evaluation includes all models using the original and the adapted auto-crop to ensure thoroughness.
 
 Since sequences also include frames in which the train is located before the switch, these frames are excluded.
-Only the most problematic frames for single-frame-based models are considered.
+Only the most problematic frames for single-frame-based models in which the train is directly over the switch and the switchblades are not visible are considered.
 The real switch-\ac{IoU}s and their corresponding frames included in this evaluation are marked with a green area in \autoref{fig:IoUTrends}.
 The \ac{IoU}-trends show either a drop in accuracy or a rapid fluctuation.
 After those irregularities, models usually recover and show stable predictions again.
@@ -27,7 +27,7 @@ However, only 6 of them are highlighted in colors.
 The original model with the original auto-crop mechanism of \cite{tepNet2024} is in blue.
 Then, the adapted single-frame-based model with the adapted and the original auto-crop (ogA) is shown in yellow and green.
 Also included are the models CNN\_FC\_LSTM (ogA) and CNN\_FC\_FCOUT\_V1 in purple and cyan, which are the models with the highest average \ac{IoU} across all switches and switches 1 and 3, respectively.
-Furthermore, the red trend is the best-performing temporal model for the corresponding scene.
+Furthermore, the red trend is the best-performing temporal model for each corresponding scene.
 In the first two graphs of \autoref{fig:IoUTrends}, CNN\_FC\_LSTM (ogA) is also the best-performing temporal model for these scenes.
 Therefore, only the red one is visible.
 \autoref{tab:temporalModelsResultsIoUsSummary} summarizes the \ac{IoU}s with the averages for the highlighted models across the switch scenarios.
@@ -216,4 +216,8 @@ Compared to the single-frame-based model, temporal ones are slower, with FP16 la
 The fastest model is the CNN\_FLAT\_FC on FP16 with 127.88 ms, corresponding to a frame rate of 7.8 \ac{FPS}.
 When inferring videos with 30 \ac{FPS}, these models are not real-time capable anymore.
 However, there are methods to enable real-time capability for these temporal models.
-This topic falls outside the scope of this work and is therefore addressed in the \autoref{sec:discussion} section.
+For example switching the backbone to a MobileNet-Small, as given in \autoref{tab:temporalModelsResultsLatency}.
+This significantly reduces latency and falls below the real-time threshold of 33.33 ms.
+Nevertheless, this topic falls outside the scope of this work and is therefore addressed in the \autoref{sec:discussion} section.
+There are no accuracy evaluations conducted in this work for the model with the MobileNet backbone.
+Only the latency is measured.
