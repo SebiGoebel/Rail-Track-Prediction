@@ -7,6 +7,26 @@ Therefore this chapter is devided into the individual research questions.
 
 \subsubsection{1. What is the most effective vision-based approach for reliably identifying the rail track the train travels on, ensuring precise direction detection and robustness, especially in scenarios involving switches?}
 
+In this work, the difference between rail track detection and rail track prediction is made in the introduction.
+Rail track detection covers detecting all rails in an image, often with only one class, compared to rail track prediction, which distinguishes between the train track and other tracks.
+Most state-of-the-art research only addresses rail track detection, not rail track prediction, often using semantic segmentation methods.
+Only two papers found in the literature explore the topic of rail track prediction.
+However, these papers proceed on the premise that the state of a switch cannot be determined.
+They determine the train's track with complex post-processing algorithms, which cause a loss in speed.
+
+To address the issue of identifying the state of the switches, such a system could be complemented with an object detection method.
+Therefore, this study conducts experiments using models from the YOLO series, which confirm the assumption, indicating the need for a fundamentally different approach.
+
+This strategy is presented by \cite{tepNet2024}, the only project found in the literature that focuses on rail track prediction with the assumption of predicting switches correctly.
+It changes the problem formulation to a regression problem and introduces a domain-specific loss function that considers positional error.
+This approach shows promising results in terms of accuracy and real-time capability.
+Therefore, this project presents the baseline for this work, and further experiments are conducted to increase the robustness of this system.
+
+To answer the research question, even when there are still limitations to this method, it presents the most promising method in the state-of-the-art.
+However, rail track prediction is an advancing research field, and systems need to be improved according to specific situations, like switch scenarios, to elevate the system to the maximum achievable level of accuracy and, consequently, safety.
+This work presents techniques and approaches that prove to be more robust than the state-of-the-art ones.
+However, more use case specific research must be conducted when preparing the system for a real-world application.
+
 \subsubsection{2. How can this application be implemented to run in real-time on an embedded device from the NVIDIA Jetson series?}
 
 One goal of this work is to implement a real-time capable system.
@@ -180,13 +200,32 @@ Furthermore, in a practical application also the train's current speed can be in
 
 \autoref{tab:temporalModelsResults} shows scenarios exist in which the original auto-crop is more advantageous than the adapted one, even though \autoref{sec:autocropResults} and \autoref{sec:qualitativeComparison} prove that the adapted one is more robust.
 After analyzing models in these test cases, it becomes evident that the higher accuracy in \textbf{Switch 2} and \textbf{Switch 4} highly depends on the specific situations of these sequences.
-\textbf{Switch 2} is a very complex situation with many steep angled switches present in the sequence, which is unusual and only in train stations or shunting yards.
-\textbf{Switch 4}, on the other hand, is easy and is similar to a simple straight rail in which a single-frame-based model performs with high accuracy, and there is no need for a temporal model.
-In conclusion, the temporal component of the system is an approach to stabilize the single-frame-based model in switch scenarios.
-However, when the scene is challenging, even the temporal models struggle, and when a scene is too easy, there is no need to try to stabilize the model.
+\textbf{Switch 2} is a very complex situation with many steep angled switches present in the sequence, which is unusual for typical train infrastructure and only occurs in train stations or shunting yards.
+Even the single-frame-based model is not designed for such situations and determines the direction of the train incorrectly in every frame.
+\textbf{Switch 4}, on the other hand, is easy and is similar to a simple straight rail in which a single-frame-based model performs with high accuracy.
+In this scenario, there is no need to improve performance with a temporal model.
+
+The temporal component of the system is an approach to stabilize the single-frame-based model in switch scenarios.
+However, temporal models also struggle when the scene is challenging, like \textbf{Switch 2}, and the single-frame-based model predicts 0/76 frames correctly when considering the direction.
+When a scene is too easy, like \textbf{Switch 4} in which the single-frame-based model predicts 76/76 frames correctly concerning the direction, there is no need to try to stabilize the model with a temporal component.
 The results of these two sequences lead to the thought that the created temporal dataset is not optimal and needs to be reviewed and changed.
-In the fourth version of the dataset, questionable scenes like \textbf{Switch 2} and \textbf{Switch 4} can be removed.
+In the fourth version of the dataset, questionable scenes like \textbf{Switch 2} and \textbf{Switch 4} can be removed since they do not represent typical train infrastructure or an inclusion is unnecessary.
+Another approach could be to leave such scenes in the dataset but to gather more data so that these two scenes are no longer weighted so heavily in the evaluation.
+However, since this process is very time-consuming, it is out of the scope of this work.
 Additionally, the sequence length can be increased, and other scenarios can be included, like ones for trams, which is not the case until now.
 
-It must be mentioned that even though temporal models bring a performance gain at frames in which the train is located directly over a switch, single-frame-based models outperform temporal models in scenes without switches, according to the \ac{IoU}.
+Scenarios \textbf{Switch 1} and \textbf{Switch 3} prove that exploiting the temporal dimension makes a performance gain possible.
+Single-frame-based models show typical problematic behaviors when driving over a switch in these two scenes.
+Either the model chooses the wrong direction, experiences a drop in accuracy and stabilizes after the switch, like in \textbf{Switch 1}.
+This scenario is similar to the one visualized in \autoref{fig:limitationSwitch}.
+Alternatively, the model fluctuates between the correct and wrong track, like in \textbf{Switch 3}.
+Temporal models show a time-delayed drop in accuracy in cases like \textbf{Switch 1} and a more stable trend in \textbf{Switch 3}.
+However, even though temporal models bring a performance gain at frames in which the train is located directly over a switch, single-frame-based models outperform temporal models in scenes without switches, according to the \ac{IoU}.
 That is because single-frame-based models hit the rail pixels more precisely.
+
+In conclusion, the temporal models can lead to a gain in accuracy.
+\autoref{tab:temporalModelsResults} shows that when excluding questionable scenarios \textbf{Switch 2} and \textbf{Switch 4} an increase in IoU accuracy of 15.25 \% compared to the adapted single-frame-based and an increase of 16.43 \% compared to the current state-of-the-art is possible.
+Even when including these scenarios there is a gain in IoU performance compared to the current state-of-the-art and the adapted model.
+However, the results show that more research must be conducted for a temporal model to be applicable in a real-world scenario.
+This is because, although the current state of this work achieves higher accuracy in switch cases, it comes at the expense of speed.
+Furthermore, in scenarios without switches, single-frame-based models outperform, necessitating a method to potentially integrate both approaches and switch to the advantageous model for the given scenario.
