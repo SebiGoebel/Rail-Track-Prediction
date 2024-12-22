@@ -1,12 +1,59 @@
+\clearpage
 \chapter{Conclusion and Outlook}
 \label{sec:conclusionAndOutlook}
-Etwas Text... Hier kommen noch einige Abkürzunge vor zum Beispiel \ac{ABC},\ac{WWW} und \ac{ROFL}.
 
-\section{Erste Überschrift Tiefe 2 (section)}
-blindtext
+% Conclusion
+This work aims to find the most effective vision-based approach for reliably identifying rail tracks.
+This rail track prediction system distinguishes between the rails the train is using and other rails the window.
+Additionally, this work primarily focuses on scenarios that include switches, which divide the rail track and the correct prediction of the train's path direction.
+Furthermore, the pursuit of real-time capability emphasizes the importance of keeping the implemented models as lightweight as possible.
 
-\subsection{Erste Überschrift Tiefe 3 (subsection)}
-blindtext
+The state-of-the-art related to the rail domain includes only a few papers that make a difference between the train's rail track and others.
+However, these introduce the concept of possible tracks, which include all possible paths a train could take.
+When a switch is present in the scene, both paths are considered because of the assumption that the switch state cannot be determined correctly.
 
-\subsubsection{Erste Überschrift Tiefe 4 (subsubsection)}
-blindtext
+From this point, experiments are conducted with object detection models from the Yolo series that focus on detecting and determining the state of upcoming switches.
+The unsatisfactory results of these experiments led to the pursuit of a fundamentally different solution.
+
+During these experiments with object detection models, a paper was published that introduces a promising approach by changing the problem formulation from a detection method to a regression technique.
+This approach showed promising results and is therefore selected as a new baseline for further experiments of this work.
+A significant portion of this work focuses on making this approach more robust.
+Enhancements are achieved by experimenting with different backbones, model architectures, and cropping mechanisms that define the model's input.
+Results on a tailored dataset that primarily focuses on unusual perspective angles and switch scenarios show that robustness can be improved.
+
+However, the main limitation of this system lies in the approach being single-frame-based.
+That presents an issue when driving over switches, and the start of the switch blades is no longer visible in the image.
+At that point in time, the system cannot identify the correct rail as it lacks the information from previous frames.
+Therefore, this work develops an approach that includes the temporal aspect of these situations.
+Various models are experimented with, which incorporate \ac{RNN}s to learn sequential context.
+A sequential dataset tailored to this particular problem is created.
+It consists of sequences with 76 frames in which trains drive over switches.
+The sequences are auto-labeled with the single-frame-based model and manually corrected whenever necessary.
+Consequently, the data augmentation, dataloading logic, and evaluation process are adapted to support video input instead of single images.
+Transfer learning and a sliding window approach are used to train various temporal models.
+The results of these experiments show an improved accuracy at frames in which the train is directly located over the switch.
+Proving that exploiting the temporal dimension provides an advantage and can increase robustness further.
+However, more research must be conducted when employing the system for a real-world application.
+
+In addition to accuracy evaluations, all models are optimized with the NVIDIAs TensorRT framework, and latencies are measured on an NVIDIA Jetson AGX Xavier.
+This work discusses the real-time capabilities of all single-frame and temporal models, either proving that they are below a certain threshold of video inference or presenting further approaches to make models real-time operable.
+
+\vspace{2cm}
+
+%Outlook
+\noindent Results of temporal experiments show an improvement in frames where the train is located directly over a switch.
+However, further research must be conducted to improve the robustness of these models.
+Experiments can include reviewing and extending the temporal dataset.
+The length of sequences can be increased, and in other situations, like tram scenes, can be added.
+Unnecessary scenes can be removed.
+Furthermore, only every third or fourth frame can be used in training, which simultaneously expands the temporal context window, decreases the number of frames over a switch, and helps with the real-time capability of the system.
+
+A fundamentally different approach could include a similar technique, but the model predicts four rails instead of regressing only two rails.
+In scenes with switches, these annotations are the four rails of the switch, labeled with increasing numbers from left to right.
+When no switch is present, only two rails are visible.
+Both are annotated twice in this case.
+An additional part of the model must then be developed to decide which two of the four rails are the ones of the train.
+The idea is to outsource the decision of which rails are used to a classifier while keeping the regression part of the model as accurate as possible.
+Furthermore, this approach allows a temporal model to be employed only for the classification problem, significantly reducing complexity.
+Since this is a fundamentally different approach, a tailored dataset and a new model must be developed.
+Additionally, the loss function must be adapted.
