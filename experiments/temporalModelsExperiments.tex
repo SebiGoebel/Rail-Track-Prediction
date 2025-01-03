@@ -160,7 +160,7 @@ Most experiments use a window length of 10 frames.
 The switch evaluation dataset evaluates the single-frame model's ability to detect tracks in the presence of switches.
 This evaluation dataset is needed because the \ac{IoU} is not meaningful when the switch is in the distance, as shown in \autoref{fig:incorrectButHighIoU}.
 However, evaluation can now be done on the temporal dataset.
-Since the dataset consists of sequences in which a train drivers over switches, this switch and the \ac{GT} of the rails are displayed from every possible distance, making the \ac{IoU} more meaningful.
+Since the dataset consists of sequences in which a train drives over switches, this switch and the \ac{GT} of the rails are displayed from every possible distance, making the \ac{IoU} more meaningful.
 
 There are different approaches to how temporal models can be evaluated.
 However, the method that resembles a practical application the most is video inference with the auto-cropping mechanism.

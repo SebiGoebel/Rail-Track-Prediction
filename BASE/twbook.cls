@@ -1080,12 +1080,14 @@ urlcolor=TWblue, urlbordercolor=white}
 \fi
 
 \clearpage
+\setcounter{tocdepth}{1}
 \tableofcontents
 
     \clearpage
     \setcounter{page}{1}}{
 
 \clearpage
+\setcounter{tocdepth}{1}
 \tableofcontents
 
     \clearpage
