@@ -1,4 +1,4 @@
-\section{improved TEP-Net}
+\section{Improved TEP-Net}
 
 Various adaptations improve the performance of the model.
 Experiments always consider one aspect of the architecture.
@@ -30,13 +30,13 @@ The standard deviation factors for the sides and the top are set to 0.3 and 0.1,
 \subsection{Backbones}
 
 In this work, experiments with four different backbones are conducted.
-\cite{tepNet2024} has experimented with various ResNet and EfficienNets versions.
+\cite{tepNet2024} has experimented with various ResNet and EfficientNets versions.
 Literature shows that MobileNets and DenseNets have also introduced significant advancements.
 The expected results of tests with DenseNets are high accuracies.
 When training models that incorporate MobileNets, an advantage in latency speed is expected;
 therefore, all versions of those two network architectures are implemented that are available in PyTorch \cite{pytorchmobilenetv3} \cite{pytorchdensenet}.
 \autoref{tab:backboneVersions} overviews all backbones and their versions utilized in this work.
-Additionally, section \autoref{subsubsec:backbones} explains the used layers.
+Additionally, \autoref{subsubsec:backbones} explains the used layers.
 Since all backbones must be interchangeable, this work discards some backbone layers.
 
 \subsection{Pooling Layers}
