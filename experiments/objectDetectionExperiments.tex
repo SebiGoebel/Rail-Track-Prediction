@@ -6,13 +6,13 @@ The semantic segmentation model should predict the track on a pixel level, and t
 Experiments started with training object detection models from the \ac{YOLO} series.
 The models \ac{YOLO}v7 \cite{yolov7} and \ac{YOLO}v9 \cite{YOLOv9} are selected to investigate their ability to predict switches and their states.
 Experiments have been conducted with RailSem19 and subsets of this dataset, which are further described in \autoref{sec:usedDatasetsYOLOs}.
-At the time \ac{YOLO}v9 has just been released.
+At the beginning of this work, \ac{YOLO}v9 was just released.
 Consequently, not all models were fully supported during the experiments.
 Therefore, the versions \ac{GELAN}-c and \ac{GELAN}-e are utilized.
 For the \ac{YOLO}v7 the smallest version with the highest reported speed is used.
 Many experiments are conducted with these three models, however only the best-performing are described.
 
-All \ac{YOLO} models have built-in data augmentation.
+When training \ac{YOLO} models, there is built-in data augmentation available.
 This includes a horizontal flip of images.
 Since this horizontal flip of images only flips images but does not change the label $switch\_left$ to $switch\_right$ and vice versa, this strategy cannot be used.
 Consequently, the probability of such flips is defined to be zero. The remaining default data augmentation is utilized in all experiments.
