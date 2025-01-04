@@ -7,7 +7,7 @@ Additionally, the data augmentation strategy remains consistent.
 
 Results are captured from inferring models on a video that includes scenes from the test set of the temporal dataset.
 The auto-cropping mechanism is also utilized to be as close to a practical application as possible.
-Furthermore, inference starts over 500 frames before the annotated sequence to give crop coordinators time to adapt to converge to their optimals.
+Furthermore, inference starts over 500 frames before the annotated sequence to give crop coordinators time to converge to their optimals.
 This process results in \ac{IoU}s for each frame.
 Consequently, \ac{IoU} trends for each model are plotted in \autoref{fig:IoUTrends}.
 The evaluation includes all models using the original and the adapted auto-crop to ensure thoroughness.
@@ -219,5 +219,5 @@ However, there are methods to enable real-time capability for these temporal mod
 For example switching the backbone to a MobileNet-Small, as given in \autoref{tab:temporalModelsResultsLatency}.
 This significantly reduces latency and falls below the real-time threshold of 33.33 ms.
 Nevertheless, this topic falls outside the scope of this work and is therefore addressed in the \autoref{sec:discussion} section.
-There are no accuracy evaluations conducted in this work for the model with the MobileNet backbone.
+In this study, no temporal models utilizing a MobileNet backbone have been examined with respect to their accuracy.
 Only the latency is measured.

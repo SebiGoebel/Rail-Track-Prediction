@@ -30,7 +30,7 @@ blindtext
 \end{table}
 
 \autoref{tab:backboneResults} shows the results of models with different backbones.
-Since \cite{tepNet2024} already implemented various versions of ResNet and EfficientNet.
+\cite{tepNet2024} already implemented various versions of ResNet and EfficientNet.
 Their results showed that ResNet18 is the fastest model and EfficientNet-B3 is the most accurate according to the \ac{IoU}.
 \autoref{tab:backboneResults} shows these results for a better overview and comparison.
 Data for those two models is from \cite{tepNet2024}, which does not give information about Flops.
@@ -51,7 +51,7 @@ Since the FP16 model also closely approaches the boundary, DenseNets are exclude
 
 \autoref{tab:backboneResults} shows the best values in each category in bold.
 Since these values spread across various models, further experiments must be conducted to determine a final backbone.
-Until now, only DenseNets are excluded.
+Becasue of their high latencies only DenseNets are excluded from further experiments with pooling layers.
 
 \subsection{Pooling Layers}
 
@@ -91,7 +91,7 @@ Until now, only DenseNets are excluded.
 
 Further improvements are the added actual pooling layers after the backbone.
 For this, models with EfficientNetB3, ResNet18, and MobileNetV3-Small are evaluated.
-These models, including DenseNet201, are shown in the first four rows of \autoref{tab:poolongResults} with no pooling to visualize the differences in performance better.
+The best versions of each backbone are shown in the first four rows of \autoref{tab:poolongResults} wiht no pooling to better visualize the differences in performance.
 
 An adaptive average or max pool is implemented for pooling layers.
 This work evaluates the three models with both layers.
@@ -202,4 +202,4 @@ That includes rails captured from very unusual angles that do not start from the
 In the image in the bottom row, additional rails lay in the track, introducing an extra challenge.
 
 \autoref{fig:comparisonBaseline2Improved} visualizes that the original model \cite{tepNet2024} struggles to find the track.
-The improved Version finds the track and correctly predicts the switch in each image, which proves that all introduced adaptations increase the system's robustness and thus enhance safety in a practical application.
+The improved Version finds the track and correctly predicts the switch in each image, which demonstrates that all introduced adaptations increase the system's robustness and thus enhance safety in a practical application.

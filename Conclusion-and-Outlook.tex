@@ -4,7 +4,7 @@
 
 % Conclusion
 This work aims to find the most effective vision-based approach for reliably identifying rail tracks.
-This rail track prediction system distinguishes between the rails the train is using and other rails the window.
+This rail track prediction system distinguishes between rails currently used by the train and other rails visible in the image.
 Additionally, this work primarily focuses on scenarios that include switches, which divide the rail track and the correct prediction of the train's path direction.
 Furthermore, the pursuit of real-time capability emphasizes the importance of keeping the implemented models as lightweight as possible.
 
@@ -43,7 +43,7 @@ This work discusses the real-time capabilities of all single-frame and temporal 
 %Outlook
 \noindent Results of temporal experiments show an improvement in frames where the train is located directly over a switch.
 However, further research must be conducted to improve the robustness of these models.
-Experiments can include reviewing and extending the temporal dataset.
+Further steps can include reviewing and extending the temporal dataset.
 The length of sequences can be increased, and in other situations, like tram scenes, can be added.
 Unnecessary scenes can be removed.
 Furthermore, only every third or fourth frame can be used in training, which simultaneously expands the temporal context window, decreases the number of frames over a switch, and helps with the real-time capability of the system.

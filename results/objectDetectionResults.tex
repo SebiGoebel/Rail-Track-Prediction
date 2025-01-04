@@ -5,7 +5,7 @@ The first approach is to train object detection models.
 For this, the \ac{YOLO}v7 and the \ac{GELAN}-c and \ac{GELAN}-e model versions from \ac{YOLO}v9 are trained.
 The best performance scores are obtained from an experiment conducted with the \ac{GELAN}-e model which outperformed the other models in accuracy.
 These results are acquired by fine-tuning a model, which is pre-trained on the COCO dataset.
-The onlySwitchesLeftRight sub-dataset from RailSem19 is used to train the model.
+The onlySwitchesLeftRight sub-dataset from RailSem19 is used to train the model (\autoref{sec:usedDatasetsYOLOs}).
 \autoref{fig:objectDetectionResultsMetrics} shows performance graphs like the F1 Curve and the Precision-Recall Curve, as well as the confusion matrix with both classes.
 
 \begin{figure}[H]
@@ -40,7 +40,7 @@ The confusion matrix also indicates that the model's prediction performances are
 The reason for that presumably lies in the complexity of the task.
 Switches look similar to rails and predicting switch states further increases the difficulty, because the only difference is the start of the switch.
 Additionally, the \ac{GT} bounding boxes of most switch labels are very small.
-As shown in \autoref{fig:annotationAnalysis} most crops have widths of about 0.02 and heights of about 0,015 relative to the dataset images.
+As shown in \autoref{fig:annotationAnalysis} most crops have widths of about 0.02 and heights of about 0.015 relative to the dataset images.
 Converted into pixels with the image resolution of $1920 \times 1080$, this results into crops with heights around 22 pixels and widths around 29 pixels.
 RailSem19 \cite{railsem19dataset} also states that this task is difficult.
 In one of their experiments, they only considered the crops of $switch\_left$ and $switch\_right$ labels and turned it into a classification task.

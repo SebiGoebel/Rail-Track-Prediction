@@ -126,6 +126,6 @@ Further adaptations to enhance robustness are done by increasing the margins, wh
 
 Additionally, a reset rule is implemented in which the crop coordinates are overwritten with predefined values.
 The behavior is observed that when models become uncertain, the horizon line converges to the bottom of the image.
-This behavior is used and the crop resets when the predicted horizon line is below 40\% of the crop height.
+This behavior is exploited and the crop resets when the predicted horizon line is below 40\% of the crop height.
 Experiments show that the following reset values are the most advantageous: left = 1/3 of image width, top = 1/2 of image height, right = 2/3 of image width.
 

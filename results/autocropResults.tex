@@ -52,7 +52,8 @@ Version 2 and 4 are the highest-performing methods.
 However, for this work Version 2 is used for further experiments because it does not introduce additional heuristics like Version 4.
 Therefore, it is more independent of scene situations.
 
-The parameters of the reset rule are chosen according to the behavior of models in different situations.
+The parameters of the reset rule, such as the allowed percentage by which the prediction can descend and the crop coordinates to which the crop is reset, are determined based on the observed behavior of the models in various scenarios.
+These parameters are described in \autoref{sec:autocropExperiments} in more detail.
 In uncertainty, all Models have receding horizon lines, even though different backbones are used.
 Therefore the crop is reset when the prediction is below 40\% of the crop height.
 Thresholds of 30\% 40\%, 50\%, and 60\% are tested.
