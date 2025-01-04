@@ -346,6 +346,29 @@ All models are visualized in \autoref{fig:temporalModels}.
         \includegraphics[width=\textwidth]{PICs/temporalModels/CNN_FLAT_FC.jpg}
         \caption{CNN\_FLAT\_FC}
     \end{subfigure}
+
+    % vierte Zeile
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/temporalModels/SKIP_CAT.png}
+        \caption{CNN\_LSTM\_SKIP\_CAT}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/temporalModels/SKIP_MUL.png}
+        \caption{CNN\_LSTM\_SKIP\_MUL\_FRAME}
+    \end{subfigure}
+    
+    \vspace{0.2cm} % Abstand zwischen den Zeilen
+
+    % fünfte Zeile
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/temporalModels/SKIP_MUL_TIME.png}
+        \caption{CNN\_LSTM\_SKIP\_MUL\_TIME}
+    \end{subfigure}
+    
     \caption{8 different temporal models for experiments. \textbf{(c)} and \textbf{(e)} have two versions in which the number of \ac{FC} layers vary. One \ac{FC} layer is used in for V1 and three Layers are used for the V2 model. Models \textbf{(a)}, \textbf{(b)}, \textbf{(c)} and \textbf{(d)} include LSTMs modules. Models \textbf{(e)} and \textbf{(f)} try to learn temporal dependencies only with \ac{FC} layers. Shape of heads resemble the architecture e.g. trapeze shaped contour is the trapeze head shown in \autoref{fig:predHeadTrapez}}
     \label{fig:temporalModels}
 \end{figure}
