@@ -162,7 +162,7 @@ In \cite{tepNet2024GitHub} it is set to 8, resulting in the dimensions $8 \times
 Then this feature map is flattened to a vector for further processing with fully connected layers.
 
 A critical positional encoding is missed when directly flattening this feature map.
-Therefore in this work after standardizing the dimensions with the \textit{conv2D1x1} layer, a true pooling layer is integrated.
+Therefore in this work after standardizing the dimensions with the \textit{conv2D1x1} layer, a true pooling layer is integrated as shown in \autoref{fig:truePoolingLayer}.
 This additional layer consists of either an adaptive average pooling \cite{pytorch_averagePool_docu} or an adaptive max pooling \cite{pytorch_maxPool_docu}.
 An additional encoding takes place resulting in a vector-like tensor with dimensions $C \times 1 \times 1$.
 Besides the extra positional encoding, a further gained advantage is that the structure of data stays the same when flattening this feature map to a vector.
@@ -274,7 +274,7 @@ This becomes a disadvantage especially when focusing on switches.
 While there are many possible approaches to dampen this issue, the most promising solution incorporates an \ac{RNN} in the model.
 The \ac{RNN} module should consider the temporal component and learn the dependencies between successive frames.
 Therefore, this \ac{CNN}-\ac{RNN} architecture inputs a video stream or in simpler terms, several consecutive frames instead of a single one.
-Since the wanted prediction output is the same as the single-frame-based model, it stays the same.
+The desired prediction output is the same as with the single-frame-based model.
 This effectively makes this approach a sequence-to-one problem, in which only the output of the last frame is considered.
 A schematic visualization is shown in \autoref{fig:schematicTemporalModel} in which the \ac{RNN} module is in the prediction head before the \ac{FC} layers.
 
@@ -286,7 +286,7 @@ A schematic visualization is shown in \autoref{fig:schematicTemporalModel} in wh
 \end{figure}
 
 The new problem formulation demands the development of new implementations and solutions.
-The single-frame-based model shows satisfactory performance in almost every scenario except ones including switches.
+The single-frame-based model performs satisfactorily in almost every scenario, except ones in which the train is located either before or directly over a switch.
 This led to the concept of reusing all parts of the single-frame-based system, as long as the new temporal problem formulation allows their re-usability.
 Since the new formulation deals with a sequence-to-one problem, the output is on a single frame. This allows the loss function to be used as it is.
 Another idea is to not waste any past experiments or model trainings.
@@ -296,11 +296,13 @@ Furthermore, in all experiments, backbones are frozen.
 This strategy does not allow weights to be changed during training.
 The idea is, that backbones are already trained to extract the most relevant features of images from single-frame-based trainings.
 
-Following these rules leads to 8 different model structures, which have been trained and evaluated on a new dataset tailored for this use case.
+Following these rules leads to 11 different model structures, which have been trained and evaluated on a new dataset tailored for this use case.
 There are two kinds of temporal models tested for this application.
 The first kind incorporates \ac{RNN} modules.
 For the second kind, the idea is to learn temporal dependencies only with \ac{FC} layers.
 All models are visualized in \autoref{fig:temporalModels}.
+\autoref{fig:temporalModels_c} and \autoref{fig:temporalModels_e} each visualizes two different model structures.
+While being similar the V1 models incorporate one \ac{FC} layer and the V2 models incorporate three \ac{FC} layers, indicated by $x * fc$ in the figures.
 
 \begin{figure}[H]
     \centering
@@ -324,6 +326,7 @@ All models are visualized in \autoref{fig:temporalModels}.
         \centering
         \includegraphics[width=\textwidth]{PICs/temporalModels/CNN_LSTM_V1_V2.jpg}
         \caption{CNN\_LSTM: $x=1$ (V1), $x=3$ (V2)}
+        \label{fig:temporalModels_c}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
@@ -339,6 +342,7 @@ All models are visualized in \autoref{fig:temporalModels}.
         \centering
         \includegraphics[width=\textwidth]{PICs/temporalModels/CNN_FC_FCOUT_V1_V2.jpg}
         \caption{CNN\_FC\_FCOUT: $x=1$ (V1), $x=3$ (V2)}
+        \label{fig:temporalModels_e}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
@@ -390,6 +394,13 @@ $Stacking$, on the other hand, stacks the feature map into one big vector, resul
 
 LSTMs output sequence tensors with the same dimensions $[B, S, C]$.
 Since only the features of the last sequence part are considered, the $last\_out$ transformation takes the channels of those images resulting in $[B, C]$ which is then further processed by \ac{FC} layers.
+The last three models include skip connections.
+The feature maps are either concatenated \cite{pytorch_concat_docu}, like in CNN\_LSTM\_SKIP\_CAT or multiplied when merging.
+Before multiplication a sigmoid $\sigma$ \cite{pytorch_sigmoid_docu} forces values into a range between 0 and 1.
+CNN\_LSTM\_SKIP\_MUL\_FRAME multiplies two feature maps of the same size, so every value in the feature map after the prediction head is weighted with a value between 0 and 1.
+CNN\_LSTM\_SKIP\_MUL\_TIME, on the other hand, reduces the size of $C$ to 1 before the LSTM.
+Therefore, the feature map after the prediction head is multiplied with as many values as there are frames in a sliding window, resulting in weighing the frames.
+
 Even though almost all transformations support multi-batch training, to ease the logic all experiments with temporal models are done with a batch size of 1.
-Similarly, when inferring these models a video stream consisting of multiple frames is transformed into a 4D tensor with dimensions $[S, C, H, W]$.
+Similarly, when inferring these models, a video stream consisting of multiple frames is transformed into a 4D tensor with dimensions $[S, C, H, W]$.
 Therefore, to support inference this tensor must be extended with a batch size of 1 resulting in a tensor with dimensions $[1, S, C, H, W]$, which the model can take as input.
