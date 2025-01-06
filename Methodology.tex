@@ -9,15 +9,26 @@ In \autoref{sec:usedModels} used and implemented models are explained.
 The data augmentation of these datasets is depicted in \autoref{sec:dataaugmentation}.
 \autoref{sec:lossFunction} deals with loss functions.
 After that, setups for training and inference measurements are described in \autoref{sec:trainigsSetup} and \autoref{sec:measuringInference}.
-Keep in mind that the main contributions of this work include three parts:
+The three main approaches pursued in this study are:
 %1. an initial approach to combine object detection with semantic segmentation;
 %2. TEP-Net \cite{tepNet2024} is the new baseline for further experiments to improve this model's accuracy and robustness;
 %3. An RNN is integrated into the model to increase robustness further;
 
+%\begin{enumerate}
+%    \item An initial approach to combine object detection with semantic segmentation.
+%    \item TEP-Net \cite{tepNet2024} is the new baseline for further improvements in accuracy and robustness.
+%    \item An RNN is integrated aiming to eliminate the limitation of single-frame-based approaches.
+%\end{enumerate}
+
 \begin{enumerate}
-    \item An initial approach to combine object detection with semantic segmentation.
-    \item TEP-Net \cite{tepNet2024} is the new baseline for further improvements in accuracy and robustness.
-    \item An RNN is integrated aiming to eliminate the limitation of single-frame-based approaches.
+    \item Firstly, an initial approach was taken that aimed to combine object detection and semantic segmentation.
+    However, due to unsatisfactory results, this methodology was deemed ineffective, leading to the pursuit of a fundamentally different solution.
+    \item Secondly, \ac{TEP}-Net \cite{tepNet2024} was chosen as the new baseline for further experiments.
+    Improvements are implemented with a specific focus on correct path prediction in the presence of switches.
+    \item Thirdly, as further improvements are anticipated through the use of the temporal component with \ac{RNN}s, the system was adjusted to accept video information rather than single frames as input.
+    Thus, the data loading logic was adapted and models were modified.
+    Additionally, a temporal dataset was created.
+    To minimize the workload for annotation, an auto labeler was developed utilizing the improved single-frame-based model.
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% Models %%%%%%%%%%%%%%%%%%%%%%%%%%
