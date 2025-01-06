@@ -3,7 +3,14 @@
 
 %%%%%%%%%%%%%%%%%%%%% Kurze Einführung %%%%%%%%%%%%%%%%%%%%%
 
-blindtext
+This chapter describes all experiments conducted in this work to either develop a functional rail track prediction system or improve existing methods.
+The structur can be roughly divided in the following categories:
+
+\begin{enumerate}
+    \item For an initial approach to combine object detection with semantic segmentation, experiments with object detectors are conducted and described in \autoref{sec:objectDetectionExperiments}.
+    \item TEP-Net \cite{tepNet2024} is chosen as the new baseline for further improvements in accuracy and robustness. Experiments include an adapted cropping mechanism for inference (\autoref{sec:autocropExperiments}) and various changes in the model architecture (\autoref{sec:improvedTEPNETExperiments}).
+    \item An additional approach to enhancing robustness involves integrating temporal information, thereby addressing the limitation of single-frame-based methods. Experiments are depicted in \autoref{sec:temporalModelsExperiments}.
+\end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% Object Detection Experiments %%%%%%%%%%%%%%%%%%%%%%%%%%
 

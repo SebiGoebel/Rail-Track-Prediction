@@ -1,4 +1,5 @@
-\subsection{Temporal Models}
+\section{Temporal Models}
+\label{sec:temporalModelsExperiments}
 
 Training temporal models requires changes in the data-handling logic of the training processes and a new temporal dataset.
 Models are trained with videos instead of single images.
@@ -17,7 +18,7 @@ Additionally, since these backbones already extract the most relevant features, 
 In order to find the best-performing network architecture and training strategy, a large amount of experiments and evaluations are conducted in this work.
 These include different data augmentation strategies, various model architectures trained on different versions of the temporal dataset, and multiple evaluation techniques.
 
-\subsubsection{Data Augmentation}
+\subsection{Data Augmentation}
 
 Augmenting temporal data is similar to augmenting single-frame data.
 However, they must be adjusted to augment a set of images instead of creating new augmentations for each video frame.
@@ -32,7 +33,7 @@ Leading to a new version of the sequential dataset.
 The whole dataset is flipped and attached at the back to compensate for the loss in data augmentation and variety in data.
 This way, the model trains without random flips within a sequence but still shows enhancements in accuracy because more data is available.
 
-\subsubsection{Temporal Dataset}
+\subsection{Temporal Dataset}
 
 Furthermore, while experimenting with temporal models, a key factor of the dataset is observed.
 The dataset also includes switch cases where one of the two possible paths continues in a straight line, and the other one splits off.
@@ -76,7 +77,7 @@ These sequences are selected to represent possible situations.
     \label{fig:temporalTestSet}
 \end{figure}
 
-\subsubsection{Hyperparameters}
+\subsection{Hyperparameters}
 
 Most experiments, especially the latest ones, are done with the same hyperparameters to provide a fair comparison.
 The best-performing single-frame-based model inspires the values used.
@@ -154,7 +155,7 @@ Most experiments use a window length of 10 frames.
     \label{tab:temporalExperimetparams}
 \end{table}
 
-\subsubsection{Evaluation}
+\subsection{Evaluation}
 
 The switch evaluation dataset evaluates the single-frame model's ability to detect tracks in the presence of switches.
 This evaluation dataset is needed because the \ac{IoU} is not meaningful when the switch is in the distance, as shown in \autoref{fig:incorrectButHighIoU}.
