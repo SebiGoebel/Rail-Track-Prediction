@@ -1,7 +1,7 @@
 \chapter{Introduction}
 \label{sec:introduction}
 
-After a drop in rail passenger transport in 2020, it quickly recovered and increased by almost 71\%, resulting in 328,3 million passengers in 2023 \cite{schienenpersonenverkehrAustria}.
+After a drop in rail passenger transport in Austria in 2020, it quickly recovered and increased by almost 71\%, resulting in 328,3 million passengers in 2023 \cite{schienenpersonenverkehrAustria}.
 The Wiener Linien and the ÖBB show similar trends with an increase of 218 million and 115,4 million passengers from 2020 to 2023 respectively \cite{wienerLinienAustria} \cite{oebbAustria}.
 
 The increase in train traffic is bound to a rise in accidents.
@@ -44,7 +44,7 @@ One particular task of an autonomous train system involves filtering out the are
 This area represents where the train is headed and the space, which is occupied next.
 
 The problem is, that many state-of-the-art techniques in the rail domain consider all rails or rail tracks, and often make no distinction between the train's track and other tracks \cite{tepNet2024}.
-This can be observed in \autoref{fig:railSem19-images-denseLabels}, in the right two images of \autoref{fig:railVID_dataset_images} and in \autoref{fig:RailSet-Seg_example_image_GT}.
+This can be observed in \autoref{fig:railTrackDetection}.
 While the segmentation of rails can be used for obstacle detection \cite{railNet2019}, the output of these methods can easily be misinterpreted \cite{tepNet2024}.
 Train infrastructure is complex, with multiple tracks often crossing, merging, or splitting at switches. Therefore, it is insufficient to recognize all tracks in a single image.
 A more targeted system is needed, which only detects the train's track and predicts the upcoming path at switches \cite{tepNet2024}.
@@ -55,15 +55,35 @@ A system of this kind leads to better-informed decisions \cite{tepNet2024}, poss
 This is why in the line of this work a distinction between \textit{rail detection} and \textit{rail track prediction} is made.
 On the one hand, \textit{rail detection} in this context is filtering out rails or rail tracks with no further information about the own or adjacent rails.
 On the other hand, \textit{rail track prediction} answers the question of where the train will be in the next few moments, with particular focus on scenarios where switches split the track.
-In \autoref{fig:train-ego-path} a \textit{rail detection} would ouput both the green and the red marked tracks as one class and a \textit{rail track prediction} outputs just the green track.
+A \textit{rail detection} output would look like \autoref{fig:railTrackDetection} and a \textit{rail track prediction} outputs just the green track of \autoref{fig:train-ego-path}.
+
+%In \autoref{fig:train-ego-path} a \textit{rail detection} would output both the green and the red marked tracks as one class, like \autoref{fig:railTrackDetection}, and a \textit{rail track prediction} outputs just the green track.
 
 \vspace{0.5cm} % Größerer Abstand zwischen den Reihen
 
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=0.5\linewidth]{PICs/Introduction/train-ego-path.png}
+%    \caption{Example of a diverging rail track at a switch. The trains path is marked in green. The path the train cannot take is marked in red. This path is be obstructed and would be %unsafe \cite{tepNet2024}. \textit{rail detection}-output: green and red track; \textit{rail track prediction}-output: green track}
+%    \label{fig:train-ego-path}
+%\end{figure}
+
+% Bild von Zugunfällen Münchendorf und Tschechien
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{PICs/Introduction/train-ego-path.png}
-    \caption{Example of a diverging rail track at a switch. The trains path is marked in green. The path the train cannot take is marked in red. This path is be obstructed and would be unsafe \cite{tepNet2024}. \textit{rail detection}-output: green and red track; \textit{rail track prediction}-output: green track}
-    \label{fig:train-ego-path}
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth, height=5cm, keepaspectratio]{PICs/Introduction/train-ego-path.png}
+        \caption{Example of a rail track prediction output \cite{tepNet2024}}
+        \label{fig:train-ego-path}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth, height=5cm]{PICs/Introduction/railTrackDetection.jpg} % trim={left bottom right top}
+        \caption{Example of a rail track detection output \cite{railsem19dataset}}
+        \label{fig:railTrackDetection}
+    \end{subfigure}
+    \caption{In \textbf{(a)} the trains path is marked in green. The path the train cannot take and would be unsafe is marked in red \cite{tepNet2024}. \textbf{(b)} shows a possible output of a rail track detection, in which all rails are marked in green without any distinction.}
+    \label{fig:comparisonRailTrackDetectionVSPrediction}
 \end{figure}
 
 The focus of \textit{rail track prediction} extends beyond solely camera-based detection of the train's path.

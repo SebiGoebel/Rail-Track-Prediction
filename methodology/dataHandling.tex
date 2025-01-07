@@ -42,35 +42,34 @@
     \label{fig:dataHandlingProcess}
 \end{figure}
 
-The Dataset class reads in images according to an index, performs online data augmentation and outputs a tensor.
+The Dataset class reads images according to an index, performs online data augmentation, and outputs a tensor.
 In the Dataset class also the targets are formed out of the augmented annotations.
 First Polylines are transformed into a mask, then the data augmentation from \autoref{sec:dataaugmentation} is applied.
-In the last step this augmented mask is used to generate regression or classification targets.
-For semantic segmentation the mask can be utilized directly.
+In the last step, this augmented mask is used to generate regression or classification targets.
+For semantic segmentation, the mask can be utilized directly.
 The Dataloader iterates through the dataset step by step and calls the dataset class using indices.
 It can either move step by step or rely on a sampler to dictate the stepping pattern.
-In temporal training, a sampler is essential for managing sequences, avoiding out-of-bound errors and preventing scene intermixing.
+In temporal training, a sampler is essential for managing sequences, avoiding out-of-bound errors, and preventing scene intermixing.
 A sliding window approach is implemented, shown in \autoref{fig:slidingWindow}.
 A window of a predefined number of images serves as input for the model.
-This number (usually 10) is smaller than the sequence length 76.
+This number (usually 10) is smaller than the sequence length of 76.
 Then the data loader steps through the sequence.
-At the end of a sequence the sampler forces the Dataloader to jump to the next sequence instead of mixing them.
-Furthermore the Datalaoder creates batches and therefore adds the dimension $B$ to the tensor.
+At the end of a sequence, the sampler forces the Dataloader to jump to the next sequence instead of mixing them.
+Furthermore, the Datalaoder creates batches and therefore adds the dimension $B$ to the tensor.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{PICs/usedDatasets/slidingWindow.jpg}
-    \caption{Sampler is responsible for the sliding window approach in temporal training: bottom lines represents the sequence with a length of 76 frames; the box is the window of frames used as the input for the model with x being the length of this window (with $x \leq 76$); the blue part of the sliding window represents the output frame, because this temporal method deals with a sequence-to-one problematic.}
+    \caption{Sampler is responsible for the sliding window approach in temporal training: bottom line represents the sequence with a length of 76 frames; the box is the window of frames used as the input for the model with x being the length of this window (with $x \leq 76$); the blue part of the sliding window represents the output frame because this temporal method deals with a sequence-to-one problematic.}
     \label{fig:slidingWindow}
 \end{figure}
 
 The training consists of a pre-defined number of epochs, which presents one training cycle.
 In each epoch, the Dataloader is used to feed the model one batch.
-Then the model predicts, calculates the loss according to this prediction and performs the back propagation to optimize the model.
-In the same cycle the validation is done, in which the Dataloader feeds the model samples of the validation set.
+Then the model predicts, calculates the loss according to this prediction, and performs the back propagation to optimize the model.
+In the same cycle, the validation is done, in which the Dataloader feeds the model samples of the validation set.
 Here only the prediction is done and the loss is calculated.
 Two additional steps are done in an epoch after training and validating.
-On the one hand, the scheduler updates the learning rate.
-In this work the OneCycleLR scheduler \cite{pytorch_oneCycleLR_docu} is used, which calculates the used learning rate according to a formula.
-On the other hand, when the validation loss reaches a new minimum, the model parameters are saved.
-This way the model with the lowest loss is obtained at the end of all epochs.
+On the one hand, the OneCycleLR scheduler \cite{pytorch_oneCycleLR_docu} is used to update the learning rate.
+On the other hand, a model is saved as the best one as soon as it reaches a new minimum in the validation loss.
+This way the model with the lowest loss is obtained.

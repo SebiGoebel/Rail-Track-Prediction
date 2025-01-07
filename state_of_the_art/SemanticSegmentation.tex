@@ -11,7 +11,7 @@ In 2019 \cite{railNet2019} introduced the RailNet architecture.
 This model uses a ResNet-50 \cite{ResNet} backbone and a fully convolutional network \cite{FullyConvolutionalNetworks2015} to segment the rail tracks.
 The network is designed in a pyramid structure \cite{FPN2017_two_stage-detector}, in which features of every ResNet stage are summed and up-sampled.
 This combines low and high-level features, resulting in an enhanced performance.
-\cite{railNet2019} reports higher accuracy than state-of-the-art segmentation models at the time with speeds up to 20 \ac{FPS}.
+\cite{railNet2019} reports higher accuracy than state-of-the-art segmentation models at the time with speeds up to 20 \ac{FPS} on an NVIDIA GTX1080 GPU.
 Tests are made on the introduced \ac{RSDS} dataset further described in \autoref{subsubsec:RSDS}.
 
 In 2019 RailSem19 \cite{railsem19dataset} introduced the first publicly available dataset for the rail domain.
@@ -20,7 +20,7 @@ This dataset is widely used in the community when working in the rail domain.
 \cite{RailNet2020} already uses a subset of RailSem19 in 2020 and proposed another model named RailNet that uses a VGG16 \cite{VGGNet2015} backbone and an Information Aggregation Module.
 Only rails are predicted, other annotations of RailSem19 are ignored.
 The characteristics of rails like placement and structure are considered.
-Therefore the integrated module is implemented to improve spatial relationship between features on both the vertical and horizontal axes.
+Therefore the integrated module is implemented to improve the spatial relationship between features on both the vertical and horizontal axes.
 \cite{automatedSemSeg2022} uses four subsets of RailSem19 with 2, 3, 4, or all 19 classes to train the U-Net \cite{uNet2015} architecture.
 Additionally, A cropping method is implemented to account for the difference in resolutions of RailSem19's images and the U-Net recommended one.
 \cite{hadded2022application} used the RailSet dataset \cite{railSet2022}, which is an extension of RailSem19 for segmentation and anomaly detection tasks.
@@ -34,7 +34,7 @@ Additionally, an improved BiSeNet architecture is proposed with consideration of
 In 2021 \cite{AccurateLightweightRailNet2021} proposed another architecture called RailNet.
 It consists of an Encoder-Decoder structure incorporating depth-wise convolutions and a Segmentation Soul block, inspired by the context embedding block of \ac{BiSeNet}V2 \cite{BiSeNetV22021}.
 Additionally, a port processing algorithm is utilized that is based on sliding window detection.
-\cite{AccurateLightweightRailNet2021} reports speeds up to 74 \ac{FPS} proving that this system is real-time capable.
+Tao et al. reports speeds up to 74 \ac{FPS} proving that this system is real-time capable \cite{AccurateLightweightRailNet2021}.
 
 A topic that could be interesting is anomaly detection because many state-of-the-art approaches use semantic segmentation as a preprocessing step.
 \cite{anomalyDetection2021} utilizes a \ac{BiSeNet} \cite{BiSeNet2019} architecture for segmenting rails, which is tailored for the anomaly detection task.

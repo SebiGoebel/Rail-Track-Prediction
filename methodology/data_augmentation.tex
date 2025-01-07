@@ -1,10 +1,10 @@
 \section{Data augmentation}
 \label{sec:dataaugmentation}
 
-In this section a thorough explanation of the data augmentation of \cite{tepNet2024} is given, for training and the cropping augmentation for inference.
+In this section, a thorough explanation of the data augmentation of \cite{tepNet2024} is given, for training and the cropping augmentation for inference.
 Additionally, all data augmentation strategies that are used in this work are described.
 %This includes a brief description of Yolos data augmentation.
-This includes the methods adapted for training temporal models and an improved "Autocropper" technique for inference.
+This includes the methods adapted for training temporal models and an improved autocroper technique for inference.
 
 \subsection{Data augmentation for Training single-frame-based models}
 
@@ -15,7 +15,7 @@ The third augmentation is the cropping mechanism, which reduces the image to the
 Randomness is also introduced to enhance generalization.
 
 \autoref{fig:tepNet_dataaugmentation} visualizes the cropping algorithm steps schematically.
-The \ac{GT} is in the form of polylines and are represented by the two green lines.
+The \ac{GT} is in the form of polylines and is represented by the two green lines.
 Then the yellow rectangle is computed, being the smallest possible rectangle around the \ac{GT}.
 In the next step, the start pixels of the rails \ac{GT} are centered by expanding the yellow borders in one direction resulting in the orange box.
 All start pixels of rails are in the lowest row of an image.
@@ -29,7 +29,7 @@ This introduced variability follows the policy, which ensures that the starting 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\linewidth]{PICs/Baselinepaper/data_augmenation.jpg}
-    \caption{Data augmentation of \ac{TEP}-Net \cite{tepNet2024}, including the image horizontal flips, the color variations and the cropping mechanism.}
+    \caption{Data augmentation of \ac{TEP}-Net \cite{tepNet2024}, including the image horizontal flips, the color variations, and the cropping mechanism.}
     \label{fig:tepNet_dataaugmentation}
 \end{figure}
 
@@ -59,7 +59,7 @@ The train's progress is most clearly visible through the pole of the overhead li
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth]{PICs//dataAugmentation/temporal_data_augmentation.jpg}
-    \caption{Data augmentation for temporal data processing, including the 1\textsuperscript{st}, 5\textsuperscript{th} and 10\textsuperscript{th} image of a sequence. First row resized raw images. Second row augmented images with the same three augmentation techniques for the whole sequence.}
+    \caption{Data augmentation for temporal data processing, including the 1\textsuperscript{st}, 5\textsuperscript{th} and 10\textsuperscript{th} image of a sequence. The first row shows resized raw images. The second row depicts augmented images with the same three augmentation techniques for the whole sequence.}
     \label{fig:temporalDataAugmentation}
 \end{figure}
 
@@ -78,14 +78,14 @@ The approach of \cite{tepNet2024} to solve this particular problem is the so-cal
 This developed technique starts with the whole image, so the initial crop coordinates are the image borders.
 After the initialization, the three coordinates (left, top, right) are updated according to the prediction of every new frame.
 In more detail, new coordinates are calculated with a running average of the smallest rectangle around the prediction plus the predefined margins from the training.
-Furthermore, the global averages of crop coordinates are taken in consideration.
-This allows the crop coordinates to converge to these global averages and prevent collapse scenarios, in which the crop becomes to small.
+Furthermore, the global averages of crop coordinates are taken into consideration.
+This allows the crop coordinates to converge to these global averages and prevent collapse scenarios, in which the crop becomes too small.
 
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\linewidth]{PICs/Baselinepaper/perspective_shifts.jpg}
-    \caption{Example of perspective shifts with three different scenarios: left curve, right curve and straight rail \cite{tepNet2024}.}
+    \caption{Example of perspective shifts with three different scenarios: left curve, right curve, and straight rail \cite{tepNet2024}.}
     \label{fig:perspective_shifts}
 \end{figure}
 
@@ -104,7 +104,7 @@ This allows the crop coordinates to converge to these global averages and preven
     \label{func:weightingAverage}
 \end{align}
 
-However, observations in the inference of videos demonstrate that the introduced autocrop mechanism is not optimal. The behavior shows that the \ac{RA} reacts slowly to the inside and the outside. This is especially problematic when the crop should quickly expand in one direction. Additionally, the borders of the crop converge to an overall average, presenting the same issues as when simply pre-defining a crop. Those behaviors can push the prediction outside the rails. In more detail when the rails move to the left or right in the image due to a perspective shift when the train takes a curve and the Autocroper does not react quickly enough, the rails are subsequently positioned outside the crop area. An additional issue presents the lack of an recovery option when the image crop is completely incorrect.
+However, observations in the inference of videos demonstrate that the introduced autocrop mechanism is not optimal. The behavior shows that the \ac{RA} reacts slowly to the inside and the outside. This is especially problematic when the crop should quickly expand in one direction. Additionally, the borders of the crop converge to an overall average, presenting the same issues as when simply pre-defining a crop. Those behaviors can push the prediction outside the rails. In more detail when the rails move to the left or right in the image due to a perspective shift when the train takes a curve and the autocroper does not react quickly enough, the rails are subsequently positioned outside the crop area. An additional issue presents the lack of a recovery option when the image crop is completely incorrect.
 
 \begin{align}
     x_t =  x_{t-1} * (1 - c) + pred_t * c
@@ -112,13 +112,13 @@ However, observations in the inference of videos demonstrate that the introduced
 \end{align}
 
 Therefore a new algorithm is implemented for this work to present a more robust solution.
-The desired behavior should be one that is more responsive to the outside to react to rapid changes in perspective.
+The desired behavior should be more responsive to the outside to react to rapid changes in perspective.
 Simultaneously, the crop should converge gradually to the inside to prevent any fast movements of crop coordinates, which possibly lead to collapse events.
 
 To realize such an algorithm an \ac{EMA} is utilized shown in \autoref{func:EMA}, in which only the old crop coordinates and the values from the prediction are weighted and added.
 $c$ is the coefficient which is set to 0.01 presenting slow movements to the inside.
 Additionally, with the same collapse prevention technique as before the crop cannot be smaller than the smallest rectangle of the prediction (yellow box in \autoref{fig:tepNet_dataaugmentation}).
-However, by directly calculating the crop coordinates without any averages in between like \autoref{func:runningAverage}, this leads to a different behavior.
+However, directly calculating the crop coordinates without any averages in between like \autoref{func:runningAverage} leads to a different behavior.
 The collapse prevention rule now overwrites the coordinates when the prediction expands, resulting in a rapid widening of the crop.
 
 Furthermore, the crop is bound to stay within image borders.

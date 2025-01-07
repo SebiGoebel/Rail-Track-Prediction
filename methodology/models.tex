@@ -1,32 +1,32 @@
 \section{Models}
 \label{sec:usedModels}
 
-In this section all models are discussed which are used or created in this work.
+In this section, all models are discussed which are used or created in this work.
 This section is divided into three subsections.
 Each of them corresponds to one of the main contributions of this work.
 Therefore the first section gives a brief overview of used object detection models, the second one with the \ac{TEP}-Net \cite{tepNet2024} because it is used as a baseline.
-Additionally, further improvements of this model are described in this section.
+Additionally, further improvements to this model are described in this section.
 The last section describes all temporal models.
 
 \subsection{Object Detection Models}
 
 The state of the art in \autoref{sec:ObjectDetection} shows that one-stage detectors have the most promising characteristics to be successfully utilized in this work.
 The most interesting ones are the models from the \ac{YOLO} series, especially the most recent ones because they focus on improved parameter usage.
-This makes the models light weight and presents an advantage for this work, because operation on limited hardware is aimed for.
-At the start of this work the most recent model from the \ac{YOLO} series is the \ac{YOLO}v9 \cite{YOLOv9}.
+This makes the models lightweight and presents an advantage for this work because operation on limited hardware is aimed for.
+At the start of this work, the most recent model from the \ac{YOLO} series is the \ac{YOLO}v9 \cite{YOLOv9}.
 For object detection different models of the \ac{YOLO}v9 and the \ac{GELAN} series are available.
 However, the \ac{YOLO}v9 models were not fully supported at that time.
 Therefore the models used for experiments include the \ac{GELAN}-c and \ac{GELAN}-e.
-These are obtained trough the GitHub repository \cite{YOLOv9GitHub} and used unchanged.
-An additional model which is used for experiments is the \ac{YOLO}v7 \cite{yolov7} model, which is also utilized unchanged from the GitHub repository \cite{YOLOv7GitHub}.
+These are obtained through the GitHub repository \cite{YOLOv9GitHub} and used unchanged.
+An additional model that is used for experiments is the \ac{YOLO}v7 \cite{yolov7} model, which is also utilized unchanged from the GitHub repository \cite{YOLOv7GitHub}.
 
 \subsection{TEP-Net Model}
 \label{subsec:baselineModel}
 
-In the literature rails are often detected without distinction between all rails visible in an image and the rail the train continues.
+In the literature, rails are often detected without distinction between all rails visible in an image and the rail the train continues.
 \cite{tepNet2024} therefore proposes a regression-based approach, which restricts the model to predict a single track.
 The idea comes from various lane detection methods in autonomous driving applications for road cars and is fitted to the rail domain.
-Since, this method fits well to the goal of this work, it is used as a baseline for further experiments.
+Since this method fits well to the goal of this work, it is used as a baseline for further experiments.
 
 Although rails can be represented by second or third-degree polynomials most of the time \cite{PolyLaneNetRoad2021}, they may also take more complex geometric shapes.
 Hence, limiting the output to presumed forms is discouraged.
@@ -35,7 +35,7 @@ Therefore, the method used in \cite{tepNet2024} employs spline interpolation to 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{PICs/Baselinepaper/TEP-Net_model.jpg}
-    \caption{\ac{TEP}-Net model architecture\cite{tepNet2024}. The input of the model is a cropped and resized image and the output of the model are the $x$-values for the left and right rail on each anchor line plus an additional value for the $y$-limit.}
+    \caption{\ac{TEP}-Net model architecture\cite{tepNet2024}. The input of the model is a cropped and resized image and the output of the model consists of the $x$-values for the left and right rail on each anchor line plus an additional value for the $y$-limit.}
     \label{fig:TEP-Net_model}
 \end{figure}
 
@@ -57,7 +57,7 @@ The size of the linear layers is set with a hyperparameter.
 In the last layer, a reduction leads to the resulting prediction vector with the dimension $2 \times H + 1$.
 This vector includes the entire information of one prediction.
 $H$ is the number of anchors.
-The first set of values with size $H$ is for the left rail, another $H$ set for the right rail and the $+ 1$ is for the last values being the horizon line.
+The first set of values with size $H$ is for the left rail, another $H$ set for the right rail and the $+ 1$ is for the last value being the horizon line.
 
 This architecture's policy for value ranges does not restrict the $x$-values in any way.
 This way predictions can be outside of a crop and the model can learn that sometimes the rails extend out of the viewed field.
@@ -91,7 +91,7 @@ These characteristics apply to all four chosen backbones.
 As described in the state of the art in \autoref{sec:networkArchitectures}, the most interesting models are ResNet \cite{ResNet}, EfficientNet \cite{EfficientNet}, DenseNet \cite{DenseNets}, and MobileNetV3 \cite{MobileNetV3}.
 ResNet and EfficientNet are already implemented in \cite{tepNet2024}.
 DenseNet and MobileNet are additionally integrated in this work.
-\autoref{tab:backboneVersions} gives an overview of all different versions which are implemented in this work.
+\autoref{tab:backboneVersions} gives an overview of all the different versions that are implemented in this work.
 
 \begin{table}[H]
     \centering
@@ -373,12 +373,12 @@ While being similar the V1 models incorporate one \ac{FC} layer and the V2 model
         \caption{CNN\_LSTM\_SKIP\_MUL\_TIME}
     \end{subfigure}
     
-    \caption{8 different temporal models for experiments. \textbf{(c)} and \textbf{(e)} have two versions in which the number of \ac{FC} layers vary. One \ac{FC} layer is used in for V1 and three Layers are used for the V2 model. Models \textbf{(a)}, \textbf{(b)}, \textbf{(c)} and \textbf{(d)} include LSTMs modules. Models \textbf{(e)} and \textbf{(f)} try to learn temporal dependencies only with \ac{FC} layers. Shape of heads resemble the architecture e.g. trapeze shaped contour is the trapeze head shown in \autoref{fig:predHeadTrapez}}
+    \caption{8 different temporal models for experiments. \textbf{(c)} and \textbf{(e)} have two versions in which the number of \ac{FC} layers vary. One \ac{FC} layer is used for V1 and three Layers are used for the V2 model. Models \textbf{(a)}, \textbf{(b)}, \textbf{(c)} and \textbf{(d)} include \ac{LSTM}s modules. Models \textbf{(e)} and \textbf{(f)} try to learn temporal dependencies only with \ac{FC} layers. The shapes of heads resemble the architecture e.g. trapeze shaped contour is the trapeze head shown in \autoref{fig:predHeadTrapez}}
     \label{fig:temporalModels}
 \end{figure}
 
 Since the temporal modules need data in other formats, the logic of data processing before and within the model has to be changed as well.
-The comparison between the data handling of single-frame training and the one proposed in this work for temporal training described in \autoref{sec:datahandling}.
+The comparison between the data handling of single-frame training and the one proposed in this work for temporal training is described in \autoref{sec:datahandling}.
 In typical models that take single images into account, the network gets tensors with four dimensions consisting of batch size $B$, channels $C$, high $H$, and width $W$ also shown in \autoref{fig:backboneLogic}.
 However, in this work, an additional dimension of the video stream length is introduced.
 $S$ therefore defines how many sequential frames the model is fed with, resulting in a 5D tensor $[B, S, C, H, W]$.
@@ -389,16 +389,16 @@ This feature map is then processed by the backbone.
 After flattening the tensor, only two dimensions remain $[B \times S, C]$.
 In \autoref{fig:temporalModels} this feature map is visualized with three blocks indicating multiple feature maps from numerous images.
 It stays that way until either a $reshape$ or a $stack$ transformation is conducted.
-In this work, $reshaping$ is done by transforming $[B \times S, C]$ to $[B, S, C]$ as this form is needed for LSTMs.
+In this work, $reshaping$ is done by transforming $[B \times S, C]$ to $[B, S, C]$ as this form is needed for \ac{LSTM}s.
 $Stacking$, on the other hand, stacks the feature map into one big vector, resulting in a tensor where all images are in the $C$ dimension. 
 
-LSTMs output sequence tensors with the same dimensions $[B, S, C]$.
+\ac{LSTM}s output sequence tensors with the same dimensions $[B, S, C]$.
 Since only the features of the last sequence part are considered, the $last\_out$ transformation takes the channels of those images resulting in $[B, C]$ which is then further processed by \ac{FC} layers.
 The last three models include skip connections.
-The feature maps are either concatenated \cite{pytorch_concat_docu}, like in CNN\_LSTM\_SKIP\_CAT or multiplied when merging.
+The feature maps are either concatenated \cite{pytorch_concat_docu}, like in CNN\_LSTM\_SKIP\_CAT, or multiplied when merging.
 Before multiplication a sigmoid $\sigma$ \cite{pytorch_sigmoid_docu} forces values into a range between 0 and 1.
 CNN\_LSTM\_SKIP\_MUL\_FRAME multiplies two feature maps of the same size, so every value in the feature map after the prediction head is weighted with a value between 0 and 1.
-CNN\_LSTM\_SKIP\_MUL\_TIME, on the other hand, reduces the size of $C$ to 1 before the LSTM.
+CNN\_LSTM\_SKIP\_MUL\_TIME, on the other hand, reduces the size of $C$ to 1 before the \ac{LSTM}.
 Therefore, the feature map after the prediction head is multiplied with as many values as there are frames in a sliding window, resulting in weighing the frames.
 
 Even though almost all transformations support multi-batch training, to ease the logic all experiments with temporal models are done with a batch size of 1.

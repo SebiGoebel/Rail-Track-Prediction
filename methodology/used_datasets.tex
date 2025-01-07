@@ -1,10 +1,10 @@
 \section{Datasets}
 \label{sec:usedDatasets}
 
-In this section all datasets are described that are used in this work.
-The first subsection describes which subsets of RailSem19 are used for the first attempt for the training of object detection models.
+In this section, all datasets are described that are used in this work.
+The first subsection describes which subsets of RailSem19 are used for the first attempt of the training of object detection models.
 Then the annotations of \cite{tepNet2024} are briefly discussed, which are used to train all single-frame-based models.
-After that a switch evaluation dataset is described that is used to evaluate singe-frame models on switch scenarios.
+After that, a switch evaluation dataset is described that is used to evaluate singe-frame models on switch scenarios.
 The last subsection deals with the temporal dataset and its creation.
 
 
@@ -47,7 +47,7 @@ To prevent confusion, all images containing $switch\_unknown$ annotations are in
 
 Since the experiments of training object detection models showed unsatisfactory results also described in \autoref{sec:objectDetectionResults}, this methodology was deemed ineffective.
 This leads to the pursuit of a different solution and experiments with semantic segmentation models are therefore not accomplished.
-Consequently the corresponding dense labels of the RailSem19 dataset are not utilized.
+Consequently, the corresponding dense labels of the RailSem19 dataset are not utilized.
 
 \subsection{TEP annotations}
 
@@ -57,7 +57,7 @@ Only the two rails are included in the labels which the train drives on.
 This is also the case when switches are present.
 Additionally, some images are excluded from this dataset when the train's track is not identifiable.
 For labeling this dataset the online tool CVAT \cite{cvat} is used.
-These annotations can then be transformed with pre processing step to support other models like semantic segmentation. 
+These annotations can then be transformed with a pre-processing step to support other models like semantic segmentation. 
 This dataset is described in more detail in \autoref{subsubsec:TEP-Net_dataset}.
 
 \subsection{Switch evaluation dataset}
@@ -141,7 +141,7 @@ By predicting each image 50 times crop coordinates have time to converge to a cr
 
 To train temporal models a dataset must be used that consists of videos and not only single images.
 \cite{tepNet2024} stated that there is no public temporal dataset available for the rail domain, which can be used for this use case.
-This statement is correct, to the best of the authors knowledge.
+This statement is correct, to the best of the author's knowledge.
 Therefore a YouTube video \cite{temporalDataset_youtube_video} from the RailSem19 dataset is used.
 No frames that are used in the RailSem19 dataset are used in the proposed temporal dataset.
 Since the focus on the problem formulation of all temporal models is to improve the performance when driving over switches, the new dataset consists of short sequences dealing with this exact used case.
@@ -182,6 +182,6 @@ All incorrect annotated images are therefore manually edited in CVAT \cite{cvat}
         \caption{}
         \label{fig:autolabler_c}
     \end{subfigure}
-    \caption{Process steps of auto-labeling: \textbf{(a)} prediction of best single-frame model and autocrop with 50 interations, \textbf{(b)} borders of prediction mask, \textbf{(c)} droped horizon line resulting in auto labeled polylines. All images are zoomed in for better visualization.}
+    \caption{Process steps of auto-labeling: \textbf{(a)} prediction of best single-frame model and autocrop with 50 iterations, \textbf{(b)} borders of prediction mask, \textbf{(c)} dropped horizon line resulting in auto labeled polylines. All images are zoomed in for better visualization.}
     \label{fig:autolabler}
 \end{figure}

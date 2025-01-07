@@ -41,7 +41,7 @@ The reason for that presumably lies in the complexity of the task.
 Switches look similar to rails and predicting switch states further increases the difficulty, because the only difference is the start of the switch.
 Additionally, the \ac{GT} bounding boxes of most switch labels are very small.
 As shown in \autoref{fig:annotationAnalysis} most crops have widths of about 0.02 and heights of about 0.015 relative to the dataset images.
-Converted into pixels with the image resolution of $1920 \times 1080$, this results into crops with heights around 22 pixels and widths around 29 pixels.
+Converted into pixels with the image resolution of $1920 \times 1080$, this results in crops with heights of around 22 pixels and widths of around 29 pixels.
 RailSem19 \cite{railsem19dataset} also states that this task is difficult.
 In one of their experiments, they only considered the crops of $switch\_left$ and $switch\_right$ labels and turned it into a classification task.
 Even after they expanded the crops vertically by 125\% and horizontally by 30\% to increase the context, they had many images with dimensions below 28 pixels.
@@ -50,7 +50,7 @@ After dropping those and training a denseNet161, the accuracy only achieved 67\%
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\linewidth]{PICs/experiments/objectdetectionExperiment/labels_updated.jpg}
-    \caption{Annotation analyses of \ac{YOLO}v9 \cite{YOLOv9GitHub}. In the lower two graphs the axis are relativ to the image dimensions.}
+    \caption{Annotation analyses of \ac{YOLO}v9 \cite{YOLOv9GitHub}. In the lower two graphs, the axes are relative to the image dimensions.}
     \label{fig:annotationAnalysis}
 \end{figure}
 

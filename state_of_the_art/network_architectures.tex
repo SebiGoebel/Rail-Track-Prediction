@@ -1,13 +1,13 @@
 \section{Network architectures}
 \label{sec:networkArchitectures}
 
-One of the first CNN architectures was the \textbf{Le-Net5} \cite{LeNet5}.
-This CNN was proposed to classify handwritten digits.
+One of the first \ac{CNN} architectures was the \textbf{Le-Net5} \cite{LeNet5}.
+This \ac{CNN} was proposed to classify handwritten digits.
 It used 5 convolution and pooling layers.
-14 years later CNNs were rediscovered with the introduction of \textbf{AlexNet} \cite{AlexNet2012} in 2012.
-In the \ac{ILSVRC} \cite{ILSVRC15} in 2012 \textbf{AlexNet} outperformed traditional algorithms and showed the potential of CNNs.
-Consequently, it is often considered the starting point of the CNN era in the literature.
-Since then research has shown a rapid development of CNN architectures, consistently striving for greater accuracy or speed \cite{networkArchitectureSurvey}.
+14 years later \ac{CNN}s were rediscovered with the introduction of \textbf{AlexNet} \cite{AlexNet2012} in 2012.
+In the \ac{ILSVRC} \cite{ILSVRC15} in 2012 \textbf{AlexNet} outperformed traditional algorithms and showed the potential of \ac{CNN}s.
+Consequently, it is often considered the starting point of the \ac{CNN} era in the literature.
+Since then research has shown a rapid development of \ac{CNN} architectures, consistently striving for greater accuracy or speed \cite{networkArchitectureSurvey}.
 
 \vspace{1cm} % Größerer Abstand zwischen den Reihen
 
@@ -17,21 +17,21 @@ Since then research has shown a rapid development of CNN architectures, consiste
     \item In 2014 two popular architectures were introduced, which still are often used for state-of-the-art comparisons. Firstly, the \textbf{\ac{VGGNet}} \cite{VGGNet2015} used small three-by-three filters and many layers providing a deep network architecture. Secondly, the \textbf{Inception} network or \textbf{GoogLeNet} \cite{InceptionNet}. To extract features in a range of various scales, this architecture utilized different filter sizes.
     \item In 2015 the \textbf{ResNet} architecture \cite{ResNet} introduced the concept of residual learning with shortcut connections. By skipping layers, this framework enabled the training of deeper networks with over a hundred layers \cite{networkArchitectureSurvey}.
     \item In 2016 \textbf{DenseNets} \cite{DenseNets} was introduced to further deal with the problem of vanishing gradients. This architecture implemented a connection between each layer and every following layer ensuring maximum information flow \cite{networkArchitectureSurvey}.
-    \item In 2017 \textbf{MobileNets} \cite{MobileNetV1} \cite{MobileNetV2} \cite{MobileNetV3} was developed for applications in mobile devices. Since hardware with limited capabilities is used, the main focus of MobileNet architectures lies on efficiency. The utilization of depthwise separable convolutions allowed small model sizes and fast latencies \cite{networkArchitectureSurvey}.
+    \item In 2017 \textbf{MobileNets} \cite{MobileNetV1} \cite{MobileNetV2} \cite{MobileNetV3} was developed for applications in mobile devices. Since hardware with limited capabilities is used, the main focus of MobileNet architectures lies on efficiency. The utilization of depth-wise separable convolutions allowed small model sizes and fast latencies \cite{networkArchitectureSurvey}.
     \item In 2019 \textbf{EfficientNets} \cite{EfficientNet} was introduced to further explore greater trade-offs between accuracy and efficiency, by using scaling methods for model architectures \cite{networkArchitectureSurvey}. 
 \end{itemize}
 
 \vspace{1cm} % Größerer Abstand zwischen den Reihen
 
-\noindent Since the CNNs are a part of a rapidly developing research field, more recent architectures are more interesting for this work.
+\noindent Since the \ac{CNN}s are a part of a rapidly developing research field, more recent architectures are more interesting for this work.
 Because they already solved issues that exist in older models.
-Therefore, only the last four mentioned CNNs are described in more detail in the next sections.
+Therefore, only the last four mentioned \ac{CNN}s are described in more detail in the next sections.
 
 \subsection{ResNets}
 
 A widely used model architecture in the community is ResNet \cite{ResNet}.
-Up to this architecture CNNs suffered from the vanishing gradient problem, particularly when the model consists of a deep network.
-A neural network is typically considered deep when it comprises a large number of consecutive layers.
+Before this architecture, \ac{CNN}s faced challenges with the vanishing gradient problem, especially in models with a significant depth.
+A neural network is generally classified as deep when it includes numerous sequential layers \cite{ResNet}.
 To solve that issue ResNet introduced the residual block that is also visualized in \autoref{fig:resnetResidualBlock}.
 This block enabled effective training of models with up to 152 layers. Compared to VGGNet ResNet is 8 times deeper but still less complex.
 ResNet showed a great performance gain and was therefore granted first place in the classification task of the ILSVRC 2015.
@@ -55,8 +55,8 @@ After that, the outputs are added together.
 DenseNet \cite{DenseNets} further explores skip connections and implemented architecture blocks in which each layer is connected to every following layer.
 An example of a so-called "dense block" is shown in \autoref{fig:densenetDenseBlock}.
 Compared to ResNet, this model connects outputs via concatenation instead of addition.
-Between dense bocks, there are the so-called "transition layers", consisting of one convolutional and then one pooling layer.
-This architecture allows deeper CNNs which result in more accuracy and efficiency.
+Between dense blocks, there are the so-called "transition layers", consisting of one convolutional and then one pooling layer.
+This architecture allows deeper \ac{CNN}s which result in more accuracy and efficiency.
 DenseNet showed great results with the introduced technique because their blocks further tackle the vanishing gradient problem with feature reuse.
 PyTorch includes DenseNet model variants with 121, 161, 169, 201 \cite{pytorchdensenet}.
 
@@ -72,9 +72,9 @@ PyTorch includes DenseNet model variants with 121, 161, 169, 201 \cite{pytorchde
 The goal of the MobileNet series \cite{MobileNetV3} is to efficiently operate on limited hardware for example on mobile devices.
 Therefore the main focus of these models is to be as lightweight as possible \cite{networkArchitectureSurvey}, meaning the reduction of parameters and ensuring real-time capabilities while maintaining comparable accuracy.
 There are 3 versions of MobileNets and each one builds upon and extends its predecessor.
-To achieve a reduced size version 1 utilizes depthwise separable convolutions.
-These blocks of convolutions consist of two steps. First, a depthwise convolution, where a kernel is deployed on each channel, followed by a pointwise convolution, where a 1x1 kernel combines the output from the first step \cite{networkArchitectureSurvey}.
-MobileNet V2 then added a layer with a 1x1 kernel before the depthwise convolution and a residual connection to create its so-called bottleneck blocks.
+To achieve a reduced size version 1 utilizes depth-wise separable convolutions.
+These blocks of convolutions consist of two steps. First, a depth-wise convolution, where a kernel is deployed on each channel, followed by a point-wise convolution, where a 1x1 kernel combines the output from the first step \cite{networkArchitectureSurvey}.
+MobileNet V2 then added a layer with a 1x1 kernel before the depth-wise convolution and a residual connection to create its so-called bottleneck blocks.
 A bottleneck block from MobileNetV2 is shown in \autoref{fig:mobileNetV2Block}.
 
 % Bild von MobileNet
@@ -101,8 +101,8 @@ A bottleneck block from MobileNetV2 is shown in \autoref{fig:mobileNetV2Block}.
 
 
 \noindent MobileNet V3 added optional blocks called Squeeze-and-Excite, which is illustrated in \autoref{fig:mobileNetV3Block}. 
-These blocks can be added to any CNN and consist of a global pooling layer and two fully connected layers with a ReLu and a Sigmoid activation function respectively.
-After that, the output of this additional block is multiplied with the input feature map of the SE block.
+These blocks can be added to any \ac{CNN} and consist of a global pooling layer and two fully connected layers with a ReLu and a Sigmoid activation function respectively.
+After that, the output of this additional block is multiplied by the input feature map of the SE block.
 This enables the weighing of specific channels \cite{SqueezeAndExcitation2019}.
 Additionally, for the MobileNet V3 a Network Search is used to find optimal network structures and experiments with various activation functions have been conducted \cite{MobileNetV3}.
 
@@ -112,7 +112,7 @@ Both the MobileNetV3\_small and MobileNetV3\_large are supported in PyTorch \cit
 
 \subsection{EfficientNets}
 
-EfficientNet \cite{EfficientNet} further investigates methods to find CNN architectures optimized for efficiency.
+EfficientNet \cite{EfficientNet} further investigates methods to find \ac{CNN} architectures optimized for efficiency.
 Inspired by MobileNet V3 the models also deploy residual bottleneck convolutions.
 \cite{EfficientNet} calls such a block an "MBConv".
 Since \cite{EfficientNet} observed the correlation between performance improvement and model scaling, the idea is to strategically adjust the depth, width, and resolution of a network.
@@ -138,9 +138,9 @@ All variants of the EfficientNet are included in the PyTorch library \cite{pytor
     \begin{subfigure}{0.4\textwidth}
         \centering
         \includegraphics[width=\linewidth, height=7cm, keepaspectratio]{PICs/backbones/EfficientNet_scaling.jpg}
-        \caption{scaling parameters of a network acording to \cite{EfficientNet}}
+        \caption{scaling parameters of a network according to \cite{EfficientNet}}
         \label{fig:efficientNet_scaled}
     \end{subfigure}
-    \caption{Systematic visualisation of scaling parameters of a network \cite{EfficientNet}}
+    \caption{Systematic visualization of scaling parameters of a network \cite{EfficientNet}}
     \label{fig:efficientNet_networks}
 \end{figure}

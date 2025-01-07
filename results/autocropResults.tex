@@ -31,8 +31,8 @@ The Results of autocrop versions are shown in \autoref{tab:autocropResults}.
     \end{tabular}
     \caption{Various versions of autocrops evaluated on the Switch evaluation dataset.
     Models predict each image 50 times and adjust the autocrop iteratively.
-    Version 2 includes multiple experiments different parameters for the reset rule.
-    Since the Evalutation dataset consists of images and the reset rule is applied in video sequences, only the best-performing parameters are included in this table.}
+    Version 2 includes multiple experiments with different parameters for the reset rule.
+    Since the evaluation dataset consists of images and the reset rule is applied in video sequences, only the best-performing parameters are included in this table.}
     \label{tab:autocropResults}
 \end{table}
 
@@ -127,7 +127,7 @@ Additionally, the ResNet18 backbone is used because it is the worst-performing o
     % Beschriftung unter dem Grid
     \vspace{0.5cm}
     \caption{Comparison between the original and the adapted auto-crop including frames 100, 700, 1000, 1600, and 1900 of the evaluation video \cite{temporalDataset_youtube_video}.
-    First row is the original auto-crop from \cite{tepNet2024} and the second row is the proposed one.}
+    The first row is the original auto-crop from \cite{tepNet2024} and the second row is the proposed one.}
     \label{fig:autocropVideoComparison}
 \end{figure}
 
@@ -146,11 +146,11 @@ Additionally, the ResNet18 backbone is used because it is the worst-performing o
         \caption{Adapted auto-crop mechanism (Version 2)}
         \label{fig:autocropResultsTrends_b}
     \end{subfigure}
-    \caption{Tred of the evalutation video \cite{temporalDataset_youtube_video} shown in \autoref{fig:autocropVideoComparison}.
+    \caption{Trend of the evaluation video \cite{temporalDataset_youtube_video} shown in \autoref{fig:autocropVideoComparison}.
     The first and second graphs with a single green line show the rail width at the first anchor line.
-    The second and fourth graph show crop coordinates (blue=left, red=right, green=top).
+    The second and fourth graphs show crop coordinates (blue=left, red=right, green=top).
     Jumps in graphs from the adapted mechanism indicate resets, like the one at around frame 600.
-    It also shows that with the original technique crop coords are stable and the prediction is not and the improved auto-crop reverses this relationship.}
+    It also shows that with the original technique, cropcoords are stable and the prediction is not and the improved auto-crop reverses this relationship.}
     \label{fig:autocropResultsTrends}
 \end{figure}
 
@@ -163,9 +163,9 @@ Therefore, the track width at the first anchor line is a good indicator of uncer
 \autoref{fig:autocropVideoComparison} shows the frames 100, 700, 1000, 1600, and 1900.
 \autoref{fig:autocropResultsTrends} visualizes the trend of track width and crop coordinates.
 
-As shown in frames 100, both models need time to find the right track.
+As shown in frame 100, both models need time to find the right track.
 The unstable rail width of both models also indicates this.
-\autoref{fig:autocropResultsTrends_b} displays a jump of crop coords and rail width at around frame 600, indicating a reset.
+\autoref{fig:autocropResultsTrends_b} displays a jump of cropcoords and rail width at around frame 600, indicating a reset.
 After that, the adapted auto-crop mechanism proves to be correct and stable.
 However, in the video with the original cropping mechanism, the crop converges to an area that does not include the rail.
 Since the system does not include a reset rule, it cannot recover from the mistake at the start.

@@ -20,11 +20,11 @@ While TuSimple is captured on US highways CULane's images are from Beijing.
 
 \noindent \cite{LaneDetectionCascadedCNNs2019} proposed one of the first lane detection approaches on TuSimple.
 The proposed method detects lanes and classifies the kind of lane.
-Two cascaded CNNs are utilized, the first one is an encoder-decoder network for instance segmentation and the second one is a classification network.
+Two cascaded \ac{CNN}s are utilized, the first one is an encoder-decoder network for instance segmentation and the second one is a classification network.
 \cite{rowwiseClassification2020} uses an encoder-decoder network at the start, then an introduced horizontal reduction module, that transforms features into a row-wise representation. In the last stage, the network outputs two branches. One that predicts the horizontal location of lanes and another that outputs a confidence score.
 However, both of those approaches utilize encoder-decoder structures and are therefore similar to the techniques used for semantic segmentation.
 Other structures for lane detection include key point extraction, grid systems, or polyline regression.
-Research in those directions are described in the next three paragraphs, following projects with similar approaches for the rail domain.
+Research in those directions is described in the next three paragraphs, following projects with similar approaches for the rail domain.
 
 \subsubsection{Keypoint detection on the road}
 
@@ -56,7 +56,7 @@ While accuracy is lower than with other methods, it still is comparable.
 \cite{DetectingLanesWithBezierCurves2023} proposed an approach that also predicts the parameters of a cubic curve.
 Instead of the polynomial coefficients, the parameters of Bezier curves are predicted.
 A Bezier curve is fitted in an area defined by four control points.
-For the network structure a typical backbone like ResNet with additional feature flip fusion modules is utilized.
+For the network structure, a typical backbone like ResNet with additional feature flip fusion modules is utilized.
 Then a pooling and two convolutional layers are implemented sequentially, which form the final output of predictions.
 Compared to polynomial fitting the approach proposed in \cite{DetectingLanesWithBezierCurves2023} is superior.
 
@@ -92,7 +92,7 @@ In 2024 this approach is also used by TEP-Net \cite{tepNet2024} with only the tr
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{PICs/lineDetection/gridDetection.jpg}
-    \caption{Rail detection with Gridsystem \cite{li2022rail}. Hyperparameters: $C$ is the number of rails (number of grids). $h$ is the number of cells vertically. $w+1$ is the number of cells horizontally with an additional column for a background class, when no rail is detected in a row.}
+    \caption{Rail detection with Gridsystem \cite{li2022rail}. Hyperparameters: $C$ is the number of rails (number of grids). $h$ is the number of cells vertically. $w+1$ is the number of cells horizontally with an additional column for a background class when no rail is detected in a row.}
     \label{fig:gridLineDetection}
 \end{figure}
 
@@ -100,5 +100,5 @@ In 2024 this approach is also used by TEP-Net \cite{tepNet2024} with only the tr
 \cite{RailraodSemanticPossibleTracks2020} and \cite{TPENet2023} expect that switch states cannot accurately be determined.
 Therefore they try to filter out all possible tracks.
 \cite{tepNet2024} extends the problem formulation with the assumption that switch states can be correctly predicted.
-This eliminates the need for heavy post processing and leads to a lightweight model that only predicts the right and left rail of the trains path.
+This eliminates the need for heavy postprocessing and leads to a lightweight model that only predicts the right and left rail of the train's path.
 Since the use case of \cite{tepNet2024} and the goal of this work overlap in almost all aspects, this paper is described in more detail in \autoref{sec:baselinepaper}.

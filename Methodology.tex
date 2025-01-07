@@ -10,7 +10,7 @@ The data augmentation of these datasets is depicted in \autoref{sec:dataaugmenta
 \autoref{sec:lossFunction} deals with loss functions.
 After that, setups for training and inference measurements are described in \autoref{sec:trainigsSetup} and \autoref{sec:measuringInference}.
 The three main approaches pursued in this study are:
-%1. an initial approach to combine object detection with semantic segmentation;
+%1. An initial approach to combine object detection with semantic segmentation;
 %2. TEP-Net \cite{tepNet2024} is the new baseline for further experiments to improve this model's accuracy and robustness;
 %3. An RNN is integrated into the model to increase robustness further;
 
@@ -41,20 +41,9 @@ The three main approaches pursued in this study are:
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Datasets %%%%%%%%%%%%%%%%%%%%%%%%%
 
-% RailSem19 for Yolos + used subsets [1/2 bis 1 Seite]
-% TEP-annotations [1/2 Seite bzw. ein kurzer Absatz]
-% Switch evaluation dataset (all images with switches from val and test dataset) [1/2 Seite bzw. ein kurzer Absatz]
-% auto labler + temporal dataset + dass ich CVAT versendet habe[1 bis 2 Seiten]
-
 \input{methodology/used_datasets.tex}
 
 %%%%%%%%%%%%%%%%%%%% Data augmentation %%%%%%%%%%%%%%%%%%%%%
-
-%grobe Einteilung:
-% - Data augmentation for Training
-% - Data augmentation for Temporal Training
-% - Cropping in inference
-% - improved auto crop 
 
 \input{methodology/data_augmentation.tex}
 
