@@ -52,10 +52,24 @@
 
 \place{Vienna}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Danksagung/Kurzfassung/Schlagworte
-\kurzfassung{\blindtext}
-\schlagworte{Schlagwort1, Schlagwort2, Schlagwort3, Schlagwort4}
-\outline{\blindtext}
-\keywords{Keyword1, Keyword2, Keyword3, Keyword4}
+\kurzfassung{Von 2020 bis 2023 hat der Bahnverkehr in Österreich deutlich zugenommen, was mit mehreren weichenbezogenen Unfällen einhergeht.
+Während autonome Systeme wie Gleiskörpererkennung (rail track prediction) eine potenzielle Lösung darstellen um solche Unfälle zu vermeiden, übersehen viele moderne Ansätze im Bahnbereich eine wichtige Unterscheidung zwischen dem Gleis des Zuges und anderen Gleisen.
+
+Daher konzentriert sich diese Arbeit auf die Entwicklung eines Systems mit genau dieser besonderen Unterscheidung. Darüber hinaus liegt ein besonderer Schwerpunkt auf der korrekten Vorhersage der Fahrtrichtung bei Weichen und auf der Echtzeitfähigkeit des Systems.
+In einem ersten Ansatz wird versucht, Objekterkennung mit einer semantischen Segmentierung zu kombinieren. In den ersten Experimenten wird mit Hilfe von Objektdetektoren versucht Weichenstellungen zu bestimmen. Aufgrund der unzureichenden Ergebnisse wird eine fundamental andere Lösung gesucht. Als neue Baseline dient ein leichtgewichtiges Modell, das die beiden Schienen des Zuges regressiert. Mit einem verbesserten Mechanismus für Bildausschnitte, der für den Input verantwortlich ist, und einer angepassten Modellarchitektur wird eine höhere Robustheit erreicht.
+
+Um die Robustheit weiter zu erhöhen, nutzt diese Arbeit zeitliche Information mit einem Sequenz-zu-Eins-Ansatz, bei dem Videos als Input akzeptiert werden und eine Vorhersage für das letzte Bild getroffen wird. Diese Arbeit passt die Modellarchitekturen, die Datenverarbeitung und die Augmentation der Daten für diesen neuen Ansatz an. Darüber hinaus wird ein zeitlicher Datensatz erstellt, der sich auf problematischen Szenen mit Weichen konzentriert und die Einschränkungen von Modellen einschränkt, die nur einzelne Bilder als Input annehmen. Elf temporale Modelle werden implementiert und auf dem NVIDIA Jetson AGX Xavier evaluiert. Die Ergebnisse zeigen eine verbesserte Genauigkeit und ein stabileres Verhalten in Weichensituationen. Temporale Modelle leiden unter erhöhten Latenzen, jedoch werden in dieser Arbeit Lösungen für die Echtzeitfähigkeit vorgeschlagen.
+}
+\schlagworte{Robuste Gleiskörpererkennung, Weichensituationen, Temporale Modelle, Sequenz-zu-Eins, Echtzeitfähigkeit, LSTM}
+\outline{From 2020 to 2023, there was a significant rise in rail traffic in Austria, accompanied by several accidents involving switches.
+While autonomous systems, such as rail track detection, present promising methods to reduce these incidents, many state-of-the-art approaches in the rail domain miss an important distinction between the train's track and adjacent ones.
+
+Therefore, this work focuses on developing a system with this particular differentiation. Furthermore, the special focus is on correctly predicting the train's direction at switches and the system's real-time capability.
+An initial approach tries to combine object detection with semantic segmentation. In the first experiments, object detectors determined switch states. Due to unsatisfactory results, a fundamentally different solution is found. A lightweight model serves as the new baseline that regresses the two rails of the train's path. Enhanced robustness is archived with an improved cropping mechanism responsible for input images and an adapted model architecture.
+
+To further increase robustness, this work exploits temporal information with a sequence-to-one approach, inputting videos and predicting the last image. The study adapts model architectures, data handling, and data augmentation for this approach. Furthermore, a temporal dataset is created that focuses on switch scenes and to eliminate the limitation of single-frame-based models. Eleven temporal models are implemented and evaluated on the NVIDIA Jetson AGX Xavier. Results show improved accuracy and more stable behaviors in switch scenarios. While temporal models suffer from increased latencies, solutions are proposed for real-time operability.
+}
+\keywords{Robust rail track prediction, switch scenarios, temporal models, sequence-to-one, real-time, LSTM}
 \acknowledgements{\blindtext}
 \setListingsAndAcronyms % Definition der Namen für Quellcodeverzeichnis 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ende des Headers

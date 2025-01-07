@@ -3,7 +3,12 @@
 \label{sec:conclusionAndOutlook}
 
 % Conclusion
-This work aims to find the most effective vision-based approach for reliably identifying rail tracks.
+From 2020 to 2023, rail traffic has significantly increased in Austria.
+In these years, multiple switch-related accidents occurred, which resulted in fatalities.
+An autonomous system can prevent such incidents when predicting the train's direction, particularly at switch cases.
+However, state-of-the-art approaches often miss a key distinction between the train's rail track and others.
+
+Therefore, this work aims to find the most effective vision-based approach for reliably identifying rail tracks.
 This rail track prediction system distinguishes between rails currently used by the train and other rails visible in the image.
 Additionally, this work primarily focuses on scenarios that include switches, which divide the rail track and the correct prediction of the train's path direction.
 Furthermore, the pursuit of real-time capability emphasizes the importance of keeping the implemented models as lightweight as possible.
@@ -12,7 +17,7 @@ The state-of-the-art related to the rail domain includes only a few papers that 
 However, these introduce the concept of possible tracks, which include all possible paths a train could take.
 When a switch is present in the scene, both paths are considered because of the assumption that the switch state cannot be determined correctly.
 
-From this point, experiments are conducted with object detection models from the Yolo series that focus on detecting and determining the state of upcoming switches.
+From this point, experiments are conducted with object detection models from the \ac{YOLO} series that focus on detecting and determining the state of upcoming switches.
 The unsatisfactory results of these experiments led to the pursuit of a fundamentally different solution.
 
 During these experiments with object detection models, a paper was published that introduces a promising approach by changing the problem formulation from a detection method to a regression technique.
@@ -20,6 +25,10 @@ This approach showed promising results and is therefore selected as a new baseli
 A significant portion of this work focuses on making this approach more robust.
 Enhancements are achieved by experimenting with different backbones, model architectures, and cropping mechanisms that define the model's input.
 Results on a tailored dataset that primarily focuses on unusual perspective angles and switch scenarios show that robustness can be improved.
+The final optimized model demonstrates an improvement in accuracy of 6.61\% compared to the original model, with an increase in latency of less than 1 ms.
+Despite this minor latency increase, the model remains well within the constraints of real-time performance thresholds.
+Using a MobileNetV3-Backbone for this model still achieves an \ac{IoU} of 96.19\%, which is slightly below original models (a maximal decrease of 1.34\%).
+However, latencies are reduced to 2.05 ms, proving a significant increase in speed. 
 
 However, the main limitation of this system lies in the approach being single-frame-based.
 That presents an issue when driving over switches, and the start of the switch blades is no longer visible in the image.
@@ -32,8 +41,10 @@ The sequences are auto-labeled with the single-frame-based model and manually co
 Consequently, the data augmentation, dataloading logic, and evaluation process are adapted to support video input instead of single images.
 Transfer learning and a sliding window approach are used to train various temporal models.
 The results of these experiments show an improved accuracy at frames in which the train is directly located over the switch.
+When considering the most relevant temporal test sequences, temporal models achieve an increase in \ac{IoU} of up to 16.43\%.
 Proving that exploiting the temporal dimension provides an advantage and can increase robustness further.
 However, more research must be conducted when employing the system for a real-world application.
+Especially, since temporal models show latencies up to 328.86 ms.
 
 In addition to accuracy evaluations, all models are optimized with the NVIDIAs TensorRT framework, and latencies are measured on an NVIDIA Jetson AGX Xavier.
 This work discusses the real-time capabilities of all single-frame and temporal models, either proving that they are below a certain threshold of video inference or presenting further approaches to make models real-time operable.
@@ -42,9 +53,8 @@ This work discusses the real-time capabilities of all single-frame and temporal 
 
 %Outlook
 \noindent Results of temporal experiments show an improvement in frames where the train is located directly over a switch.
-However, further research must be conducted to improve the robustness of these models.
-Further steps can include reviewing and extending the temporal dataset.
-The length of sequences can be increased, and in other situations, like tram scenes, can be added.
+However, further research steps can include reviewing and extending the temporal dataset.
+The length of sequences can be increased, and other situations, like tram scenes, can be added.
 Unnecessary scenes can be removed.
 Furthermore, only every third or fourth frame can be used in training, which simultaneously expands the temporal context window, decreases the number of frames over a switch, and helps with the real-time capability of the system.
 
@@ -54,6 +64,6 @@ When no switch is present, only two rails are visible.
 Both are annotated twice in this case.
 An additional part of the model must then be developed to decide which two of the four rails are the ones of the train.
 The idea is to outsource the decision of which rails are used to a classifier while keeping the regression part of the model as accurate as possible.
-Furthermore, this approach allows a temporal model to be employed only for the classification problem, significantly reducing complexity.
+Furthermore, this approach allows a temporal module to be employed only for the classification problem, significantly reducing complexity.
 Since this is a fundamentally different approach, a tailored dataset and a new model must be developed.
 Additionally, the loss function must be adapted.
