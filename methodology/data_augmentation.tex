@@ -1,11 +1,10 @@
-
 \section{Autocrop mechanism for inference}
 \label{sec:autocrop}
 
-This section gives a detailed describtion of the so-called autocrop.
+This section gives a detailed description of the so-called autocrop.
 This cropping mechanism is responsible for cutting out the desired input for the model in inference.
 First, the autocrop from \cite{tepNet2024} is described in detail.
-Furthermore, an improved version of the this cropping mechanism is explained.
+Furthermore, an improved version of this cropping mechanism is explained.
 
 \subsection{Autocrop for inference with TEP's cropping mechanism}
 
@@ -36,7 +35,7 @@ This allows the crop coordinates to converge to these global averages and preven
 \subsection{Improved Autocrop for inference}
 \label{sec:imporvedAutocrop}
 
-\cite{tepNet2024} incorporates a \ac{RA} \autoref{func:runningAverage} with rule-based policies to prevent collapse to the inside and consider image borders when adding a margin. After that, the newly calculated and checked average is weighted and added to form the new crop coordinates, like in \autoref{func:weightingAverage}. In these formulas $AVG$ is the average, $x$ is the crop coordinates and $pred$ is the values obtained from the prediction. In \autoref{func:weightingAverage} the same annotations are used with $c$ being the coefficient, which is 0.1. All notations but $c$ include all three crop coordinates: left, top right.
+\cite{tepNet2024} incorporates a \ac{RA} \autoref{func:runningAverage} with rule-based policies to prevent collapse to the inside and consider image borders when adding a margin. After that, the newly calculated and checked average is weighted and added to form the new crop coordinates, like in \autoref{func:weightingAverage}. In these formulas, $AVG$ is the average, $x$ is the crop coordinates and $pred$ is the values obtained from the prediction. In \autoref{func:weightingAverage} the same annotations are used with $c$ being the coefficient, which is 0.1. All notations but $c$ include all three crop coordinates: left, top right.
 
 \begin{align}
     AVG_t = \frac{AVG_{t-1} \cdot (t-1) + pred_t}{t}
@@ -76,7 +75,7 @@ Experiments show that the following reset values are the most advantageous: left
 \section{Data augmentation}
 \label{sec:dataaugmentation}
 
-In this section, a thorough explaination of the data augmentation of \cite{tepNet2024} is given.
+In this section, a thorough explanation of the data augmentation of \cite{tepNet2024} is given.
 Additionally, the adapted data augmentation for training temporal models is described in detail.
 
 \subsection{Data augmentation for Training single-frame-based models}
