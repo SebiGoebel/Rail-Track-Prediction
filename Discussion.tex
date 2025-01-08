@@ -4,6 +4,7 @@
 This chapter includes a discussion about the gathered results.
 Furthermore, the research questions introduced at the beginning of this work are addressed comprehensively and ultimately answered.
 Therefore this chapter is divided into the individual research questions.
+An additional subchapter briefly describes two approaches that were not pursued further and describes an idea for future research.
 
 \subsubsection{1. What is the most effective vision-based approach for reliably identifying the rail track the train travels on, ensuring precise direction detection and robustness, especially in scenarios involving switches?}
 
@@ -232,5 +233,93 @@ This is because, although the current state of this work achieves higher accurac
 Furthermore, in scenarios without switches, single-frame-based models outperform temporal models, necessitating a method to potentially integrate both approaches and switch to the advantageous model for the given scenario.
 
 \subsubsection{Approaches that were not pursued further}
+\label{subsubsec:furtherApproachForOutlook}
 
-this section briefly describes approaches that were not pursued further and describes the reason for 
+This subsection describes two tested but not further pursued methods and explains why.
+Additionally, it briefly describes an idea for further research.
+
+During the finalization of this work, \cite{segmentAnything22024} introduced the Segment Anything 2, a framework for visual segmentation.
+This framework accepts videos as input in which the user can select objects with anchor points, and the model tracks these objects.
+The dataset needed to train this model consists of 50.9K videos with 35.5M masks.
+Therefore, training this model demands substantial data, which the rail domain datasets cannot meet.
+A pre-trained model has to be applied.
+Brief experiments include applying the pre-trained model on the video used for this work's temporal dataset, and the results are depicted in \autoref{fig:segmentanything2}.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.328\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{PICs/discussion/segmentanything2_weicheWeiter.jpg}
+        \caption{}
+        \label{fig:segmentanything2_a}
+    \end{subfigure}
+    %\hspace*{0.02\textwidth} % Abstand manuell steuern
+    \hfill
+    \begin{subfigure}{0.328\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{PICs/discussion/segmentanything2_weicheWeg.jpg}
+        \caption{}
+        \label{fig:segmentanything2_b}
+    \end{subfigure}
+    \begin{subfigure}{0.328\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{PICs/discussion/segmentanything2_weicheWeg2.jpg}
+        \caption{}
+        \label{fig:segmentanything2_c}
+    \end{subfigure}
+    \caption{Predictions of Segment Anything 2 \cite{segmentAnything22024} on the video of the temporal dataset. \textbf{(a)} shows that this model predicts the switch incorrectly. \textbf{(b)} and \textbf{(c)} show that Segment Anything 2 predicts only up to the switch. When the train moves on, the prediction stays at the switch eventually disapearing out of the frame.}
+    \label{fig:segmentanything2}
+\end{figure}
+
+\autoref{fig:segmentanything2} shows that segmenting the rail track of the train is possible without including adjacent rails.
+That presents an advantage over most state-of-the-art rail track detection systems, which do not include a distinction between those rail tracks.
+However, the model cannot determine the correct track at switches.
+Either the model predicts the path straight ahead or stops at a switch.
+When the prediction stops at the switch and the train 
+Additionally, from a visual inspection alone, it is visible that the model is less accurate according to IoU than most models presented in this work.
+Therefore, this approach is not recommended for further investigations.
+
+The second approach tried in this work but not further pursued comes from state-of-the-art approaches, often including detecting multiple road lanes or rails.
+\cite{li2022rail} presents an interesting approach, which detects multiple rails.
+A hyperparameter can define the number of rails.
+In the original project, four rails are detected \cite{railNet2022GitHub}.
+
+This work conducts a quick experiment in which a pre-trained model of \cite{li2022rail} tries to predict the rails in the video used for this work's temporal dataset.
+First, observations show that this model, trained on a particular dataset, cannot generalize for scenes that look different.
+The authors also state this in the corresponding GitHub repository \cite{railNet2022GitHub}.
+Consequently, this project does not offer a baseline that fits as well as~\cite{tepNet2024}.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{PICs/discussion/multirail_example.jpg}
+        \caption{Prediction on image similar to dataset.}
+        \label{fig:mutlirailTest_a}
+    \end{subfigure}
+    %\hspace*{0.02\textwidth} % Abstand manuell steuern
+    \hfill
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{PICs/discussion/multirail.jpg}
+        \caption{Prediction on video of temporal dataset.}
+        \label{fig:mutlirailTest_b}
+    \end{subfigure}
+    \caption{Four rails predicted with \cite{li2022rail} in both scenes. The model is trained on the dataset of \cite{li2022rail}. The comparison shows accurate prediction in \textbf{(a)}, but cannot generalize for the scene of \textbf{(b)}.}
+    \label{fig:mutlirailTest}
+\end{figure}
+
+Since \cite{tepNet2024} used the exact model for the state-of-the-art comparison, which shows generalization is possible with the right dataset.
+However, \cite{tepNet2024} only includes detecting two rails.
+A new dataset has to be created to detect multiple rails.
+
+The attempt to detect four rails resulted in the idea of an approach that could be interesting for future research.
+Since the research of this work and the state-of-the-art comparison of \cite{tepNet2024} showed that the regression approach is superior to classification, a model could regress four rails instead of only two rails.
+In scenes with switches, these annotations are the four rails of the switch, labeled with increasing numbers from left to right.
+When no switch is present, only two rails are visible.
+Both are annotated twice in this case.
+An additional part of the model must then be developed to decide which two of the four rails are the ones of the train.
+The idea is to outsource the decision of which rails are used to a classifier while keeping the regression part of the model as accurate as possible.
+Furthermore, this approach allows a temporal module to be employed only for the classification problem, significantly reducing complexity.
+Since this approach differs from everything presented in this work, a tailored dataset and a new model must be developed.
+Additionally, the loss function must be adapted.

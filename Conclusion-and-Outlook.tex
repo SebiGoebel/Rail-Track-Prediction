@@ -58,12 +58,8 @@ The length of sequences can be increased, and other situations, like tram scenes
 Unnecessary scenes can be removed.
 Furthermore, only every third or fourth frame can be used in training, which simultaneously expands the temporal context window, decreases the number of frames over a switch, and helps with the real-time capability of the system.
 
-A fundamentally different approach could include a similar technique, but the model predicts four rails instead of regressing only two rails.
-In scenes with switches, these annotations are the four rails of the switch, labeled with increasing numbers from left to right.
-When no switch is present, only two rails are visible.
-Both are annotated twice in this case.
-An additional part of the model must then be developed to decide which two of the four rails are the ones of the train.
-The idea is to outsource the decision of which rails are used to a classifier while keeping the regression part of the model as accurate as possible.
-Furthermore, this approach allows a temporal module to be employed only for the classification problem, significantly reducing complexity.
-Since this is a fundamentally different approach, a tailored dataset and a new model must be developed.
-Additionally, the loss function must be adapted.
+A different approach for future research is presented in \autoref{subsubsec:furtherApproachForOutlook}.
+This method could regress four rails instead of two and an additional classifier chooses the two rails of the train.
+The idea is to keep predicted rails accurate and outsourcing the decision of which rails to use to reduce complexity.
+This would require a new dataset and a new model.
+Furthermore, the loss function needs to be adapted.
