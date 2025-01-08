@@ -1,69 +1,13 @@
-\section{Data augmentation}
-\label{sec:dataaugmentation}
 
-In this section, a thorough explanation of the data augmentation of \cite{tepNet2024} is given, for training and the cropping augmentation for inference.
-Additionally, all data augmentation strategies that are used in this work are described.
-%This includes a brief description of Yolos data augmentation.
-This includes the methods adapted for training temporal models and an improved autocroper technique for inference.
+\section{Autocrop mechanism for inference}
+\label{sec:autocrop}
 
-\subsection{Data augmentation for Training single-frame-based models}
+This section gives a detailed describtion of the so-called autocrop.
+This cropping mechanism is responsible for cutting out the desired input for the model in inference.
+First, the autocrop from \cite{tepNet2024} is described in detail.
+Furthermore, an improved version of the this cropping mechanism is explained.
 
-\cite{tepNet2024} utilizes three data augmentation techniques in the training process.
-The first two are commonly used in \ac{CV} tasks, including random horizontal flips and traditional image adjustments like brightness, contrast, saturation, and hue variations.
-For this, the standard ColorJitter \cite{pytorch_colorJitter_docu} method from PyTorch is used.
-The third augmentation is the cropping mechanism, which reduces the image to the most relevant part.
-Randomness is also introduced to enhance generalization.
-
-\autoref{fig:tepNet_dataaugmentation} visualizes the cropping algorithm steps schematically.
-The \ac{GT} is in the form of polylines and is represented by the two green lines.
-Then the yellow rectangle is computed, being the smallest possible rectangle around the \ac{GT}.
-In the next step, the start pixels of the rails \ac{GT} are centered by expanding the yellow borders in one direction resulting in the orange box.
-All start pixels of rails are in the lowest row of an image.
-After that margins are added shown by the red rectangle.
-These margins are predefined with hyperparameters.
-After calculating the borders of the outermost box, variability is added to enhance generalization and prevent biases.
-The left, right, and top borders are moved by a distance calculated with a predefined normal distribution.
-This introduced variability follows the policy, which ensures that the starting pixels of the rails at the bottom stay in the cropped image.
-\autoref{fig:tepNet_dataaugmentation} illustrates four augmented variations of the top image in the bottom row.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\linewidth]{PICs/Baselinepaper/data_augmenation.jpg}
-    \caption{Data augmentation of \ac{TEP}-Net \cite{tepNet2024}, including the image horizontal flips, the color variations, and the cropping mechanism.}
-    \label{fig:tepNet_dataaugmentation}
-\end{figure}
-
-\subsection{Data augmentation for Training temporal models}
-\label{sec:dataAugmentationTemporal}
-
-For training temporal models the same three data augmentation strategies as the ones from training single-frame-based models are utilized for enhanced generalization.
-These again include horizontal flips, color variations, and a similar cropping mechanism.
-However, when training a model with sequences of images, the same augmentation must be used on all images of this sequence.
-For the first two augmentation techniques, random values are obtained and saved in variables.
-Then these random factors are applied to each image in the sequence.
-For the horizontal flip, a threshold at $0.5$ and a random value between $0$ and $1$ define if a sequence is flipped or not.
-To achieve the same effect as the ColorJitter \cite{pytorch_colorJitter_docu} function from the single-frame training, four uniform distributions are implemented outputting random values for brightness, contrast, saturation, and hue.
-These are then the parameters for the functions: \texttt{adjust\_brightness} \cite{pytorch_adjust_brightness_docu}, \texttt{adjust\_contrast} \cite{pytorch_adjust_contrast_docu}, \texttt{adjust\_saturation} \cite{pytorch_adjust_saturation_docu}, and \texttt{adjust\_hue} \cite{pytorch_adjust_hue_docu}.
-
-The cropping mechanism needs more consideration.
-First, the same method as the one from single-frame training is applied to the first image of a sequence to obtain the red borders shown in \autoref{fig:tepNet_dataaugmentation}.
-To still guarantee randomness to minimize the risk of unwanted biases, the location of the left, right, and top borders are moved according to a normal distribution.
-To assure consistency along a sequence, the distances between the red borders and the random borders are calculated.
-From this point on the red borders are calculated in every image as before and these distances are used to incorporate random factors, instead of new random values for every image.
-The whole algorithm still follows a policy that the starting pixels of the rails stay in the image crop.
-\autoref{fig:temporalDataAugmentation} visualizes an example sequence with raw images in the top row and augmented crops in the bottom row.
-The first, middle, and last images of a sequence with 10 images are shown.
-The train's progress is most clearly visible through the pole of the overhead line. 
-
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\linewidth]{PICs//dataAugmentation/temporal_data_augmentation.jpg}
-    \caption{Data augmentation for temporal data processing, including the 1\textsuperscript{st}, 5\textsuperscript{th} and 10\textsuperscript{th} image of a sequence. The first row shows resized raw images. The second row depicts augmented images with the same three augmentation techniques for the whole sequence.}
-    \label{fig:temporalDataAugmentation}
-\end{figure}
-
-\subsection{Cropping in inference with TEP's Autocrop}
+\subsection{Autocrop for inference with TEP's cropping mechanism}
 
 In \cite{tepNet2024} only cropped images are used for training models to only consider the most relevant \ac{ROI} in images.
 For training and validating the model on the dataset, the \ac{GT} allows the computation of crop coordinates (left, top, right).
@@ -129,3 +73,65 @@ The behavior is observed that when models become uncertain, the horizon line con
 This behavior is exploited and the crop resets when the predicted horizon line is below 40\% of the crop height.
 Experiments show that the following reset values are the most advantageous: left = 1/3 of image width, top = 1/2 of image height, right = 2/3 of image width.
 
+\section{Data augmentation}
+\label{sec:dataaugmentation}
+
+In this section, a thorough explaination of the data augmentation of \cite{tepNet2024} is given.
+Additionally, the adapted data augmentation for training temporal models is described in detail.
+
+\subsection{Data augmentation for Training single-frame-based models}
+
+\cite{tepNet2024} utilizes three data augmentation techniques in the training process.
+The first two are commonly used in \ac{CV} tasks, including random horizontal flips and traditional image adjustments like brightness, contrast, saturation, and hue variations.
+For this, the standard ColorJitter \cite{pytorch_colorJitter_docu} method from PyTorch is used.
+The third augmentation is the cropping mechanism, which reduces the image to the most relevant part.
+Randomness is also introduced to enhance generalization.
+
+\autoref{fig:tepNet_dataaugmentation} visualizes the cropping algorithm steps schematically.
+The \ac{GT} is in the form of polylines and is represented by the two green lines.
+Then the yellow rectangle is computed, being the smallest possible rectangle around the \ac{GT}.
+In the next step, the start pixels of the rails \ac{GT} are centered by expanding the yellow borders in one direction resulting in the orange box.
+All start pixels of rails are in the lowest row of an image.
+After that margins are added shown by the red rectangle.
+These margins are predefined with hyperparameters.
+After calculating the borders of the outermost box, variability is added to enhance generalization and prevent biases.
+The left, right, and top borders are moved by a distance calculated with a predefined normal distribution.
+This introduced variability follows the policy, which ensures that the starting pixels of the rails at the bottom stay in the cropped image.
+\autoref{fig:tepNet_dataaugmentation} illustrates four augmented variations of the top image in the bottom row.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{PICs/Baselinepaper/data_augmenation.jpg}
+    \caption{Data augmentation of \ac{TEP}-Net \cite{tepNet2024}, including the image horizontal flips, the color variations, and the cropping mechanism.}
+    \label{fig:tepNet_dataaugmentation}
+\end{figure}
+
+\subsection{Data augmentation for Training temporal models}
+\label{sec:dataAugmentationTemporal}
+
+For training temporal models the same three data augmentation strategies as the ones from training single-frame-based models are utilized for enhanced generalization.
+These again include horizontal flips, color variations, and a similar cropping mechanism.
+However, when training a model with sequences of images, the same augmentation must be used on all images of this sequence.
+For the first two augmentation techniques, random values are obtained and saved in variables.
+Then these random factors are applied to each image in the sequence.
+For the horizontal flip, a threshold at $0.5$ and a random value between $0$ and $1$ define if a sequence is flipped or not.
+To achieve the same effect as the ColorJitter \cite{pytorch_colorJitter_docu} function from the single-frame training, four uniform distributions are implemented outputting random values for brightness, contrast, saturation, and hue.
+These are then the parameters for the functions: \texttt{adjust\_brightness} \cite{pytorch_adjust_brightness_docu}, \texttt{adjust\_contrast} \cite{pytorch_adjust_contrast_docu}, \texttt{adjust\_saturation} \cite{pytorch_adjust_saturation_docu}, and \texttt{adjust\_hue} \cite{pytorch_adjust_hue_docu}.
+
+The cropping mechanism needs more consideration.
+First, the same method as the one from single-frame training is applied to the first image of a sequence to obtain the red borders shown in \autoref{fig:tepNet_dataaugmentation}.
+To still guarantee randomness to minimize the risk of unwanted biases, the location of the left, right, and top borders are moved according to a normal distribution.
+To assure consistency along a sequence, the distances between the red borders and the random borders are calculated.
+From this point on the red borders are calculated in every image as before and these distances are used to incorporate random factors, instead of new random values for every image.
+The whole algorithm still follows a policy that the starting pixels of the rails stay in the image crop.
+\autoref{fig:temporalDataAugmentation} visualizes an example sequence with raw images in the top row and augmented crops in the bottom row.
+The first, middle, and last images of a sequence with 10 images are shown.
+The train's progress is most clearly visible through the pole of the overhead line. 
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{PICs//dataAugmentation/temporal_data_augmentation.jpg}
+    \caption{Data augmentation for temporal data processing, including the 1\textsuperscript{st}, 5\textsuperscript{th} and 10\textsuperscript{th} image of a sequence. The first row shows resized raw images. The second row depicts augmented images with the same three augmentation techniques for the whole sequence.}
+    \label{fig:temporalDataAugmentation}
+\end{figure}

@@ -10,22 +10,7 @@ In \cite{tepNet2024}, the train's rails are defined as the "ego path" and others
 To realize a system with this output \cite{tepNet2024} presents a novel regression-based approach, inspired by autonomous driving applications for road cars.
 Contributions include: new annotations tailored for this use case, two data augmentation strategies, a novel model architecture, and a custom loss function.
 
-\vspace{1cm} % Größerer Abstand zwischen den Reihen
-
-\noindent \textbf{New annotations} are labeled for this project, which only considers the "ego-path".
-Images are taken from the RailSem19 dataset \cite{tepNet2024}.
-For further details of the dataset, please refer to section \ref{subsubsec:TEP-Net_dataset}.
-
-\vspace{1cm} % Größerer Abstand zwischen den Reihen
-
-\noindent \textbf{Two data augmentation strategies} are deployed: one for training and one for inference \cite{tepNet2024}.
-In the training along with usual methods like image color variations and horizontal flips, a cropping mechanism is implemented, which is dependent on the \ac{GT}.
-This allows to only focus on the most relevant part of the image.
-Since only crops are used for training, the use case in inference must reflect something similar.
-Therefore an autocrop method is developed, which crops images according to a running average of previous predictions.
-Both of those techniques are described in \autoref{sec:dataaugmentation} in more detail.
-
-\vspace{1cm} % Größerer Abstand zwischen den Reihen
+\vspace{0.7cm} % Größerer Abstand zwischen den Reihen
 
 \noindent \textbf{The model architecture} introduced by \cite{tepNet2024}, includes a backbone for feature extraction followed by a prediction head.
 The head is constructed out of fully connected layers and forms the output at the end.
@@ -33,7 +18,27 @@ The output vector includes the $x$-values for the left and the right rail on anc
 \autoref{fig:TEP-Net_sota_models} shows the proposed regression model in the middle.
 A more detailed description is given in \autoref{subsec:baselineModel}.
 
-\vspace{1cm} % Größerer Abstand zwischen den Reihen
+\vspace{0.7cm} % Größerer Abstand zwischen den Reihen
+
+\noindent \textbf{New annotations} are labeled for this project, which only considers the "ego-path".
+Images are taken from the RailSem19 dataset \cite{tepNet2024}.
+For further details of the dataset, please refer to \autoref{subsubsec:TEP-Net_dataset}.
+
+\vspace{0.7cm} % Größerer Abstand zwischen den Reihen
+
+\noindent \textbf{The autocrop mechanism} is developed for inference \cite{tepNet2024}.
+This technique delivers the most relevant crop of the input frame according to a running average of previous predictions.
+This method is described in \autoref{sec:autocrop} in more detail.
+
+\vspace{0.7cm} % Größerer Abstand zwischen den Reihen
+
+\noindent \textbf{Data augmentation strategies} are deployed for training \cite{tepNet2024}, including methods like image color variations and horizontal flips.
+Since inference focuses on crops instead of whole images, the training must reflect something similar.
+Therefore, a random cropping is also used, dependent on the \ac{GT}.
+It allows the model to adapt to different image crops in inference.
+All data augmentation methods are described in \autoref{sec:dataaugmentation} in more detail.
+
+\vspace{0.7cm} % Größerer Abstand zwischen den Reihen
 
 \noindent \textbf{The loss function} is tailored to the regression approach and is constructed of two functions.
 The trajectory loss, which is responsible for the horizontal error, and the y-limit loss, which takes the horizon line into account.
