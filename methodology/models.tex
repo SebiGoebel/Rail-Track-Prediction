@@ -296,7 +296,8 @@ Furthermore, in all experiments, backbones are frozen.
 This strategy does not allow weights to be changed during training.
 The idea is, that backbones are already trained to extract the most relevant features of images from single-frame-based trainings.
 
-Following these rules leads to 11 different model structures, which have been trained and evaluated on a new dataset tailored for this use case.
+Following these rules leads to over 50 different models, which have been trained and evaluated on a new dataset tailored for this use case.
+The 11 most relevant versions of model structures are depicted in \autoref{fig:temporalModels}.
 There are two kinds of temporal models tested for this application.
 The first kind incorporates \ac{RNN} modules.
 For the second kind, the idea is to learn temporal dependencies only with \ac{FC} layers.

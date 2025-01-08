@@ -24,11 +24,12 @@ The three main approaches pursued in this study are:
     \item Firstly, an initial approach was taken that aimed to combine object detection and semantic segmentation.
     However, due to unsatisfactory results, this methodology was deemed ineffective, leading to the pursuit of a fundamentally different solution.
     \item Secondly, \ac{TEP}-Net \cite{tepNet2024} was chosen as the new baseline for further experiments.
-    Improvements are implemented with a specific focus on correct path prediction in the presence of switches.
+    Improvements are implemented with a specific focus on correct path prediction in the presence of switches. This approach includes extensive testing and evaluation of a large number of models resulting in one final model architecture combined with the most advantageous cropping mechanism for inference.
     \item Thirdly, as further improvements are anticipated through the use of the temporal component with \ac{RNN}s, the system was adjusted to accept video information rather than single frames as input.
     Thus, the data loading logic was adapted and models were modified.
     Additionally, a temporal dataset was created.
     To minimize the workload for annotation, an auto labeler was developed utilizing the improved single-frame-based model.
+    Again extensive experimenting with a large number of models and training strategies leads to the final results.
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% Models %%%%%%%%%%%%%%%%%%%%%%%%%%

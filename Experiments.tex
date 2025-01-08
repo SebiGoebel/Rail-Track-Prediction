@@ -3,13 +3,14 @@
 
 %%%%%%%%%%%%%%%%%%%%% Kurze Einführung %%%%%%%%%%%%%%%%%%%%%
 
-This chapter describes all experiments conducted in this work to either develop a functional rail track prediction system or improve existing methods.
+In the scope of this work, extensive testing and evaluation processes lead to final models.
+This chapter describes the most relevant experiments conducted in this work to either develop a functional rail track prediction system or improve existing methods.
 The structure can be roughly divided into the following categories:
 
 \begin{enumerate}
     \item For an initial approach to combine object detection with semantic segmentation, experiments with object detectors are conducted and described in \autoref{sec:objectDetectionExperiments}.
-    \item TEP-Net \cite{tepNet2024} is chosen as the new baseline for further improvements in accuracy and robustness. Experiments include an adapted cropping mechanism for inference (\autoref{sec:autocropExperiments}) and various changes in the model architecture (\autoref{sec:improvedTEPNETExperiments}).
-    \item An additional approach to enhancing robustness involves integrating temporal information, thereby addressing the limitation of single-frame-based methods. Experiments are depicted in \autoref{sec:temporalModelsExperiments}.
+    \item TEP-Net \cite{tepNet2024} is chosen as the new baseline for further improvements in accuracy and robustness. Experiments include an adapted cropping mechanism for inference (\autoref{sec:autocropExperiments}) and various changes in the model architecture (\autoref{sec:improvedTEPNETExperiments}). A final model is obtained by extensive training and evaluation.
+    \item An additional approach to enhancing robustness involves integrating temporal information, thereby addressing the limitation of single-frame-based methods. Experiments are depicted in \autoref{sec:temporalModelsExperiments}. 
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% Object Detection Experiments %%%%%%%%%%%%%%%%%%%%%%%%%%
