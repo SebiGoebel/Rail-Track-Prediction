@@ -25,7 +25,8 @@ Additionally, for noise in the data, it includes a smooth transition at zero.
 One issue of the front view perspective is the so-called linear perspective effect.
 This effect occurs when rails continue into the distance.
 The same pixel error represents a small distance when near the camera's capturing point and a larger distance when far away.
-This ratio grows linearly the greater the distance to the camera.
+This ratio grows linearly the greater the distance to the camera~\cite{tepNet2024}.
+This effect only must be considered before the horizon line of the prediction.
 To counteract this effect, the results of the $L_{rails}(\hat{\mathbf{X}}_{i},\mathbf{X}_{i})$ are multiplied by the $w_{i}$ factor, which is inversely proportional to the width of the rail.
 To prevent distortion of the results due to unreasonable weighting $W_{max}$ is used.
 This value is the %95^{\text{th}}
