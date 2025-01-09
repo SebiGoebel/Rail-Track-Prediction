@@ -238,7 +238,7 @@ Furthermore, in scenarios without switches, single-frame-based models outperform
 This subsection describes two tested but not further pursued methods and explains why.
 Additionally, it briefly describes an idea for further research.
 
-During the finalization of this work, \cite{segmentAnything22024} introduced the Segment Anything 2, a framework for visual segmentation.
+During the finalization of this work, \cite{segmentAnything22024} introduced Segment Anything 2, a framework for visual segmentation.
 This framework accepts videos as input in which the user can select objects with anchor points, and the model tracks these objects.
 The dataset needed to train this model consists of 50.9K videos with 35.5M masks.
 Therefore, training this model demands substantial data, which the rail domain datasets cannot meet.
@@ -267,7 +267,7 @@ Brief experiments include applying the pre-trained model on the video used for t
         \caption{}
         \label{fig:segmentanything2_c}
     \end{subfigure}
-    \caption{Predictions of Segment Anything 2 \cite{segmentAnything22024} on the video of the temporal dataset. \textbf{(a)} shows that this model predicts the switch incorrectly. \textbf{(b)} and \textbf{(c)} show that Segment Anything 2 predicts only up to the switch. When the train moves on, the prediction stays at the switch eventually disapearing out of the frame.}
+    \caption{Predictions of Segment Anything 2 \cite{segmentAnything22024} on the video of the temporal dataset. \textbf{(a)} shows that this model predicts the switch incorrectly. \textbf{(b)} and \textbf{(c)} show that Segment Anything 2 predicts only up to the switch. When the train moves on, the prediction stays at the switch eventually disappearing out of the frame.}
     \label{fig:segmentanything2}
 \end{figure}
 
@@ -294,7 +294,7 @@ Consequently, this project does not offer a baseline that fits as well as~\cite{
     \begin{subfigure}{0.49\textwidth}
         \centering
         \includegraphics[width=\linewidth]{PICs/discussion/multirail_example.jpg}
-        \caption{Prediction on image similar to dataset.}
+        \caption{Prediction on an image similar to the dataset.}
         \label{fig:mutlirailTest_a}
     \end{subfigure}
     %\hspace*{0.02\textwidth} % Abstand manuell steuern
