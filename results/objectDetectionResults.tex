@@ -50,13 +50,17 @@ In one of their experiments, they only considered the crops of $switch\_left$ an
 Even after they expanded the crops vertically by 125\% and horizontally by 30\% to increase the context, they had many images with dimensions below 28 pixels.
 After dropping those and training a denseNet161, the accuracy only achieved 67\%.
 
+\vspace{0.5cm}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\linewidth]{PICs/experiments/objectdetectionExperiment/labels_updated.jpg}
+    \includegraphics[width=\linewidth]{PICs/experiments/objectdetectionExperiment/labels_updated_v2.jpg}
     \caption{Annotation analyses of \ac{YOLO}v9 \cite{YOLOv9GitHub}. In the lower two graphs, the axes are relative to the image dimensions.}
     \label{fig:annotationAnalysis}
 \end{figure}
 
-\noindent Because of the complexity of this task and the unsatisfactory results it cannot be assumed switch states are correctly predicted.
-Therefore the approach of predicting the direction of the train with an object detection model is discarded.
+\vspace{0.5cm}
+
+\noindent Because of the complexity of this task and the unsatisfactory results, it cannot be assumed that object detection models correctly predict switch states.
+Therefore the approach of predicting the direction of the train with such a model is discarded.
 A fundamentally different approach must be found, making further experiments with semantic segmentation models unnecessary.
