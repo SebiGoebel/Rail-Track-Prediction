@@ -33,6 +33,7 @@ In the first two graphs of \autoref{fig:IoUTrends}, CNN\_FC\_LSTM (ogA) is also 
 Therefore, only the red one is visible.
 \autoref{tab:temporalModelsResultsIoUsSummary} summarizes the \ac{IoU}s with the averages for the highlighted models across the switch scenarios.
 
+% relevanten Switches größer
 %\begin{figure}[H]
 %    \centering
 %    % Erste Reihe
@@ -71,30 +72,71 @@ Therefore, only the red one is visible.
 %    \label{fig:IoUTrends}
 %\end{figure}
 
+% 2x2 raster
+%\begin{figure}[H]
+%    \centering
+%    \begin{subfigure}[b]{0.49\textwidth}
+%        \centering
+%        \includegraphics[width=\textwidth]{PICs/experiments/temporalModels/plot_ious_sequence_4.pdf}
+%        \caption{\textbf{Switch 1} (single-frame model: 76/76 frames correct)}
+%        \label{fig:IoUTrends_switch_4}
+%    \end{subfigure}
+%    \begin{subfigure}[b]{0.49\textwidth}
+%        \centering
+%        \includegraphics[width=\textwidth]{PICs/experiments/temporalModels/plot_ious_sequence_2.pdf}
+%        \caption{\textbf{Switch 2} (single-frame model: 0/76 frames correct)}
+%        \label{fig:IoUTrends_switch_2}
+%    \end{subfigure}
+%
+%    \vspace{0.2em} % Kleiner vertikaler Abstand
+%
+%    \begin{subfigure}[b]{0.49\textwidth}
+%        \centering
+%        \includegraphics[width=\textwidth]{PICs/experiments/temporalModels/plot_ious_sequence_3.pdf}
+%        \caption{\textbf{Switch 3} (single-frame model: 36/76 frames correct)}
+%        \label{fig:IoUTrends_switch_3}
+%    \end{subfigure}
+%    \begin{subfigure}[b]{0.49\textwidth}
+%        \centering
+%        \includegraphics[width=\textwidth]{PICs/experiments/temporalModels/plot_ious_sequence_1.pdf}
+%        \caption{\textbf{Switch 4} (single-frame model: 39/76 frames correct)}
+%        \label{fig:IoUTrends_switch_1}
+%    \end{subfigure}
+%
+%    \caption{\ac{IoU}-Trends of all models on the temporal test dataset with four sequences. Red is the best-performing temporal model for the corresponding sequence.}
+%    \label{fig:IoUTrends}
+%\end{figure}
+
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.49\textwidth}
+    \begin{subfigure}[t]{0.5\textwidth}
         \centering
         \includegraphics[width=\textwidth]{PICs/experiments/temporalModels/plot_ious_sequence_4.pdf}
         \caption{\textbf{Switch 1} (single-frame model: 76/76 frames correct)}
         \label{fig:IoUTrends_switch_4}
     \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
+
+    %\vspace{1em} % Größerer vertikaler Abstand
+
+    \begin{subfigure}[t]{0.5\textwidth}
         \centering
         \includegraphics[width=\textwidth]{PICs/experiments/temporalModels/plot_ious_sequence_2.pdf}
         \caption{\textbf{Switch 2} (single-frame model: 0/76 frames correct)}
         \label{fig:IoUTrends_switch_2}
     \end{subfigure}
 
-    \vspace{0.2em} % Kleiner vertikaler Abstand
+    %\vspace{1em} % Größerer vertikaler Abstand
 
-    \begin{subfigure}[b]{0.49\textwidth}
+    \begin{subfigure}[t]{0.5\textwidth}
         \centering
         \includegraphics[width=\textwidth]{PICs/experiments/temporalModels/plot_ious_sequence_3.pdf}
         \caption{\textbf{Switch 3} (single-frame model: 36/76 frames correct)}
         \label{fig:IoUTrends_switch_3}
     \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
+
+    %\vspace{1em} % Größerer vertikaler Abstand
+
+    \begin{subfigure}[t]{0.5\textwidth}
         \centering
         \includegraphics[width=\textwidth]{PICs/experiments/temporalModels/plot_ious_sequence_1.pdf}
         \caption{\textbf{Switch 4} (single-frame model: 39/76 frames correct)}
@@ -104,6 +146,7 @@ Therefore, only the red one is visible.
     \caption{\ac{IoU}-Trends of all models on the temporal test dataset with four sequences. Red is the best-performing temporal model for the corresponding sequence.}
     \label{fig:IoUTrends}
 \end{figure}
+
 
 \begin{table}[H]
     \centering

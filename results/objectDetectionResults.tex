@@ -9,25 +9,27 @@ These results are acquired by fine-tuning a model, which is pre-trained on the C
 The onlySwitchesLeftRight sub-dataset from RailSem19 is used to train the model (\autoref{sec:usedDatasetsYOLOs}).
 \autoref{fig:objectDetectionResultsMetrics} shows performance graphs like the F1 Curve and the Precision-Recall Curve, as well as the confusion matrix with both classes.
 
+\vspace{0.5cm}
+
 \begin{figure}[H]
     \centering
     \begin{subfigure}{0.32\textwidth}
         \centering
-        \includegraphics[width=\linewidth,height=4.5cm,keepaspectratio]{PICs/experiments/objectdetectionExperiment/F1_curve_updated.jpg}
+        \includegraphics[width=\linewidth,height=4.5cm,keepaspectratio]{PICs/experiments/objectdetectionExperiment/F1_curve_updated_v2.jpg}
         \caption{F1-Confidence Curve}
         \label{fig:objectDetectionResultsMetrics_a}
     \end{subfigure}
     %\hspace*{0.02\textwidth} % Abstand manuell steuern
     \begin{subfigure}{0.32\textwidth}
         \centering
-        \includegraphics[width=\linewidth,height=4.5cm,keepaspectratio]{PICs/experiments/objectdetectionExperiment/PR_curve_updated.jpg}
+        \includegraphics[width=\linewidth,height=4.5cm,keepaspectratio]{PICs/experiments/objectdetectionExperiment/PR_curve_updated_v2.jpg}
         \caption{Precision-Recall Curve}
         \label{fig:objectDetectionResultsMetrics_b}
     \end{subfigure}
     %\hspace*{0.02\textwidth} % Abstand manuell steuern
     \begin{subfigure}{0.32\textwidth}
         \centering
-        \includegraphics[width=\linewidth,height=4.5cm,keepaspectratio]{PICs/experiments/objectdetectionExperiment/confusion_matrix_updated.jpg}
+        \includegraphics[width=\linewidth,height=4.5cm,keepaspectratio]{PICs/experiments/objectdetectionExperiment/confusion_matrix_updated_v2.jpg}
         \caption{Confusion Matrix}
         \label{fig:objectDetectionResultsMetrics_c}
     \end{subfigure}
@@ -36,7 +38,7 @@ The onlySwitchesLeftRight sub-dataset from RailSem19 is used to train the model 
     \label{fig:objectDetectionResultsMetrics}
 \end{figure}
 
-However, as visualized in \autoref{fig:objectDetectionResultsMetrics} the Precision-Recall Curve and the F1 Curve show unsatisfying results.
+\noindent However, as visualized in \autoref{fig:objectDetectionResultsMetrics} the Precision-Recall Curve and the F1 Curve show unsatisfying results.
 The confusion matrix also indicates that the model's prediction performances are below 50\% for both classes.
 The reason for that presumably lies in the complexity of the task.
 Switches look similar to rails and predicting switch states further increases the difficulty, because the only difference is the start of the switch.
@@ -55,6 +57,6 @@ After dropping those and training a denseNet161, the accuracy only achieved 67\%
     \label{fig:annotationAnalysis}
 \end{figure}
 
-Because of the complexity of this task and the unsatisfactory results it cannot be assumed switch states are correctly predicted.
+\noindent Because of the complexity of this task and the unsatisfactory results it cannot be assumed switch states are correctly predicted.
 Therefore the approach of predicting the direction of the train with an object detection model is discarded.
 A fundamentally different approach must be found, making further experiments with semantic segmentation models unnecessary.
