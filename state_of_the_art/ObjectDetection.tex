@@ -27,7 +27,7 @@ The introduced model consists of a single neuronal network, allowing end-to-end 
 This model first divides the image into a grid and then simultaneously predicts bounding boxes and the probabilities of classes.
 Proving to be a fast object detector, \cite{YOLOv1} presented the beginning of a whole series of real-time capable models.
 Since, \cite{YOLOv1} still shows decreased accuracy in the localization of small objects, versions \ac{YOLO}v3 \cite{yolov3}, \ac{YOLO}v4 \cite{yolov4}, \ac{YOLO}9000 \cite{yolo9000}, and \ac{SSD} \cite{SSD_model} particularly focused on this issue.
-However, \ac{YOLO}v7 \cite{yolov7} and \ac{YOLO}v9 \cite{YOLOv9} are among the latest real-time object detection models, emphasizing both high speed and improved parameter utilization \cite{20yearsSurvey} \cite{surveyObjectDetection} \cite{surveyObjectDetection2019} \cite{realTimeObjectDetection}.
+However, \ac{YOLO}v7 \cite{yolov7} and \ac{YOLO}v9 \cite{YOLOv9} are among the latest real-time object detection models, emphasizing both high speed and improved parameter utilization \cite{20yearsSurvey, surveyObjectDetection, surveyObjectDetection2019, realTimeObjectDetection}.
 
 \subsubsection{YOLO v7}
 \label{subsubsec:YOLOv7}
@@ -38,7 +38,7 @@ The main contributions of \ac{YOLO}v7 \cite{yolov7} are several methods that inc
 To achieve that it incorporates a planned re-parameterized strategy, which can be utilized for layers in various models.
 Furthermore, \ac{YOLO}v7 \cite{yolov7} also uses new label assignment methods called "coarse-to-fine lead head guided label assignment".
 Additionally, extend and compound scaling techniques are used.
-The introduced methods not only increased speed and accuracy, but also decreased the number of parameters of the model by about 40 \% \cite{yolov7}.
+The introduced methods not only increased speed and accuracy but also decreased the number of parameters of the model by about 40 \% \cite{yolov7}.
 This presents an advantage for this work since the final system is supposed to operate on an embedded device.
 
 \subsubsection{YOLO v9}

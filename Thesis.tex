@@ -67,10 +67,14 @@ While autonomous systems, such as rail track detection, present promising method
 Therefore, this work focuses on developing a system with this particular differentiation. Furthermore, the special focus is on correctly predicting the train's direction at switches and the system's real-time capability.
 An initial approach tries to combine object detection with semantic segmentation. In the first experiments, object detectors determined switch states. Due to unsatisfactory results, a fundamentally different solution is found. A lightweight model serves as the new baseline that regresses the two rails of the train's path. Enhanced robustness is archived with an improved cropping mechanism responsible for input images and an adapted model architecture.
 
-To further increase robustness, this work exploits temporal information with a sequence-to-one approach, inputting videos and predicting the last image. The study adapts model architectures, data handling, and data augmentation for this approach. Furthermore, a temporal dataset is created that focuses on switch scenes and to eliminate the limitation of single-frame-based models. Eleven temporal models are implemented and evaluated on the NVIDIA Jetson AGX Xavier. Results show improved accuracy and more stable behaviors in switch scenarios. While temporal models suffer from increased latencies, solutions are proposed for real-time operability.
+To further increase robustness, this work exploits temporal information with a sequence-to-one approach, inputting videos and predicting the last image. The study adapts model architectures, data handling, and data augmentation for this approach. Furthermore, a temporal dataset is created that focuses on scenes including switches, aiming to eliminate the limitation of single-frame-based models. Eleven temporal models are implemented and evaluated on the NVIDIA Jetson AGX Xavier. Results show improved accuracy and more stable behaviors in switch scenarios. While temporal models suffer from increased latencies, solutions are proposed for real-time operability.
 }
 \keywords{Robust rail track prediction, switch scenarios, temporal models, sequence-to-one, real-time, LSTM}
-\acknowledgements{\blindtext}
+\acknowledgements{
+First, I want to thank my parents, who have always supported me throughout my studies. Not only did they provide financial support, making my studies and this work possible in the first place, but they also always had a sympathetic ear for any problems I faced. Furthermore, I want to thank my friends, who helped me through challenging times. I am especially grateful to Markus Nesetril, who was always there for me during tough times and helped me find balance through physical activities.
+
+A huge thank you also goes to the guys from the CD lab: Mattias Bittner, Mattias Wess, Dominik, and Martin Lechner. A very special thanks goes to Daniel Schnöll, who sat at the desk next to me during this work and always had answers to my quick questions. And above all, I owe an enormous thank you to David Breuss, who co-supervised this thesis. The almost daily exchanges with him greatly helped me in writing this work.
+}
 \setListingsAndAcronyms % Definition der Namen für Quellcodeverzeichnis 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ende des Headers
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Beginn des Dokuments
