@@ -240,10 +240,11 @@ Additionally, it briefly describes an idea for further research.
 
 During the finalization of this work, \cite{segmentAnything22024} introduced Segment Anything 2, a framework for visual segmentation.
 This framework accepts videos as input in which the user can select objects with anchor points, and the model tracks these objects.
-The dataset needed to train this model consists of 50.9K videos with 35.5M masks.
-Therefore, training this model demands substantial data, which the rail domain datasets cannot meet.
+The dataset utilized to train this model consists of 50.9K videos with 35.5M masks.
+Therefore, training this model demands substantial data, which datasets for the rail domain cannot meet.
 A pre-trained model has to be applied.
-Brief experiments include applying the pre-trained model on the video used for this work's temporal dataset, and the results are depicted in \autoref{fig:segmentanything2}.
+Brief experiments include applying the pre-trained model on the video used for this work's temporal dataset. 
+The results are depicted in \autoref{fig:segmentanything2}.
 
 \begin{figure}[H]
     \centering
@@ -271,23 +272,23 @@ Brief experiments include applying the pre-trained model on the video used for t
     \label{fig:segmentanything2}
 \end{figure}
 
-\autoref{fig:segmentanything2} shows that segmenting the rail track of the train is possible without including adjacent rails.
+\noindent\autoref{fig:segmentanything2} shows that segmenting the rail track of the train is possible without including adjacent rails.
 That presents an advantage over most state-of-the-art rail track detection systems, which do not include a distinction between those rail tracks.
 However, the model cannot determine the correct track at switches.
 Either the model predicts the path straight ahead or stops at a switch.
-When the prediction stops at the switch and the train 
-Additionally, from a visual inspection alone, it is visible that the model is less accurate according to IoU than most models presented in this work.
-Therefore, this approach is not recommended for further investigations.
+Additionally, from a visual inspection alone, \autoref{fig:segmentanything2} shows a less accurate \ac{IoU} than most models presented in this work.
+One reason lies in this model solving a segmentation instead of a regression task.
+Therefore, this approach is not recommended for further research.
 
-The second approach tried in this work but not further pursued comes from state-of-the-art approaches, often including detecting multiple road lanes or rails.
+The second approach tried in this work but not further pursued originates from state-of-the-art approaches often detecting multiple road lanes or rails.
 \cite{li2022rail} presents an interesting approach, which detects multiple rails.
 A hyperparameter can define the number of rails.
 In the original project, four rails are detected \cite{railNet2022GitHub}.
 
 This work conducts a quick experiment in which a pre-trained model of \cite{li2022rail} tries to predict the rails in the video used for this work's temporal dataset.
 First, observations show that this model, trained on a particular dataset, cannot generalize for scenes that look different.
-The authors also state this in the corresponding GitHub repository \cite{railNet2022GitHub}.
-Consequently, this project does not offer a baseline that fits as well as~\cite{tepNet2024}.
+The authors also state that in the corresponding GitHub repository \cite{railNet2022GitHub}.
+Consequently, this project does not offer a baseline that fits as well as TEP-Net ~\cite{tepNet2024}.
 
 \begin{figure}[H]
     \centering
@@ -309,12 +310,12 @@ Consequently, this project does not offer a baseline that fits as well as~\cite{
     \label{fig:mutlirailTest}
 \end{figure}
 
-Since \cite{tepNet2024} used the exact model for the state-of-the-art comparison, which shows generalization is possible with the right dataset.
+\noindent Since \cite{tepNet2024} used this exact model \cite{li2022rail} for the state-of-the-art comparison, shows that generalization is possible with the right dataset.
 However, \cite{tepNet2024} only includes detecting two rails.
-A new dataset has to be created to detect multiple rails.
+A new dataset must be created to detect more than two rails.
 
 The attempt to detect four rails resulted in the idea of an approach that could be interesting for future research.
-Since the research of this work and the state-of-the-art comparison of \cite{tepNet2024} showed that the regression approach is superior to classification, a model could regress four rails instead of only two rails.
+Since the research of this work and the state-of-the-art comparison of \cite{tepNet2024} showed that the regression approach is superior to classification, a model could regress four rails instead of only two.
 In scenes with switches, these annotations are the four rails of the switch, labeled with increasing numbers from left to right.
 When no switch is present, only two rails are visible.
 Both are annotated twice in this case.
