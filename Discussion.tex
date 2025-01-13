@@ -10,14 +10,13 @@ An additional subchapter briefly describes two approaches that were not pursued 
 
 In this work, the difference between rail track detection and rail track prediction is made in the introduction.
 Rail track detection covers detecting all rails in an image, often with only one class, compared to rail track prediction, which distinguishes between the train track and other tracks.
-Most state-of-the-art research only addresses rail track detection, not rail track prediction, often using semantic segmentation methods.
+Most state-of-the-art research only addresses rail track detection, often using semantic segmentation methods.
 Only two papers found in the literature explore the topic of rail track prediction.
-However, these papers proceed on the premise that the state of a switch cannot be determined.
+However, these papers proceed on the premise that switch-states cannot be determined.
 They determine the train's track with complex post-processing algorithms, which cause a loss in speed.
 
 To address the issue of identifying the state of the switches, such a system could be complemented with an object detection method.
 Therefore, this study conducts experiments using models from the \ac{YOLO} series, which confirm the assumption, indicating the need for a fundamentally different approach.
-
 This strategy is presented by \cite{tepNet2024}, the only project found in the literature that focuses on rail track prediction with the assumption of predicting switches correctly.
 It changes the problem formulation to a regression problem and introduces a domain-specific loss function that considers positional error.
 This approach shows promising results in terms of accuracy and real-time capability.
@@ -62,7 +61,9 @@ The lower the value, the safer the system becomes.
     \label{func:RealTime}
 \end{align}
 
-\autoref{tab:variablesForRealTime} describes realistic values when the system is prepared for trains in Austria.
+\clearpage
+
+\noindent \autoref{tab:variablesForRealTime} describes realistic values when the system is prepared for trains in Austria.
 A GoPro Hero 10 \cite{goproHero10} is chosen because of its integrated mounting abilities and high $FoV$.
 $\alpha$ and $height_{cam}$ are assumptions for Austrian trains.
 $v_{train}$ is the fastest speed a train can drive in Austria \cite{geschwindigkeitZugAustria}.
@@ -123,8 +124,6 @@ Also interesting is that with this frame rate and the highest possible train spe
     \label{func:distanceBetweenFrameswith30FPS}
 \end{align}
 
-\vspace{1cm}
-
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}
@@ -172,7 +171,7 @@ Also interesting is that with this frame rate and the highest possible train spe
     \label{fig:ratioSpeedDistanceBetweenFrames}
 \end{figure}
 
-The following conclusions are drawn based on the calculated values required to assess a model's real-time capabilities.
+\noindent The following conclusions are drawn based on the calculated values required to assess a model's real-time capabilities.
 Tables in \autoref{improvedTEPNetResults} show that almost every single-frame-based model achieves latencies below the threshold of 33.33 ms calculated from a frame rate of 30 \ac{FPS}.
 The lightweight model architecture can explain this.
 Only some versions of DenseNet exceed the desired target.
@@ -193,7 +192,9 @@ An additional advantage of only inputting every third or fourth frame into the m
 Even though information between frames is lost, ten frames would cover a window of 30 or 40 frames.
 Furthermore, using this technique decreases the number of frames in which the train is located directly over the switch, resulting in a smaller time frame that needs to be bridged.
 
-In conclusion, temporal models can operate in real-time with a frame rate of 5.1 \ac{FPS}.
+\clearpage
+
+\noindent In conclusion, temporal models can operate in real-time with a frame rate of 5.1 \ac{FPS}.
 However, this presents an extreme case with an overlap factor of 1, which decreases the possible safety of the system.
 That leads to the thought that the optimal trade-off must be found between the overlap of the predicted areas of consecutive frames and the frame rate.
 Furthermore, in a practical application also the train's current speed can be incorporated which changes the real-time threshold and therefore frame rate adaptively.
@@ -246,6 +247,8 @@ A pre-trained model has to be applied.
 Brief experiments include applying the pre-trained model on the video used for this work's temporal dataset. 
 The results are depicted in \autoref{fig:segmentanything2}.
 
+\vspace{0.5cm}
+
 \begin{figure}[H]
     \centering
     \begin{subfigure}{0.328\textwidth}
@@ -272,6 +275,8 @@ The results are depicted in \autoref{fig:segmentanything2}.
     \label{fig:segmentanything2}
 \end{figure}
 
+\clearpage
+
 \noindent\autoref{fig:segmentanything2} shows that segmenting the rail track of the train is possible without including adjacent rails.
 That presents an advantage over most state-of-the-art rail track detection systems, which do not include a distinction between those rail tracks.
 However, the model cannot determine the correct track at switches.
@@ -284,11 +289,13 @@ The second approach tried in this work but not further pursued originates from s
 \cite{li2022rail} presents an interesting approach, which detects multiple rails.
 A hyperparameter can define the number of rails.
 In the original project, four rails are detected \cite{railNet2022GitHub}.
-
 This work conducts a quick experiment in which a pre-trained model of \cite{li2022rail} tries to predict the rails in the video used for this work's temporal dataset.
 First, observations show that this model, trained on a particular dataset, cannot generalize for scenes that look different.
 The authors also state that in the corresponding GitHub repository \cite{railNet2022GitHub}.
 Consequently, this project does not offer a baseline that fits as well as TEP-Net ~\cite{tepNet2024}.
+Since \cite{tepNet2024} used this exact model \cite{li2022rail} for the state-of-the-art comparison, shows that generalization is possible with the right dataset.
+However, \cite{tepNet2024} only includes detecting two rails.
+A new dataset must be created to detect more than two rails.
 
 \begin{figure}[H]
     \centering
@@ -310,17 +317,13 @@ Consequently, this project does not offer a baseline that fits as well as TEP-Ne
     \label{fig:mutlirailTest}
 \end{figure}
 
-\noindent Since \cite{tepNet2024} used this exact model \cite{li2022rail} for the state-of-the-art comparison, shows that generalization is possible with the right dataset.
-However, \cite{tepNet2024} only includes detecting two rails.
-A new dataset must be created to detect more than two rails.
-
-The attempt to detect four rails resulted in the idea of an approach that could be interesting for future research.
-Since the research of this work and the state-of-the-art comparison of \cite{tepNet2024} showed that the regression approach is superior to classification, a model could regress four rails instead of only two.
-In scenes with switches, these annotations are the four rails of the switch, labeled with increasing numbers from left to right.
+\noindent The attempt to detect four rails resulted in an idea for future research.
+Since this work and \cite{tepNet2024} showed that the regression approach is superior to classification, a model could regress four rails instead of only two.
+In scenes with switches, the \ac{GT} are the four rails of the switch, labeled with increasing numbers from left to right.
 When no switch is present, only two rails are visible.
 Both are annotated twice in this case.
-An additional part of the model must then be developed to decide which two of the four rails are the ones of the train.
-The idea is to outsource the decision of which rails are used to a classifier while keeping the regression part of the model as accurate as possible.
+An additionally developed part of the model must then decide which two of the four rails are the ones of the train.
+That is done to outsource the decision of which rails are used to a classifier while keeping the regression part of the model as accurate as possible.
 Furthermore, this approach allows a temporal module to be employed only for the classification problem, significantly reducing complexity.
-Since this approach differs from everything presented in this work, a tailored dataset and a new model must be developed.
-Additionally, the loss function must be adapted.
+This approach would require a new tailored dataset, a novel model, and an adapted loss function.
+%Additionally, the loss function must be adapted.

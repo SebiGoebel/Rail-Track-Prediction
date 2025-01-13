@@ -31,7 +31,7 @@ Open Images Dataset V4 & train & 9284\\\hline
 % --------------------------------------------------------------------------------------------------------------------
 
 
-\textit{CIFAR 100} dataset \cite{cifar100} consists of small images with pixel size 32x32. This dataset includes 600 images with the label \textit{trains}.
+\noindent\textit{CIFAR 100} dataset \cite{cifar100} consists of small images with pixel size 32x32. This dataset includes 600 images with the label \textit{trains}.
 In \textit{PASCAL VOC2012} \cite{pascal2015} there are 544 images labeled \textit{trains}.
 \textit{Microsoft COCO} \cite{Lin2014MicrosoftCC} has 3745 images with the class \textit{trains}.
 Additionally, there are classes like \textit{traffic lights} and \textit{stop sign}, however theses are not useful to the task of this work because they are from the street domain and not the rail domain.
@@ -60,7 +60,7 @@ KITTI               & rail tracks, train & 65\\\hline
 \end{table}
 % ---------------------------------------------------------------------------------------------------------------------------
 
-The \textit{Cityscapes} dataset \cite{cityscapes2016} is commonly used for benchmarks regarding road scenes.
+\noindent The \textit{Cityscapes} dataset \cite{cityscapes2016} is commonly used for benchmarks regarding road scenes.
 It has 35 different labels of which two are \textit{rail track} (131 labels in 117 images) and \textit{train} (194 labels in 167 images).
 The \textit{rail track} does not differ between the rails and the track bed.
 \textit{Mapillary Vistas} \cite{mapillaryVistas2017} also has more labels, but again only two are rail related ones.
@@ -234,13 +234,14 @@ Since, the goal is to target a broad applicability, that includes tram scenes th
     \label{fig:RailSet-Seg_example_image_GT}
 \end{figure}
 
+\clearpage
 
 % RSDS
 \subsubsection{RSDS}
 \label{subsubsec:RSDS}
 The creators of the \ac{RSDS} \cite{railNet2019}, tried to solve the railroad detection problem with a segmentation approach.
-They had to construct their own dataset, because there was no publicly available dataset for this task. \ac{RSDS} is captured from the ego perspective of the train driver and is a collection of 3000 images. They used 2500 for training, 200 for validation and 300 for testing. The dataset only includes one \textit{railroad} label. It is described that the labels only incorporate pixels between the two rails and intentionally ignore railway sleepers outside this area. Images are of size 1920 x 1080.
-Although it is not mentioned in the paper, it seems as if all images of \ac{RSDS} are captured from a specific rail line in China. Additionally, from the images in the paper alone one can tell that this particular rail line has very distinctive structural characteristics. The colors are bright and it seems like the area between the rails is mostly concrete, which is unusual for most railways. \autoref{fig:RSDS_example_image_GT} shows that structures besides the rails are specific too.
+They had to construct their own dataset because there was no publicly available dataset for this task. \ac{RSDS} is captured from the ego perspective of the train driver and is a collection of 3000 images. They used 2500 for training, 200 for validation, and 300 for testing. The dataset only includes one \textit{railroad} label. It is described that the labels only incorporate pixels between the two rails and intentionally ignore railway sleepers outside this area. Images are of size 1920 x 1080.
+Although it is not mentioned in the paper, it seems as if all images of \ac{RSDS} are captured from a specific rail line in China. Additionally, from the images in the paper alone, one can tell that this particular rail line has very distinctive structural characteristics. The colors are bright and it seems like the area between the rails is mostly concrete, which is unusual for most railways. \autoref{fig:RSDS_example_image_GT} shows that structures besides the rails are specific too.
 One additional detail of this dataset, which can present a disadvantage for this work, is that switches are not addressed.
 Since this dataset only covers very specific railroads with unique characteristics and additionally does not address switches or other situations where the track splits, \ac{RSDS} is not further considered for this work.
 
@@ -266,18 +267,18 @@ Since this dataset only covers very specific railroads with unique characteristi
 \subsubsection{Rail-DB}
 A very similar dataset is Rail-DB \cite{li2022rail}.
 This dataset is a collection of 7432 images, which are taken from 15 videos.
-The labels in this dataset are consist of poly lines, which represent all existing rails in an image.
-Additionally the the poly lines all have different classes. This way there is not only one rail class, but as many classes as there are rails in one image.
+The labels in this dataset consist of polylines, which represent all existing rails in an image.
+Additionally, the polylines all have different classes. This way there is not only one rail class, but as many classes as there are rails in one image.
 The labeling policy specifies that the central rails are marked with the annotations 1 and 2.
 Additional rails are labeled with rising numbers.
-Since this dataset includes poly lines and not binary masks, this dataset can be used for training line detection algorithms.
+Since this dataset includes polylines and not binary masks, this dataset can be used for training line detection algorithms.
 Compared to \ac{RSDS}, this dataset includes not only lines and curves, but also rail switches.
 Additionally, the images are taken in various conditions and scenes.
 \autoref{fig:Rail-DB-dataset_images_annotated} shows example images of Rail-DB's different scenes.
 However, it seems that the images again have very specific characteristics like in \ac{RSDS}.
 \autoref{fig:Rail-DB-dataset_images_annotated} also shows, that all images are captured on a Chinese line.
-Even though \cite{li2022rail} presents a interesting approach for solving the rail detection problem,
-because of the before mentioned specific characteristics it is not used for this work. The author of \cite{li2022rail} states in the GitHub repository \cite{railNet2022GitHub},
+Even though \cite{li2022rail} presents an interesting approach for solving the rail detection problem,
+because of the before-mentioned specific characteristics it is not used for this work. The author of \cite{li2022rail} states in the GitHub repository \cite{railNet2022GitHub},
 that this project fails to generalize on example videos, where the scene looks different from the one the dataset is captured on.
 
 \begin{figure}[H]
@@ -308,8 +309,8 @@ that this project fails to generalize on example videos, where the scene looks d
 Another dataset is the OSDaR23 \cite{oSDaR23}.
 This dataset is a collection of 21 sequences split into 45 subsequences.
 Several sequences are short with 10 frames each, some are longer with 40 to 100 frames.
-In total there are 1534 labeled scenes in this dataset.
-Since, OSDaR23 is captured with nine cameras (\ac{RGB} and \ac{IR}) in different angles, one lidar and one radar sensor, the total number of frames are 1534 * 11 = 16874.
+In total, there are 1534 labeled scenes in this dataset.
+Since, OSDaR23 is captured with nine cameras (\ac{RGB} and \ac{IR}) in different angles, one lidar, and one radar sensor, the total number of frames is 1534 * 11 = 16874.
 Additionally, position and acceleration sensors are used.
 Because lidar and radar are also used, this dataset offers 3D data.
 OSDaR23 consists of 20 different labels.
@@ -322,7 +323,7 @@ Furthermore, there is no information that distinguishes the train's rails from a
 Therefore OSDaR23 can only be used for the detection of rails, but not the track prediction.
 Moreover, the data capturing occurred only on railroads in Hamburg, Germany.
 No tram scenes are included.
-Due to the necessity of re-labeling for this work and only data from Hamburg is offered, OSDaR23 is not used.
+Due to the necessity of re-labeling for this work and only data from Hamburg is offered OSDaR23 is not used.
 
 
 % captured data

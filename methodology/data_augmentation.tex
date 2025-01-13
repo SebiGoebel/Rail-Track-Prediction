@@ -27,7 +27,7 @@ This allows the crop coordinates to converge to these global averages and preven
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\linewidth]{PICs/Baselinepaper/perspective_shifts.jpg}
+    \includegraphics[width=0.7\linewidth]{PICs/Baselinepaper/perspective_shifts.jpg}
     \caption{Example of perspective shifts with three different scenarios: left curve, right curve, and straight rail \cite{tepNet2024}.}
     \label{fig:perspective_shifts}
 \end{figure}
@@ -47,14 +47,16 @@ This allows the crop coordinates to converge to these global averages and preven
     \label{func:weightingAverage}
 \end{align}
 
-However, observations in the inference of videos demonstrate that the introduced autocrop mechanism is not optimal. The behavior shows that the \ac{RA} reacts slowly when expanding or shrinking the input crop. This is especially problematic when the crop should quickly expand in one direction because of the given situation. Additionally, the borders of the crop converge to an overall average, presenting the same issues as when simply pre-defining a crop. Those behaviors can push the prediction outside the rails, especially in the case of a perspective shift. In more detail when the train takes a curve, the rails move to the left or right in the image due to a perspective shift. If the autocroper does not react quickly enough in this situation, the rails are subsequently positioned outside the crop area. An additional issue presents the lack of a recovery option when the image crop is completely incorrect.
+\noindent However, observations in the inference of videos demonstrate that the introduced autocrop mechanism is not optimal. The behavior shows that the \ac{RA} reacts slowly when expanding or shrinking the input crop. This is especially problematic when the crop should quickly expand in one direction because of the given situation. Additionally, the borders of the crop converge to an overall average, presenting the same issues as when simply pre-defining a crop. Those behaviors can push the prediction outside the rails, especially in the case of a perspective shift. In more detail when the train takes a curve, the rails move to the left or right in the image due to a perspective shift. If the autocroper does not react quickly enough in this situation, the rails are subsequently positioned outside the crop area. An additional issue presents the lack of a recovery option when the image crop is completely incorrect.
 
 \begin{align}
     x_t =  x_{t-1} * (1 - c) + pred_t * c
     \label{func:EMA}
 \end{align}
 
-Therefore a new algorithm is implemented for this work to present a more robust solution.
+\vspace{0.7cm}
+
+\noindent Therefore a new algorithm is implemented for this work to present a more robust solution.
 The desired behavior should be more responsive to the outside to react to rapid changes in perspective.
 Simultaneously, the crop should converge gradually to the inside to prevent any fast movements of crop coordinates, which possibly lead to collapse events.
 
@@ -71,6 +73,8 @@ Additionally, a reset rule is implemented in which the crop coordinates are over
 The behavior is observed that when models become uncertain, the horizon line converges to the bottom of the image.
 This behavior is exploited and the crop resets when the predicted horizon line is below 40\% of the crop height.
 Experiments show that the following reset values are the most advantageous: left = 1/3 of image width, top = 1/2 of image height, right = 2/3 of image width.
+
+\clearpage
 
 \section{Data augmentation}
 \label{sec:dataaugmentation}
@@ -127,10 +131,9 @@ The whole algorithm still follows a policy that the starting pixels of the rails
 The first, middle, and last images of a sequence with 10 images are shown.
 The train's progress is most clearly visible through the pole of the overhead line. 
 
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{PICs//dataAugmentation/temporal_data_augmentation.jpg}
+    \includegraphics[width=0.59\linewidth]{PICs//dataAugmentation/temporal_data_augmentation.jpg}
     \caption{Data augmentation for temporal data processing, including the 1\textsuperscript{st}, 5\textsuperscript{th} and 10\textsuperscript{th} image of a sequence. The first row shows resized raw images. The second row depicts augmented images with the same three augmentation techniques for the whole sequence.}
     \label{fig:temporalDataAugmentation}
 \end{figure}

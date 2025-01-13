@@ -87,19 +87,15 @@ All values for data augmentation, such as color factors, crop margins, or standa
 Furthermore, sequential experiments utilize the Adam optimizer \cite{pytorchAdamOptimizer} and a OneCycle Scheduler \cite{pytorch_oneCycleLR_docu} with the same learning rate parameters.
 The best results of single-frame models are obtained with 64 anchors in the output vector.
 Therefore, temporal experiments use the same number of anchors.
-
 However, some parameters are altered.
 The added complexity of sequential models significantly increases training durations.
 Therefore, models train for only 100 epochs in most experiments.
 Additionally, the data-handling logic within and before the model sometimes requires a batch size of 1.
 Consequently, all different sequential models train with that batch size.
-
 Furthermore, this work adds two hyperparameters to manage sequences and the sliding window.
 The sequence length of 76 can be defined if the dataset changes and the window length can be set.
 Most experiments use a window length of 10 frames.
 \autoref{tab:temporalExperimetparams} describes the most relevant experiments and includes the parameters used.
-
-\vspace{1cm}
 
 \begin{table}[H]
     \centering

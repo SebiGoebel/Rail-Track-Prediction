@@ -39,7 +39,7 @@ Therefore, the method used in \cite{tepNet2024} employs spline interpolation to 
     \label{fig:TEP-Net_model}
 \end{figure}
 
-As shown in the prediction of \autoref{fig:TEP-Net_model}, a set of horizontal lines are overlayed in the cropped image.
+\noindent As shown in the prediction of \autoref{fig:TEP-Net_model}, a set of horizontal lines are overlayed in the cropped image.
 The number of $y$-lines or "anchors" is determined by a hyperparameter.
 They are uniformly distributed along the $y$-axis. For each line, two $x$-values are predicted.
 One for the left rail and one for the right rail.
@@ -93,6 +93,8 @@ ResNet and EfficientNet are already implemented in \cite{tepNet2024}.
 DenseNet and MobileNet are additionally integrated in this work.
 \autoref{tab:backboneVersions} gives an overview of all the different versions that are implemented in this work.
 
+\vspace{0.5cm}
+
 \begin{table}[H]
     \centering
     \begin{tabular}{|l|l|}
@@ -118,7 +120,7 @@ DenseNet and MobileNet are additionally integrated in this work.
     \label{fig:backboneLogic}
 \end{figure}
 
-When exchanging backbone architectures it is important, that the dimensions of input and output tensors are the same for every backbone otherwise the next layers would get different input dimensions than they are designed for.
+\noindent When exchanging backbone architectures it is important, that the dimensions of input and output tensors are the same for every backbone otherwise the next layers would get different input dimensions than they are designed for.
 Standardizing the input tensor is done by resizing an image to $512 \times 512$ after augmentation.
 While $B$ is set by a hyperparameter, $C = 3$ because images are in the 3-channel \ac{RGB} format.
 For the output dimensions, the backbone architectures and their operations must be analyzed.
@@ -130,11 +132,15 @@ When inspecting all four backbones in more detail it becomes clear that they all
     \item Before the prediction head, the spatial resolution of feature maps is $7 \times 7$.
 \end{itemize}
 
-With this information, the last layers of each backbone can be discarded, so all backbones output tensors with the same $H$ and $W$.
+\clearpage
+
+\noindent With this information, the last layers of each backbone can be discarded, so all backbones output tensors with the same $H$ and $W$.
 In all four papers, the architecture transforms tensors with a resolution of $224 \times 224$ to a tensor with $7 \times 7$ before the prediction heads.
 This means they all have the same reduction factor of 32.
 Since the input resolution of $512 \times 512$ is used in this work resulting feature maps have a resolution of $16 \times 16$ after backbones.
 The exact dimensions of all tensors are shown in \autoref{tab:backboneDimensions}.
+
+\vspace{0.5cm}
 
 \begin{table}[H]
 \centering
@@ -169,7 +175,7 @@ Besides the extra positional encoding, a further gained advantage is that the st
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{PICs/improvedModel/poolingLayers.jpg}
+    \includegraphics[width=0.7\linewidth]{PICs/improvedModel/poolingLayers.jpg}
     \caption{Integration of a true Pooling Layer (Model graphic taken from \cite{tepNet2024} and changed).}
     \label{fig:truePoolingLayer}
 \end{figure}
@@ -210,7 +216,7 @@ Experiments are conducted with four variations of architectures shown in \autore
     \label{fig:differentpredHeads}
 \end{figure}
 
-For comparison, the original head is displayed in \autoref{fig:predHeadOriginal}, which has 2 \ac{FC} layers \cite{pytorch_linearLayer_docu}.
+\noindent For comparison, the original head is displayed in \autoref{fig:predHeadOriginal}, which has 2 \ac{FC} layers \cite{pytorch_linearLayer_docu}.
 The first one has input and output sizes of 2048 and the second one reduces the 2048 features to the output size $2 \times H + 1$ as explained in \autoref{subsec:baselineModel}.
 The Depth and Width head, shown in \autoref{fig:predHeadDepth} and \autoref{fig:predHeadWidth} are inspired by the EfficientNet \cite{EfficientNet} scaling technique.
 The Depth head increases the number of \ac{FC} layers to 4 and keeps the feature size at 2048.
@@ -285,7 +291,7 @@ A schematic visualization is shown in \autoref{fig:schematicTemporalModel} in wh
     \label{fig:schematicTemporalModel}
 \end{figure}
 
-The new problem formulation demands the development of new implementations and solutions.
+\noindent The new problem formulation demands the development of new implementations and solutions.
 The single-frame-based model performs satisfactorily in almost every scenario, except ones in which the train is located either before or directly over a switch.
 This led to the concept of reusing all parts of the single-frame-based system, as long as the new temporal problem formulation allows their re-usability.
 Since the new formulation deals with a sequence-to-one problem, the output is on a single frame. This allows the loss function to be used as it is.
@@ -378,7 +384,7 @@ While being similar the V1 models incorporate one \ac{FC} layer and the V2 model
     \label{fig:temporalModels}
 \end{figure}
 
-Since the temporal modules need data in other formats, the logic of data processing before and within the model has to be changed as well.
+\noindent Since the temporal modules need data in other formats, the logic of data processing before and within the model has to be changed as well.
 The comparison between the data handling of single-frame training and the one proposed in this work for temporal training is described in \autoref{sec:datahandling}.
 In typical models that take single images into account, the network gets tensors with four dimensions consisting of batch size $B$, channels $C$, high $H$, and width $W$ also shown in \autoref{fig:backboneLogic}.
 However, in this work, an additional dimension of the video stream length is introduced.

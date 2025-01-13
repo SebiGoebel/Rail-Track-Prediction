@@ -5,7 +5,7 @@ For the improved auto cropping mechanism there are many different versions imple
 All of them have been evaluated on the Switch evaluation dataset.
 Even though the cropping mechanism is primarily designed for the inference of videos, performance differences can be recorded in this dataset.
 The track of each image is predicted 50 times and the crop coordinates are adjusted iteratively.
-The Results of autocrop versions are shown in \autoref{tab:autocropResults}.
+The results of autocrop versions are shown in \autoref{tab:autocropResults}.
 
 \begin{table}[H]
     \centering
@@ -36,12 +36,11 @@ The Results of autocrop versions are shown in \autoref{tab:autocropResults}.
     \label{tab:autocropResults}
 \end{table}
 
-An improvement in accuracy can be observed in all versions but version 3.
+\noindnet An improvement in accuracy can be observed in all versions but version 3.
 In Version 3, the crop is forced to be in a 16:9 aspect ratio.
 It is assumed that this ratio presents a disadvantage since the crop is resized in a quadratic 512 $\times$ 512 image afterward.
 This assumption is supported by Version 4 also achieving the highest score.
 This version has a fixed quadratic aspect ratio.
-
 Version 5 is very similar to Version 2 but instead of starting with the whole image, its initial crop coordinates are set to $(0, 0.1 \times image\_height, 1)$.
 The whole image width but only the lowest 10\% of the image are considered.
 This proves to be effective in some cases, resulting in a much quicker convergence to a desired crop.
@@ -62,9 +61,9 @@ Therefore 40\% is chosen to be the threshold.
 The crop is reset to $(\frac{1}{3}, \frac{1}{2}, \frac{2}{3})$.
 These parameters are near the optimal crop coordinates for all test scenarios without narrowing the crop too much, which would lead to a possible collapse.
 
-\vspace{1cm}
+\vspace{0.5cm}
 
-To qualitatively show the difference between the original auto crop from \cite{tepNet2024} and the proposed one for this work, both are tested on a difficult scenario.
+\noindent To qualitatively show the difference between the original auto crop from \cite{tepNet2024} and the proposed one for this work, both are tested on a difficult scenario.
 A video from a train driving through a railroad station with many rails, switches, and crossings is chosen to evaluate the different auto-crop mechanisms to their cores.
 Additionally, the ResNet18 backbone is used because it is the worst-performing one in terms of accuracy and differences can be observed more easily.
 
@@ -155,7 +154,7 @@ Additionally, the ResNet18 backbone is used because it is the worst-performing o
 \end{figure}
 
 
-Models with a ResNet18 backbone show an additional behavior when uncertain.
+\noindent Models with a ResNet18 backbone show an additional behavior when uncertain.
 The width of the predicted track becomes unstable, especially at the first few anchors.
 This is because the camera is in a fixed position in this video \cite{temporalDataset_youtube_video}, and when correctly predicting the track, the width does not change at the bottom of the image.
 Therefore, the track width at the first anchor line is a good indicator of uncertainty.

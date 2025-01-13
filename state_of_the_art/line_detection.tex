@@ -68,9 +68,9 @@ Some of the mentioned research approaches utilize key point extraction to detect
 The technique can be divided into four stages.
 In the first stage called "image preprocessing", a semantic segmentation network filters out the rails in an image.
 Additionally, an inverse perspective transformation is utilized to bring the binary mask into a bird-eye view for easier image handling in further steps.
-The second stage named "rail-track discretization", includes a key point extraction, along with connectivity judgment and breakpoint connection modules are used to divide the one-class segmentation mask into different rails.
+The second stage "rail-track discretization", includes a key point extraction, along with connectivity judgment and breakpoint connection modules to divide the one-class segmentation mask into different rails.
 The third stage consists of the "rail lane reconstruction", where the data from the second step is combined with the bird-eye view from the first to connect the extracted key points. Resulting in a complete rail lane instead of discrete points.
-In the final stage, rails are matched in pairs, to receive the final output.
+In the final stage, rails are matched in pairs, for the final output.
 However, no distinction is made between the train's rail and other rails.
 Two additional issues lay in the complex data processing of this approach.
 On the one hand, it is stated that the algorithm's accuracy relies too much on the semantic segmentation used at the start.

@@ -23,6 +23,13 @@
 \usepackage{colortbl} % Paket für Tabellenfarben
 %\usepackage[table, x11names]{xcolor} % Für zusätzliche Farboptionen
 \providecommand*{\listingautorefname}{Listing}
+%\renewcommand*{\subsectionautorefname}{Listing}
+\defcaptionname*{english}{\sectionautorefname}{Section}             % um autoref section großzuschreiben
+\defcaptionname*{english}{\subsectionautorefname}{Subsection}       % um autoref subsection großzuschreiben
+\defcaptionname*{english}{\subsubsectionautorefname}{Subsubsection} % um autoref subsubsection großzuschreiben
+%\let{\sectionautorefname}{Section}
+%\let{\subsectionautorefname}{Subsection}
+%\let{\subsubsectionautorefname}{Subsubsection}
 %\usepackage{cleveref}
                             % Wenn Sie während Ihrer Arbeit
                             % merken, dass Sie zusätzliche Funktionen
@@ -39,6 +46,7 @@
 \title{Robust Rail Track Prediction \\ with Temporal Deep Learning}
 
 \author{Sebastian Goebel, BSc.}
+
 \studentnumber{University of Applied Science: 51912403\and{Luzern University of Applied Sciences and Arts: 23-565-161}}
 %\author{Titel Vorname Name, Titel\and{}Titel Vorname Name, Titel}
 %\studentnumber{XXXXXXXXXXXXXXX\and{}XXXXXXXXXXXXXXX}
@@ -46,7 +54,7 @@
 \supervisor{Prof. Dr. Björn Jensen}
 %\supervisor[Begutachter]{Titel Vorname Name, Titel}
 %\supervisor[Begutachterin]{Titel Vorname Name, Titel}
-%\secondsupervisor{Titel Vorname Name, Titel}
+\secondsupervisor{Dr.techn. Stefan Thalhammer}
 %\secondsupervisor[Begutachter]{Titel Vorname Name, Titel}
 %\secondsupervisor[Begutachterinnen]{Titel Vorname Name, Titel}
 
@@ -73,7 +81,7 @@ To further increase robustness, this work exploits temporal information with a s
 \acknowledgements{
 First, I want to thank my parents, who have always supported me throughout my studies. Not only did they provide financial support, making my studies and this work possible in the first place, but they also always had a sympathetic ear for any problems I faced. Furthermore, I want to thank my friends, who helped me through challenging times. I am especially grateful to Markus Nesetril, who was always there for me during tough times and helped me find balance through physical activities.
 
-A huge thank you also goes to the guys from the CD lab: Mattias Bittner, Mattias Wess, Dominik, and Martin Lechner. A very special thanks goes to Daniel Schnöll, who sat at the desk next to me during this work and always had answers to my quick questions. And above all, I owe an enormous thank you to David Breuss, who co-supervised this thesis. The almost daily exchanges with him greatly helped me in writing this work.
+A huge thank you also goes to the guys from the Christian Doppler laboratory: Matthias Bittner, Matthias Wess, Dominik Dallinger, and Martin Lechner. A very special thanks goes to Daniel Schnöll, who sat at the desk next to me during this work and always had answers to my quick questions. And above all, I owe an enormous thank you to David Breuss, who co-supervised this thesis. The almost daily exchanges with him greatly helped me in writing this work.
 }
 \setListingsAndAcronyms % Definition der Namen für Quellcodeverzeichnis 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ende des Headers
@@ -157,10 +165,10 @@ A huge thank you also goes to the guys from the CD lab: Mattias Bittner, Mattias
 %    \acro{CV}[CV]{Computer Vision}
 %\end{acronym}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Hier beginnt der Anhang.
-\clearpage
-\appendix
-\chapter{Anhang A}
-\clearpage
-\chapter{Anhang B}
+%\clearpage
+%\appendix
+%\chapter{Anhang A}
+%\clearpage
+%\chapter{Anhang B}
 \end{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ende des Inhalts

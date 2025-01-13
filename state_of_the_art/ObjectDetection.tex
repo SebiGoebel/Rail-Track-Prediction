@@ -9,6 +9,8 @@ Enabling accurate classification.
 In 2014 \cite{RCNN2014} introduced Regions with CNN features \ac{RCNN}.
 Since then the development of \ac{CNN}s can be grouped into two different detection techniques: "two-stage detectors" and "one-stage detectors" \cite{20yearsSurvey, surveyObjectDetection, surveyObjectDetection2019}.
 
+\vspace{0.5cm}
+
 \subsection{Two-stage detectors}
 
 Two-stage detectors usually follow a "coarse-to-fine" process, which firstly includes a region proposal and secondly a classification and a refinement of regions \cite{20yearsSurvey, surveyObjectDetection, surveyObjectDetection2019, twostageObjectDetection}.
@@ -17,6 +19,8 @@ Even though these models achieve promising accuracy results, they are highly com
 Consequently, two-stage detectors are usually unsuitable for real-time-critical applications.
 Since all of the use cases of the implementation of this work involve real-time capable applications, the inference time is of great importance.
 Therefore two-stage detectors are not further considered for this work.
+
+\vspace{0.5cm}
 
 \subsection{One-stage detectors}
 
@@ -28,6 +32,8 @@ This model first divides the image into a grid and then simultaneously predicts 
 Proving to be a fast object detector, \cite{YOLOv1} presented the beginning of a whole series of real-time capable models.
 Since, \cite{YOLOv1} still shows decreased accuracy in the localization of small objects, versions \ac{YOLO}v3 \cite{yolov3}, \ac{YOLO}v4 \cite{yolov4}, \ac{YOLO}9000 \cite{yolo9000}, and \ac{SSD} \cite{SSD_model} particularly focused on this issue.
 However, \ac{YOLO}v7 \cite{yolov7} and \ac{YOLO}v9 \cite{YOLOv9} are among the latest real-time object detection models, emphasizing both high speed and improved parameter utilization \cite{20yearsSurvey, surveyObjectDetection, surveyObjectDetection2019, realTimeObjectDetection}.
+
+\clearpage
 
 \subsubsection{YOLO v7}
 \label{subsubsec:YOLOv7}

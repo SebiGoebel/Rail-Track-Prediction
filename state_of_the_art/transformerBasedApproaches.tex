@@ -12,7 +12,7 @@ Despite a strong performance in object detection benchmarks, further reasons for
 
 \vspace{0.5cm}
 
-Another concept is open vocabulary detection, which extends the number of labeled classes, used during training (base classes).
+\noindent Another concept is open vocabulary detection, which extends the number of labeled classes, used during training (base classes).
 The goal is also to predict novel classes during inference \cite{openvocabularysurvey2024}.
 One common approach to enabling the open vocabulary setting for close-set detectors is changing the fixed classifier weights to text embeddings derived from a visual language (VLM) model as shown in \autoref{fig:openvocabulary} \cite{openvocabularysurvey2024}.
 In this context, close-set detectors are traditional detectors that only work with base classes \cite{anonymous2024openvocabulary}.
@@ -24,7 +24,7 @@ In this context, close-set detectors are traditional detectors that only work wi
     \label{fig:openvocabulary}
 \end{figure}
 
-The GLIP series \cite{GLIPv12022} \cite{glipv22022} are examples of such open vocabulary methods.
+\noindent The GLIP series \cite{GLIPv12022} \cite{glipv22022} are examples of such open vocabulary methods.
 GLIPv2 uses a Swin Transformer \cite{swinTransformer2021} as an encoder and other transformers for text encoding.
 While grounding DINO solely supports object detection tasks, GLIPv2 can be used for segmentation tasks \cite{groundingdino2024}.
 The model allows object detection, instance segmentation and can perform Vision-Language understanding tasks \cite{glipv22022}.
@@ -33,7 +33,7 @@ However, inference speeds only reach up to 4.12 FPS in object detection on an NV
 
 \vspace{0.5cm}
 
-Another interesting approach is introduced with Segment Anything \cite{segmentAnything2023}, which aims to build a universal segmentation model.
+\noindent Another interesting approach is introduced with Segment Anything \cite{segmentAnything2023}, which aims to build a universal segmentation model.
 Consequently, this model is trained on a dataset with over one billion masks on 11 million images.
 Segment Anything \cite{segmentAnything2023} allows zero-shot detection, meaning the model can segment classes not included in training \cite{segmentAnything2023} \cite{openvocabularysurvey2024}.
 \cite{segmentAnythingOnline} provides an interface to interact with this model.

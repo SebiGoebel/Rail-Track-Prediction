@@ -66,7 +66,7 @@ For experiments, the same dataset is utilized with various preprocessing steps t
     \label{fig:TEP-Net_sota_models}
 \end{figure}
 
-Experiments include trainings with different versions of ResNet and EfficientNet backbones.
+\noindent Experiments include trainings with different versions of ResNet and EfficientNet backbones.
 According to the \ac{IoU} the segmentation model is the most accurate \cite{tepNet2024}.
 However, the difference in performances is within a range of only 1.4 percent.
 Classification with ResNet18 performs worst.
@@ -84,7 +84,7 @@ For more detailed results, please refer to \cite{tepNet2024}.
     \label{fig:TEP-Net_sota_comparison}
 \end{figure}
 
-Since all three model architectures achieve similar \ac{IoU} scores, \cite{tepNet2024} compares performances on individual challenging scenes.
+\noindent Since all three model architectures achieve similar \ac{IoU} scores, \cite{tepNet2024} compares performances on individual challenging scenes.
 \autoref{fig:TEP-Net_sota_comparison} visualizes a drop in accuracy when the model becomes unsure.
 However, the regression model is the only one that keeps the form of a rail when the track splits and seems to have no issues with obstructions.
 This is because the concept of distance in the error between prediction and \ac{GT} is only provided in the regression-based model, but missing in segmentation and classification models.
@@ -103,6 +103,8 @@ An example scenario is illustrated in \autoref{fig:limitationSwitch}.
 Typically, the model effectively predicts the train's path when approaching switches, with all necessary information contained within the frame.
 However, once the train passes over the switch and the start of the switch is no longer visible, the model cannot determine the continuation of the ego path.
 Only after a certain duration, does the correct track become identifiable again.
+
+\vspace{1cm}
 
 \begin{figure}[H]
     \centering
@@ -198,7 +200,9 @@ Only after a certain duration, does the correct track become identifiable again.
     \label{fig:limitationSwitch}
 \end{figure}
 
-There are two approaches suggested in \cite{tepNet2024}.
+\vspace{0.5cm}
+
+\noindent There are two approaches suggested in \cite{tepNet2024}.
 The first one includes integrating a confidence score to tell if the model is in a scenario where it is prone to become unreliable.
 The second suggested approach is more complete.
 It would encounter the temporal component by implementing a model like a \ac{RNN}, that can capture temporal information.

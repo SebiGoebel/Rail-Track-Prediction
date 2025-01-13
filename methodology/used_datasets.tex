@@ -45,7 +45,7 @@ To prevent confusion, all images containing $switch\_unknown$ annotations are in
     \label{tab:usedSubsetsforYOLOs}
 \end{table}
 
-Since the experiments of training object detection models showed unsatisfactory results also described in \autoref{sec:objectDetectionResults}, this methodology was deemed ineffective.
+\noindent Since the experiments of training object detection models showed unsatisfactory results also described in \autoref{sec:objectDetectionResults}, this methodology was deemed ineffective.
 This leads to the pursuit of a different solution and experiments with semantic segmentation models are therefore not accomplished.
 Consequently, the corresponding dense labels of the RailSem19 dataset are not utilized.
 
@@ -85,7 +85,7 @@ This leads to high values of the \ac{IoU} metric, even though the track is incor
     \label{fig:incorrectButHighIoU}
 \end{figure}
 
-Since this work especially focuses on correctly predicting the train's direction in scenarios with switches, a solution to this evaluation issue must be found.
+\noindent Since this work especially focuses on correctly predicting the train's direction in scenarios with switches, a solution to this evaluation issue must be found.
 Therefore a switch evaluation dataset is created, which solely focuses on switch scenarios.
 Furthermore, a points system is created that gives insight into the model performance.
 This point system is shown in \autoref{fig:pointSystem}.
@@ -131,7 +131,7 @@ In other cases, the model does not get any points.
     \label{fig:pointSystem}
 \end{figure}
 
-This switch dataset deals with a qualitative performance evaluation and no technique is found to automate this process.
+\noindent This switch dataset deals with a qualitative performance evaluation and no technique is found to automate this process.
 Therefore, a model predicts the track of each image, and the points are given by manually observing outputs.
 Since the prediction process should resemble a real application, the autocrop technique is utilized.
 By predicting each image 50 times crop coordinates have time to converge to a crop similar to one in real applications.
