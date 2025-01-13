@@ -659,10 +659,10 @@ urlcolor=TWblue, urlbordercolor=white}
 }{}
 
 \Ifstr{\doctype}{}{%
-  \renewcommand*{\cover}{PICs/unis_cover.png}%
+  \renewcommand*{\cover}{PICs/unis_cover_updated.png}%
 }{\Ifstr{\institution}{Technikum}%
-  {\renewcommand*{\cover}{PICs/unis_cover.png}}%
-  {\renewcommand*{\cover}{PICs/unis_cover.png}}}
+  {\renewcommand*{\cover}{PICs/unis_cover_updated.png}}%
+  {\renewcommand*{\cover}{PICs/unis_cover_updated.png}}}
 \newcommand*{\@supervisor}{}
 \newcommand*{\@supervisordesc}{}
 \newcommand{\supervisor}[2][]{\gdef\@supervisordesc{#1}\gdef\@supervisor{#2}}
