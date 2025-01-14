@@ -3,7 +3,7 @@
 
 This chapter includes a discussion about the gathered results.
 Furthermore, the research questions introduced at the beginning of this work are addressed comprehensively and ultimately answered.
-Therefore this chapter is divided into the individual research questions.
+Therefore, this chapter is divided into the individual research questions.
 An additional subchapter briefly describes two approaches that were not pursued further and describes an idea for future research.
 
 \subsubsection{1. What is the most effective vision-based approach for reliably identifying the rail track the train travels on, ensuring precise direction detection and robustness, especially in scenarios involving switches?}
@@ -16,16 +16,17 @@ However, these papers proceed on the premise that switch-states cannot be determ
 They determine the train's track with complex post-processing algorithms, which cause a loss in speed.
 
 To address the issue of identifying the state of the switches, such a system could be complemented with an object detection method.
-Therefore, this study conducts experiments using models from the \ac{YOLO} series, which confirm the assumption, indicating the need for a fundamentally different approach.
-This strategy is presented by \cite{tepNet2024}, the only project found in the literature that focuses on rail track prediction with the assumption of predicting switches correctly.
+Therefore, this study conducts experiments using models from the \ac{YOLO} series.
+Since the experiments show unsatisfactory results, the assumption of being unable to determine switch states is confirmed, indicating the need for a fundamentally different approach.
+This strategy is presented by \cite{tepNet2024}, the only project found in the literature focusing on rail track prediction with the assumption of predicting switches correctly.
 It changes the problem formulation to a regression problem and introduces a domain-specific loss function that considers positional error.
 This approach shows promising results in terms of accuracy and real-time capability.
 Therefore, this project presents the baseline for this work, and further experiments are conducted to increase the robustness of this system.
 
 To answer the research question, even when there are still limitations to this method, it presents the most promising method in the state-of-the-art.
-However, rail track prediction is an advancing research field, and systems need to be improved according to specific situations, like switch scenarios, to elevate the system to the maximum achievable level of accuracy and, consequently, safety.
-This work presents techniques and approaches that prove to be more robust than the state-of-the-art ones.
-However, more use case-specific research must be conducted when preparing the system for a real-world application.
+However, rail track prediction is an advancing research field, and systems need to be improved according to specific situations, like switch scenarios, to elevate the achievable accuracy and safety.
+This work presents techniques that are more robust than the state-of-the-art ones.
+However, more use case specific research must be conducted when preparing the system for a real-world application.
 
 \subsubsection{2. How can this application be implemented to run in real-time on an embedded device from the NVIDIA Jetson series?}
 
@@ -33,7 +34,7 @@ One goal of this work is to implement a real-time capable system.
 All datasets in this work are some variations of RailSem19.
 This dataset consists of images of YouTube videos primarily in 25 or 30 \ac{FPS}.
 The temporal dataset also includes such videos.
-Therefore, the system aims to speed up to 30 \ac{FPS}.
+Therefore, this work aims for a system with a speed of 30 \ac{FPS}.
 This results in a threshold for the latency of 33.33 ms or lower.
 However, this is a simplified assumption based on available data rather than on a practical application.
 
@@ -52,7 +53,7 @@ The lower the value, the safer the system becomes.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{PICs/discussion/Kameraaufbau.pdf}
-    \caption{Camera setup}
+    \caption{Systematic visualization of a mounted camera setup}
     \label{fig:cameraSetup}
 \end{figure}
 
@@ -167,7 +168,7 @@ Also interesting is that with this frame rate and the highest possible train spe
         
     \end{axis}
     \end{tikzpicture}
-    \caption{Ratio between the train's speed and the distance it drives between frames with 30 \ac{FPS}. Red lines are the top speeds of all different trains from Austria: 120 km/h, 140 km/h, 160 km/h, 200 km/h, 230 km/h, 265 km/h, \cite{geschwindigkeitAllTrainsAustria}}
+    \caption{Ratio between the train's speed and the distance it drives between frames with 30 \ac{FPS}. Red lines are the top speeds of all different trains from Austria: 120 km/h, 140 km/h, 160 km/h, 200 km/h, 230 km/h, 265 km/h \cite{geschwindigkeitAllTrainsAustria}}
     \label{fig:ratioSpeedDistanceBetweenFrames}
 \end{figure}
 
@@ -176,7 +177,7 @@ Tables in \autoref{improvedTEPNetResults} show that almost every single-frame-ba
 The lightweight model architecture can explain this.
 Only some versions of DenseNet exceed the desired target.
 
-For answering this research question for the temporal models more factors must be considered.
+To answer this research question for the temporal models, more factors must be considered.
 \autoref{tab:temporalModelsResultsLatency} shows that the fastest temporal model is CNN\_FLAT\_FC in FP16.
 Compared to the single-frame-based model, this method suffers from an increased latency, which is too high for inferring videos with 30 \ac{FPS}.
 According to the calculations of \autoref{func:FPSValues}, the theoretical frame rate needed for real-time is 5.1 \ac{FPS}, which corresponds to a latency of 196.08 ms.
@@ -186,8 +187,8 @@ FP32 models are too slow.
 However, various methods could allow higher frame rates of input videos (30 \ac{FPS}) in practical operations.
 Firstly, an increase in speed can be achieved by utilizing a MobileNet backbone.
 \autoref{tab:temporalModelsResultsLatency} shows that this increases speed significantly and is within the limits of real-time capability when inferring 30 \ac{FPS} videos.
-Secondly, when having a 30 \ac{FPS} video as input, only every third or fourth frame can be used.
-This way the frame rate would effectively be reduced, increasing the allowed latency despite having a 30 \ac{FPS} video input.
+Secondly, only every third or fourth frame can be used when having a 30 \ac{FPS} video as input.
+This way, the frame rate would effectively be reduced, increasing the allowed latency despite having a 30 \ac{FPS} video input.
 An additional advantage of only inputting every third or fourth frame into the model is that the temporal context window increases even when the length of the sliding window remains the same.
 Even though information between frames is lost, ten frames would cover a window of 30 or 40 frames.
 Furthermore, using this technique decreases the number of frames in which the train is located directly over the switch, resulting in a smaller time frame that needs to be bridged.
@@ -197,7 +198,7 @@ Furthermore, using this technique decreases the number of frames in which the tr
 \noindent In conclusion, temporal models can operate in real-time with a frame rate of 5.1 \ac{FPS}.
 However, this presents an extreme case with an overlap factor of 1, which decreases the possible safety of the system.
 That leads to the thought that the optimal trade-off must be found between the overlap of the predicted areas of consecutive frames and the frame rate.
-Furthermore, in a practical application also the train's current speed can be incorporated which changes the real-time threshold and therefore frame rate adaptively.
+Furthermore, in a practical application, the train's current speed can also be incorporated, which changes the real-time threshold and, therefore, the frame rate adaptively.
 
 \subsubsection{3. To what extent can the temporal dimension be leveraged to improve the accuracy of predictions in switch situations where the necessary information is no longer present in the current frame?}
 
@@ -228,10 +229,10 @@ That is because single-frame-based models hit the rail pixels more precisely.
 
 In conclusion, the temporal models can lead to a gain in accuracy.
 \autoref{tab:temporalModelsResults} shows that when excluding questionable scenarios \textbf{Switch 1} and \textbf{Switch 2} an increase in \ac{IoU} accuracy of 15.25 \% compared to the adapted single-frame-based and an increase of 16.43 \% compared to the current state-of-the-art is possible.
-Even when including these scenarios there is a gain in \ac{IoU} performance compared to the current state-of-the-art and the adapted model.
+Even when including these scenarios, there is a gain in \ac{IoU} performance compared to the current state-of-the-art and the adapted model.
 However, the results show that more research must be conducted for a temporal model to be applicable in a real-world scenario.
 This is because, although the current state of this work achieves higher accuracy in switch cases, it comes at the expense of speed.
-Furthermore, in scenarios without switches, single-frame-based models outperform temporal models, necessitating a method to potentially integrate both approaches and switch to the advantageous model for the given scenario.
+Furthermore, single-frame-based models outperform temporal models in scenarios without switches, necessitating a method to potentially integrate both approaches and switch to the advantageous model for the given scenario.
 
 \subsubsection{Approaches that were not pursued further}
 \label{subsubsec:furtherApproachForOutlook}
@@ -285,15 +286,15 @@ Additionally, from a visual inspection alone, \autoref{fig:segmentanything2} sho
 One reason lies in this model solving a segmentation instead of a regression task.
 Therefore, this approach is not recommended for further research.
 
-The second approach tried in this work but not further pursued originates from state-of-the-art approaches often detecting multiple road lanes or rails.
-\cite{li2022rail} presents an interesting approach, which detects multiple rails.
+The second approach tried in this work but not further pursued originates from state-of-the-art approaches, often detecting multiple road lanes or rails.
+\cite{li2022rail} presents an interesting approach that detects multiple rails.
 A hyperparameter can define the number of rails.
 In the original project, four rails are detected \cite{railNet2022GitHub}.
-This work conducts a quick experiment in which a pre-trained model of \cite{li2022rail} tries to predict the rails in the video used for this work's temporal dataset.
-First, observations show that this model, trained on a particular dataset, cannot generalize for scenes that look different.
+This work experiments with a pre-trained model of \cite{li2022rail} to predict the rails in the video used for this work's temporal dataset.
+First, observations show that this model, trained on a particular dataset that looks like \autoref{fig:mutlirailTest_a}, cannot generalize for scenes that look different, as shown in \autoref{fig:mutlirailTest_b}.
 The authors also state that in the corresponding GitHub repository \cite{railNet2022GitHub}.
 Consequently, this project does not offer a baseline that fits as well as TEP-Net ~\cite{tepNet2024}.
-Since \cite{tepNet2024} used this exact model \cite{li2022rail} for the state-of-the-art comparison, shows that generalization is possible with the right dataset.
+Since \cite{tepNet2024} used this exact model \cite{li2022rail} for the state-of-the-art comparison, it shows that generalization is possible with the right dataset.
 However, \cite{tepNet2024} only includes detecting two rails.
 A new dataset must be created to detect more than two rails.
 
@@ -310,10 +311,10 @@ A new dataset must be created to detect more than two rails.
     \begin{subfigure}{0.49\textwidth}
         \centering
         \includegraphics[width=\linewidth]{PICs/discussion/multirail.jpg}
-        \caption{Prediction on video of temporal dataset.}
+        \caption{Prediction on the video of the temporal dataset.}
         \label{fig:mutlirailTest_b}
     \end{subfigure}
-    \caption{Four rails predicted with \cite{li2022rail} in both scenes. The model is trained on the dataset of \cite{li2022rail}. The comparison shows accurate prediction in \textbf{(a)}, but cannot generalize for the scene of \textbf{(b)}.}
+    \caption{Four rails predicted with \cite{li2022rail} in both scenes. The model is trained on the dataset of \cite{li2022rail}. The model shows accurate predictions in \textbf{(a)} but cannot generalize for the scene of \textbf{(b)}.}
     \label{fig:mutlirailTest}
 \end{figure}
 
