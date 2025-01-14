@@ -34,9 +34,9 @@ However, the main limitation of this system lies in the approach being single-fr
 That presents an issue when driving over switches, and the start of the switch blades is no longer visible in the image.
 At that point in time, the system cannot identify the correct rail as it lacks the information from previous frames.
 Therefore, this work develops an approach that includes the temporal aspect of these situations.
-Various models are experimented with, which incorporate \ac{RNN}s to learn sequential context.
+Various models are experimented with, incorporating \ac{RNN}s to learn sequential context.
 A sequential dataset tailored to this particular problem is created.
-It consists of sequences with 76 frames in which trains drive over switches.
+It consists of 38 sequences with 76 frames in which trains drive over switches.
 The sequences are auto-labeled with the single-frame-based model and manually corrected whenever necessary.
 Consequently, the data augmentation, dataloading logic, and evaluation process are adapted to support video input instead of single images.
 Transfer learning and a sliding window approach are used to train various temporal models.
@@ -44,7 +44,7 @@ The results of these experiments show an improved accuracy at frames in which th
 When considering the most relevant temporal test sequences, temporal models achieve an increase in \ac{IoU} of up to 16.43\%.
 Proving that exploiting the temporal dimension provides an advantage and can increase robustness further.
 However, more research must be conducted when employing the system for a real-world application.
-Especially, since temporal models show latencies up to 328.86 ms.
+Especially since temporal models show latencies up to 328.86 ms.
 
 In addition to accuracy evaluations, all models are optimized with the NVIDIAs TensorRT framework, and latencies are measured on an NVIDIA Jetson AGX Xavier.
 This work discusses the real-time capabilities of all single-frame and temporal models, either proving that they are below a certain threshold of video inference or presenting further approaches to make models real-time operable.
