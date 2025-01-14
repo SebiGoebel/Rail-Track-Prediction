@@ -49,16 +49,12 @@ The network combines a ResNet-34 \cite{ResNet} backbone and includes connections
 At the deepest level, a \ac{SPP} \cite{spatialPyramidPooling2014} and on the skip connections, squeeze-and-excitation blocks \cite{SqueezeAndExcitation2019} are used.
 Tests on RailSem19 show that it outperforms the first proposed RailNet \cite{railNet2019} in accuracy with a speed of 20 \ac{FPS}.
 
-\vspace{0.5cm}
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{PICs//semanticSegmentation/possibleTracks.jpg}
-    \caption{Track segmentation in front of the train. Red are all adjacent tracks, and green are possible tracks \cite{RailraodSemanticPossibleTracks2020}.}
+    \includegraphics[width=0.7\linewidth]{PICs//semanticSegmentation/possibleTracks.jpg}
+    \caption{Rail track segmentation in front of the train. Red are all adjacent tracks, and green are possible tracks \cite{RailraodSemanticPossibleTracks2020}.}
     \label{fig:possibleTracks}
 \end{figure}
-
-\vspace{0.5cm}
 
 \noindent In 2023 \cite{TPENet2023} further investigated the task of possible tracks and introduced \ac{TPE-Net}.
 It consists of a DenseNet-inspired \cite{DenseNets} architecture, which is trained and tested on RailSem19 and outputs regressed heatmaps besides the segmented rails.
