@@ -2,12 +2,12 @@
 \label{sec:ObjectDetection}
 
 Object Detection models output bounding boxes and can detect rail switches or even switch states \cite{railsem19dataset}.
-Therefore these models can be of importance for the implementation of the rail track prediction of this work.
+Therefore, these models can be important for implementing the rail track prediction for this work.
 This section provides a brief introduction to various object detection models.
-In 2012 \cite{AlexNet2012} showed that deep convolutional networks are capable of extracting abstract feature representations from images in a robust manner.
+In 2012 \cite{AlexNet2012} showed that deep convolutional networks can extract abstract feature representations from images in a robust manner.
 Enabling accurate classification.
-In 2014 \cite{RCNN2014} introduced Regions with CNN features \ac{RCNN}.
-Since then the development of \ac{CNN}s can be grouped into two different detection techniques: "two-stage detectors" and "one-stage detectors" \cite{20yearsSurvey, surveyObjectDetection, surveyObjectDetection2019}.
+In 2014, \cite{RCNN2014} introduced \ac{RCNN}.
+Since then, the development of \ac{CNN}s can be grouped into two different detection techniques: "two-stage detectors" and "one-stage detectors" \cite{20yearsSurvey, surveyObjectDetection, surveyObjectDetection2019}.
 
 \vspace{0.5cm}
 
@@ -18,19 +18,19 @@ Well-known examples are the R-CNN \cite{RCNN2014}, Fast R-CNN \cite{FastRCNN2015
 Even though these models achieve promising accuracy results, they are highly complex, which increases inference time.
 Consequently, two-stage detectors are usually unsuitable for real-time-critical applications.
 Since all of the use cases of the implementation of this work involve real-time capable applications, the inference time is of great importance.
-Therefore two-stage detectors are not further considered for this work.
+Therefore, two-stage detectors are not considered further for this work.
 
 \vspace{0.5cm}
 
 \subsection{One-stage detectors}
 
-Single-stage detectors or one-stage-detectors combine the classification and localization in one step making them fast enough for real-time applications.
+Single-stage or one-stage detectors combine the classification and localization in one step, making them fast enough for real-time applications.
 The first single shot detector was the \ac{YOLO} \cite{YOLOv1}, which operates with up to 155 FPS on a Titan X GPU.
 \ac{YOLO} is the first approach, which reframed the object detection task as a regression problem.
 The introduced model consists of a single neuronal network, allowing end-to-end training.
 This model first divides the image into a grid and then simultaneously predicts bounding boxes and the probabilities of classes.
 Proving to be a fast object detector, \cite{YOLOv1} presented the beginning of a whole series of real-time capable models.
-Since, \cite{YOLOv1} still shows decreased accuracy in the localization of small objects, versions \ac{YOLO}v3 \cite{yolov3}, \ac{YOLO}v4 \cite{yolov4}, \ac{YOLO}9000 \cite{yolo9000}, and \ac{SSD} \cite{SSD_model} particularly focused on this issue.
+Since \cite{YOLOv1} still shows decreased accuracy in the localization of small objects, versions \ac{YOLO}v3 \cite{yolov3}, \ac{YOLO}v4 \cite{yolov4}, \ac{YOLO}9000 \cite{yolo9000}, and \ac{SSD} \cite{SSD_model} particularly focused on this issue.
 However, \ac{YOLO}v7 \cite{yolov7} and \ac{YOLO}v9 \cite{YOLOv9} are among the latest real-time object detection models, emphasizing both high speed and improved parameter utilization \cite{20yearsSurvey, surveyObjectDetection, surveyObjectDetection2019, realTimeObjectDetection}.
 
 \clearpage
@@ -39,9 +39,9 @@ However, \ac{YOLO}v7 \cite{yolov7} and \ac{YOLO}v9 \cite{YOLOv9} are among the l
 \label{subsubsec:YOLOv7}
 
 The \ac{YOLO}v7 \cite{yolov7} introduced in 2022 is a subsequent work from the \ac{YOLO}v4 \cite{yolov4}.
-It surpasses most object detectors in both accuracy and speed, with inferences from 5 FPS to 160 FPS on a NVIDIA V100 GPU.
+It surpasses most object detectors in both accuracy and speed, with inferences from 5 FPS to 160 FPS on an NVIDIA V100 GPU.
 The main contributions of \ac{YOLO}v7 \cite{yolov7} are several methods that increase the accuracy without decelerating inference.
-To achieve that it incorporates a planned re-parameterized strategy, which can be utilized for layers in various models.
+To achieve that, it incorporates a planned re-parameterized strategy, which can be utilized for layers in various models.
 Furthermore, \ac{YOLO}v7 \cite{yolov7} also uses new label assignment methods called "coarse-to-fine lead head guided label assignment".
 Additionally, extend and compound scaling techniques are used.
 The introduced methods not only increased speed and accuracy but also decreased the number of parameters of the model by about 40 \% \cite{yolov7}.
@@ -55,5 +55,5 @@ Released in February 2024, it is the most recent model in the \ac{YOLO} series.
 \cite{YOLOv9} states that most models lose information through spatial transformations and layer-by-layer feature extraction.
 Therefore, the \ac{YOLO}v9 model focuses on reversible functions and information bottlenecks.
 Consequently, the main contributions of \cite{YOLOv9} are a \ac{PGI} concept, which utilizes auxiliary reversible branches, and a \ac{GELAN}, which further increases the usage of existing parameters.
-The proposed models prove to be lightweight while still being accurate and fast, outperforming current real-time object detection models.
+The proposed models are lightweight while still being accurate and fast, outperforming current real-time object detection models.
 The characteristics of these models indicate that they are also applicable to this work.
