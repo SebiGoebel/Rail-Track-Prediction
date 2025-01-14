@@ -2,17 +2,17 @@
 \label{sec:baselinepaper}
 
 To do justice to the contributions of \cite{tepNet2024}, it is addressed in a separate section highlighting the paper's specific insights and relevance. 
-To the best of the author's knowledge, \cite{tepNet2024} is the only paper in the literature, which only filters out the two rails of the train, presenting a solution to the rail track prediction problem.
-Contrary to most literature, in which all rails are often detected without any distinction between different rails.
+To the best of the author's knowledge, \cite{tepNet2024} is the only paper in the literature that only filters out the two rails of the train, presenting a solution to the rail track prediction problem.
+This is contrary to most literature, in which all rails are often detected without any distinction between different rails.
 Efforts in rail detecting with the train's path in consideration have been made in \cite{RailraodSemanticPossibleTracks2020} and \cite{TPENet2023}.
-However, because of the assumption that switch states cannot be accurately determined all "possible rail tracks" are considered in those two papers, leading to complex post-processing.
+However, because of the assumption that switch states cannot be accurately determined, all "possible rail tracks" are considered in those two papers, leading to complex post-processing.
 In \cite{tepNet2024}, the train's rails are defined as the "ego path" and others are ignored.
-To realize a system with this output \cite{tepNet2024} presents a novel regression-based approach, inspired by autonomous driving applications for road cars.
-Contributions include: new annotations tailored for this use case, two data augmentation strategies, a novel model architecture, and a custom loss function.
+To realize a system with this output \cite{tepNet2024} presents a novel regression-based approach inspired by autonomous driving applications for road cars.
+Contributions include a novel model architecture, new annotations tailored for this use case, a cropping mechanism for inference, a data augmentation strategy, and a custom loss function.
 
 \vspace{0.7cm} % Größerer Abstand zwischen den Reihen
 
-\noindent \textbf{The model architecture} introduced by \cite{tepNet2024}, includes a backbone for feature extraction followed by a prediction head.
+\noindent \textbf{The model architecture} introduced by \cite{tepNet2024} includes a backbone for feature extraction followed by a prediction head.
 The head is constructed out of fully connected layers and forms the output at the end.
 The output vector includes the $x$-values for the left and the right rail on anchor lines and a value for the horizon line.
 \autoref{fig:TEP-Net_sota_models} shows the proposed regression model in the middle.
@@ -28,7 +28,7 @@ For further details of the dataset, please refer to \autoref{subsubsec:TEP-Net_d
 
 \noindent \textbf{The autocrop mechanism} is developed for inference \cite{tepNet2024}.
 This technique delivers the most relevant crop of the input frame according to a running average of previous predictions.
-This method is described in \autoref{sec:autocrop} in more detail.
+This method is described in more detail in \autoref{sec:autocrop}.
 
 \vspace{0.7cm} % Größerer Abstand zwischen den Reihen
 
@@ -36,19 +36,19 @@ This method is described in \autoref{sec:autocrop} in more detail.
 Since inference focuses on crops instead of whole images, the training must reflect something similar.
 Therefore, a random cropping is also used, dependent on the \ac{GT}.
 It allows the model to adapt to different image crops in inference.
-All data augmentation methods are described in \autoref{sec:dataaugmentation} in more detail.
+All data augmentation methods are described in more detail in \autoref{sec:dataaugmentation}.
 
 \vspace{0.7cm} % Größerer Abstand zwischen den Reihen
 
 \noindent \textbf{The loss function} is tailored to the regression approach and is constructed of two functions.
-The trajectory loss, which is responsible for the horizontal error, and the y-limit loss, which takes the horizon line into account.
+The trajectory loss, which is responsible for the horizontal error, and the y-limit loss, which considers the horizon line.
 Both losses are weighted and added.
-For a detailed description, please refer to \autoref{sec:lossFunction}.
+Please refer to \autoref{sec:lossFunction} for a detailed description.
 
 \subsection{Comparison other state-of-the-art approaches}
 
 \cite{tepNet2024} compared its approach to promising and common methods in the literature: a segmentation and a classification approach.
-To fairly compare the novel regression-based architecture, \cite{tepNet2024} uses the same backbone and replaces the prediction heads, as illustrated in \autoref{fig:TEP-Net_sota_models}.
+To compare the novel regression-based architecture fairly, \cite{tepNet2024} uses the same backbone and replaces the prediction heads, as illustrated in \autoref{fig:TEP-Net_sota_models}.
 The segmentation model utilizes a U-Net-like \cite{uNet2015} decoder, which outputs a binary mask with dimensions $1 \times 512 \times 512$.
 A binary Dice loss is used for training.
 The classification model is inspired by \cite{li2022rail} and follows their settings.
@@ -67,13 +67,13 @@ For experiments, the same dataset is utilized with various preprocessing steps t
 \end{figure}
 
 \noindent Experiments include trainings with different versions of ResNet and EfficientNet backbones.
-According to the \ac{IoU} the segmentation model is the most accurate \cite{tepNet2024}.
-However, the difference in performances is within a range of only 1.4 percent.
+According to the \ac{IoU}, the segmentation model is the most accurate \cite{tepNet2024}.
+However, the performance difference is within a range of only 1.4 percent.
 Classification with ResNet18 performs worst.
 While segmentation with EfficientNet-B3 achieves the highest accuracy, it is also the slowest.
 In terms of speed, the regression-based approach outperforms other models.
 Additionally, it proves to be lightweight because of a lower number of parameters and \ac{MACs}.
-These characteristics are of great importance for the rail track prediction application of this work.
+These characteristics are of great importance for this work's rail track prediction application.
 For more detailed results, please refer to \cite{tepNet2024}.
 
 \begin{figure}[H]
@@ -87,7 +87,7 @@ For more detailed results, please refer to \cite{tepNet2024}.
 \noindent Since all three model architectures achieve similar \ac{IoU} scores, \cite{tepNet2024} compares performances on individual challenging scenes.
 \autoref{fig:TEP-Net_sota_comparison} visualizes a drop in accuracy when the model becomes unsure.
 However, the regression model is the only one that keeps the form of a rail when the track splits and seems to have no issues with obstructions.
-This is because the concept of distance in the error between prediction and \ac{GT} is only provided in the regression-based model, but missing in segmentation and classification models.
+This is because the concept of distance in the error between prediction and \ac{GT} is only provided in the regression-based model but is missing in segmentation and classification models.
 The cross-entropy loss for classification and the dice loss for segmentation both penalize misclassifications but do not account for increasing distance from the \ac{GT}.
 These models work with probabilities, which tend towards extremes under certainty.
 When uncertain, segmentation models move closer to a threshold, and classification models show more spread-out probabilities across classes.
@@ -102,7 +102,7 @@ This model cannot capture temporal context, which becomes problematic when the t
 An example scenario is illustrated in \autoref{fig:limitationSwitch}.
 Typically, the model effectively predicts the train's path when approaching switches, with all necessary information contained within the frame.
 However, once the train passes over the switch and the start of the switch is no longer visible, the model cannot determine the continuation of the ego path.
-Only after a certain duration, does the correct track become identifiable again.
+Only after a certain duration does the correct track become identifiable again.
 
 \vspace{1cm}
 
