@@ -63,7 +63,7 @@ No further information is available from the output of a classification method \
 
 \noindent\textbf{Object detection} combines classification with localization.
 This technique outputs so-called bounding boxes that also include positional information of objects.
-Additionally, class labels are assigned to each bounding box which show what has been recognized \cite{panopticsegmentation2019}.
+Additionally, class labels are assigned to each bounding box, which show what has been recognized \cite{panopticsegmentation2019}.
 
 \vspace{1cm} % Größerer Abstand zwischen den Reihen
 
@@ -76,14 +76,14 @@ Regions within the bounding box that are not part of the object are disregarded 
 \noindent\textbf{Semantic segmentation} is a method that outputs a class label for each pixel of the input image.
 Consequently, the output consists of a mask with the same width and height as the input image.
 An example is shown in \autoref{fig:differentApproaches_semantic_segmentation} with people and cars being two of the output labels.
-In this work, semantic segmentation can be used for filtering out the rail track for example \cite{panopticsegmentation2019}.
+In this work, semantic segmentation can be used for filtering out the rail track, for example \cite{panopticsegmentation2019}.
 
 \vspace{1cm} % Größerer Abstand zwischen den Reihen
 
 \noindent\textbf{Panoptic segmentation} combines semantic segmentation and instance segmentation.
 It makes the difference between so-called "things" and "stuff" \cite{panopticsegmentation2019}.
 Examples of "things" in \autoref{fig:differentApproaches_panoptic_segmentation} are countable objects like cars and people.
-Examples of "stuff" are the road, buildings or the sky.
+Examples of "stuff" are the road, buildings, or the sky.
 As with semantic segmentation, this method outputs a pixel-wise classification.
 This mask also has the same dimensions as the input image.
 However, while semantic segmentation assigns the same class to different instances of the same objects, panoptic segmentation can differentiate between different "things".
@@ -93,7 +93,7 @@ However, while semantic segmentation assigns the same class to different instanc
 
 \noindent\textbf{Line detection} algorithms are usually tailored to filter out lines like road markings or rails.
 \autoref{fig:differentApproaches_line_detection} shows a possible output in the road domain of such an algorithm.
-Even though in the field of line detection a lot of work has been done in the road domain, the main focus of this work is on applications in the rail domain.
+Even though in the field of line detection a lot of work has been done in the road domain, this work mainly focuses on applications in the rail domain.
 Furthermore, many state-of-the-art papers include outputs in the form of binary masks with the same dimensions as the input image.
 While these models solve the line detection problem, they use pixel-wise classification and technically fall into the category of semantic segmentation.
 In this work, these papers are therefore reviewed in the corresponding section.
@@ -103,10 +103,10 @@ Solely techniques not based on semantic segmentation are included in the line de
 
 \noindent Following a brief description of all the various approaches, it becomes clear that only object detection, semantic segmentation, and line detection are viable options for rail track prediction.
 Object detection can be used to filter out switches in the image and their states.
-The information if a switch state is left or right can be useful for predicting the leading rail in an application.
+The information on whether a switch state is left or right can be useful for predicting the leading rail in an application.
 Semantic segmentation can be used to identify the track itself on the pixel level.
 This solution provides a more intuitive solution for train operators where not only a state is outputted, but the track is visualized in the image.
-Ideally, object detection and track segmentation are combined so that only the train's track is displayed.
-The third approach, which must not be overlooked is line detection algorithms.
+Ideally, object detection and track segmentation are combined to display only the train's track.
+The third approach, which must not be overlooked, is line detection algorithms.
 While the output and techniques slightly differ from semantic segmentation, they also provide important pixel-wise information about the track.
-As the other approaches are not suitable or relevant for this use case, they are excluded. The next few sections focus on the three techniques mentioned and describe them in more detail.
+As the other approaches are not suitable or relevant for this use case, they are excluded. The following sections focus on the three techniques mentioned and describe them in more detail.
