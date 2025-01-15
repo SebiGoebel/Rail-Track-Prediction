@@ -25,10 +25,30 @@ This vector is computed at every time step with two gates and considers the inpu
 The first gate is the reset gate, which controls what information is discarded from the previous state.
 The second gate is the update gate, which controls to what extent the candidate activation vector is integrated into the new hidden state.
 For a more detailed and mathematical description, please refer to the original papers of \ac{LSTM} \cite{LSTM2014} and \ac{GRU} \cite{GRU2014}.
+\autoref{fig:LSTMGRUSOTA} visualizes the architectures of \ac{LSTM} and \ac{GRU} with their gates.
 
-<Bild von LSTM und GRU>
+\begin{figure}[H]
+    \centering
+    % Erste Grafik (a)
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/temproalModelsSOTA/LSTM.pdf}
+        \caption{\ac{LSTM} \cite{LSTM2014}}
+        \label{fig:LSTMGRUSOTA_a}
+    \end{subfigure}
+    \hfill
+    % Zweite Grafik (b)
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{PICs/temproalModelsSOTA/GRU.pdf}
+        \caption{\ac{GRU} \cite{GRU2014}}
+        \label{fig:LSTMGRUSOTA_b}
+    \end{subfigure}
+    \caption{Common \ac{RNN} architectures.}
+    \label{fig:LSTMGRUSOTA}
+\end{figure}
 
-Another method to process sequential data can be \ac{SNN}s \cite{spikingNeuralNetworksReview2022}.
+\noindent Another method to process sequential data can be \ac{SNN}s \cite{spikingNeuralNetworksReview2022}.
 Conventional \ac{ANN}s have computational demands and need a large amount of data.
 \ac{SNN}s try to counteract these shortcomings by using biologically realistic neurons.
 These realistic neurons process information with impulses referred to as spikes.
@@ -69,7 +89,9 @@ The encoder extracts features of the images, resulting in a series of feature ma
 The output of the \ac{LSTM} is the decoder's input.
 The \ac{GT} is the labeled binary mask of the last image of the sequence.
 
-\cite{CNNGRU2022} introduced a similar approach.
+\clearpage
+
+\noindent\cite{CNNGRU2022} introduced a similar approach.
 A sequence-to-one approach is implemented that predicts the road lanes of the last frame and outputs a binary mask.
 This project also implements an encoder-decoder network architecture.
 Two ConvGRUs are utilized to learn the temporal component.
