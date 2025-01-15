@@ -2,10 +2,10 @@
 \label{sec:measuringInference}
 
 Due to the nature of this work's use case and potential applications for the system encompassing safety features or preprocessing steps for autonomous trains, the system has to ensure real-time capability when deployed on embedded devices. 
-In more detail, one goal for the train track prediction is to be deployed on an Nvidia Jetson device, because of their high computing power and their low power consumption.
-Additionally, through NVIDIA's software ecosystem, rapid deployment and latency measurements are possible.
+In more detail, one goal for the train track prediction is to be deployed on an Nvidia Jetson device because of their high computing power and low power consumption.
+Additionally, rapid deployment and latency measurements are possible through NVIDIA's software ecosystem.
 Jetson devices are suitable for applications in autonomous systems and computer vision tasks \cite{nvidia_jetson_embedded_devices}.
-Furthermore, the NVIDIA Jetson series is specifically built for machine learning applications, because the devices have \ac{DLA}s built in.
+Furthermore, the NVIDIA Jetson series is specifically built for machine learning applications because the devices have \ac{DLA}s built in.
 \ac{DLA}s are tensor processor units designed to accelerate the inference of neural networks \cite{nvidia_dlas}.
 
 \subsection{Hardware Setup for Measuring Inference}
@@ -17,7 +17,7 @@ An additional advantage present the two built-in \ac{NVDLA}s of the AGX Xavier.
 Even though there are more powerful devices like some of the NVIDIA Jetson Orin series, the AGX Xavier is sufficient for this application and cheaper \cite{nvidia_jetson_embedded_devices_prices}.
 Additionally, the Xavier has a lower power consumption than the Orin.
 Finally but yet important is the ease of integration.
-Since, track prediction is a use case of a company, that most commonly uses the Jetson AGX Xavier platform.
+Since track prediction is a use case of a company that most commonly uses the Jetson AGX Xavier platform.
 Conducting tests on this specific device is appropriate.
 The technical specifications of the NVIDIA Jetson AGX Xavier are shown in \autoref{tab:jetson_AGX_xavier_specs}.
 
@@ -64,15 +64,15 @@ While PyTorch uses FP32 for the inference of its standard models, TensorRT allow
 \vspace{0.8cm}
 
 \noindent\textbf{Layer and Tensor fusion} are used from TensorRT for further optimizing inference.
-Often specific layer sequences include two consecutive layers that can be mathematically combined into a single layer.
+Often, specific layer sequences include two consecutive layers that can be mathematically combined into a single layer.
 Resulting in a reduction of unessential computations.
 
 \vspace{0.8cm}
 
 \noindent\textbf{Kernel tuning} is a process that seeks the optimal configuration of available kernels in the Jetson device.
 The selected kernels depend on the specific machine-learning application and the used device.
-In more detail, the model is executed on the device several times using different CUDA kernels in each run and the best combination is utilized.
-Since, Kernel tuning is an iterative process it usually takes a couple of minutes even with compact models.
+In more detail, the model is executed on the device several times using different CUDA kernels in each run, and the best combination is utilized.
+Since Kernel tuning is an iterative process, it usually takes a few minutes, even with compact models.
 
 \subsubsection{TensorRT engine from PyTorch model}
 
@@ -83,16 +83,16 @@ After that, the \texttt{.onnx} files are optimized by TensorRT with the techniqu
 \vspace{0.8cm}
 
 \noindent\ac{ONNX} is an approach for easier access to hardware optimization and to make interoperability possible \cite{onnx_docu}.
-Often machine learning applications are locked in the framework they are developed in, which can present some hurdles.
+Often, machine learning applications are locked in the framework they are developed in, which can present some hurdles.
 The \ac{ONNX} format aims for a standardized representation of machine learning models and is therefore commonly used in the community.
 Once converted to ONNX, a model utilizes standard data types and a set of built-in operators.
 The \ac{ONNX} format version, known as the "opset", defines which operators are used \cite{onnx_docu}.
-Therefore the TensorRT version must be compatible with the \ac{ONNX} opset number.
+Therefore, the TensorRT version must be compatible with the \ac{ONNX} opset number.
 
 \vspace{0.8cm}
 
 \noindent The TensorRT version installed on the Jetson AGX Xavier must support the used \ac{ONNX} opset.
-Therefore in this work, the opset 11 is used for all model exports.
+Therefore, the opset 11 is used for all model exports in this work.
 
 \begin{listing}[H]
 \begin{minted}[
@@ -121,7 +121,7 @@ torch.onnx.export(
 
 \noindent In this work, all PyTorch models are converted to \texttt{.onnx} files with the built-in torch exporter.
 \autoref{code:export_model_onnx} shows that the conversion is done with a single \texttt{torch.onnx.export()} python line \cite{pytorch_onnx_exporter_docu}.
-After an \ac{ONNX} model format is created it can be optimized by TensorRT.
+After an \ac{ONNX} model format is created, it can be optimized by TensorRT.
 This can be executed with the \texttt{trtexec} console application.
 
 \vspace{0.5cm}
@@ -130,7 +130,7 @@ This can be executed with the \texttt{trtexec} console application.
 \end{center}
 \vspace{0.5cm}
 
-\noindent This command provides an example, in which the model.onnx is optimized with TensorRT techniques mentioned above.
+\noindent This command provides an example, in which the \texttt{model.onnx} is optimized with TensorRT techniques mentioned above.
 Furthermore, the \texttt{model.engine} is saved and can be executed from now on without the need to create it again.
 After a couple of minutes, TensorRT outputs a performance summary with many different latencies, like the min, max, mean, or median.
-Of these values, the median inference time is considered as the final latency rather than the mean, because it is more robust against outliers.
+Of these values, the median inference time is considered as the final latency rather than the mean because it is more robust against outliers.
