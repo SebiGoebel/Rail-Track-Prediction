@@ -6,13 +6,13 @@ Visual grounding tasks, for example, input text descriptions and try to localize
 Visual grounding can deal with semantic segmentation or bounding boxes.
 One of the most promising approaches is Grounding DINO \cite{groundingdino2024}, which combines grounding and transformer-based detection in a single framework, achieving strong results in object detection benchmarks.
 This framework cannot be used for segmentation tasks \cite{glipv22022}.
-Grounding DINO achieves a speed of 8.37 FPS, which makes it too slow for real-time applications \cite{groundingdino2024}.
+Grounding DINO achieves a speed of 8.37 \ac{FPS}, which makes it too slow for real-time applications \cite{groundingdino2024}.
 Furthermore, the model is trained on 64 NVIDIA A100 GPUs, far exceeding the resources available for this work.
-Despite a strong performance in object detection benchmarks, further reasons for not considering this framework for this work are the lack of data to leverage this model's advantages fully, and the use of limited embedded devices for inference that does not fit needed hardware requirements.
+Despite a strong performance in object detection benchmarks, further reasons for not considering this framework for this work are the lack of data to fully leverage this model's advantages and the use of limited embedded devices for inference that does not fit needed hardware requirements.
 
 \vspace{0.5cm}
 
-\noindent Another concept is open vocabulary detection, which extends the number of labeled classes, used during training (base classes).
+\noindent Another concept is open vocabulary detection, which extends the number of labeled classes used during training (base classes).
 The goal is also to predict novel classes during inference \cite{openvocabularysurvey2024}.
 One common approach to enabling the open vocabulary setting for close-set detectors is changing the fixed classifier weights to text embeddings derived from a visual language (VLM) model as shown in \autoref{fig:openvocabulary} \cite{openvocabularysurvey2024}.
 In this context, close-set detectors are traditional detectors that only work with base classes \cite{anonymous2024openvocabulary}.
@@ -20,16 +20,16 @@ In this context, close-set detectors are traditional detectors that only work wi
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.55\linewidth]{PICs/tansformerSOTA/openvocabulary.jpg}
-    \caption{A common structure of open vocabulary models for object detection and semantic segmentation. The vision part predicts class embeddings and the VLM-text part (CLIP \cite{CLIP2021} or ALIGN \cite{ALIGN2021}) generates class embeddings. They are compared with a dot product and the one with the highest score is the output. \cite{openvocabularysurvey2024}.}
+    \caption{A common structure of open vocabulary models for object detection and semantic segmentation. The vision part predicts class embeddings, and the VLM-text part (CLIP \cite{CLIP2021} or ALIGN \cite{ALIGN2021}) generates class embeddings. They are compared with a dot product and the one with the highest score is the output. \cite{openvocabularysurvey2024}.}
     \label{fig:openvocabulary}
 \end{figure}
 
 \noindent The GLIP series \cite{GLIPv12022} \cite{glipv22022} are examples of such open vocabulary methods.
 GLIPv2 uses a Swin Transformer \cite{swinTransformer2021} as an encoder and other transformers for text encoding.
 While grounding DINO solely supports object detection tasks, GLIPv2 can be used for segmentation tasks \cite{groundingdino2024}.
-The model allows object detection, instance segmentation and can perform Vision-Language understanding tasks \cite{glipv22022}.
+The model allows object detection and instance segmentation and can perform Vision-Language understanding tasks \cite{glipv22022}.
 GLIPv2 achieves comparable performance to the state-of-the-art in localization tasks.
-However, inference speeds only reach up to 4.12 FPS in object detection on an NVIDIA V100.
+However, inference speeds only reach up to 4.12 \ac{FPS} in object detection on an NVIDIA V100.
 
 \vspace{0.5cm}
 
@@ -53,11 +53,11 @@ The goal of this work is to develop a rail track prediction system that solely b
 Therefore, the input data does not include text information.
 Consequently, text models are not utilized.
 The relevant parts of state-of-the-art open vocabulary approaches are the vision models.
-These either consist of network architectures like Faster R-CNN or EfficientNet \cite{openvocabularysurvey2024}, which are already described in \autoref{sec:ObjectDetection} and \autoref{sec:networkArchitectures}.
+These can consist of network architectures like Faster R-CNN or EfficientNet \cite{openvocabularysurvey2024}, which are already described in \autoref{sec:ObjectDetection} and \autoref{sec:networkArchitectures}.
 Other vision models are transformer-based, like the Swin Transformer \cite{swinTransformer2021}, CLIP-vision \cite{CLIP2021}, ViT \cite{ViT2021}, MaskFormer \cite{MaskFormer2021}, Mask2Former \cite{mask2Former2022}, and DINO \cite{DINO2022}.
 
-While these open-vocabulary or universal models usually present promising approaches in terms of accuracy, most of them are transformer-based approaches and suffer from a low frame rate (below 30 FPS) making them unsuitable for real-time applications \cite{carion2020endtoendobjectdetectiontransformers} \cite{groundingdino2024} \cite{swinTransformer2021} \cite{MaskFormer2021} \cite{mask2Former2022}~\cite{glipv22022}.
-Commonly used MaskFormer and Mask2Former, only reach 17.6 FPS and 8.6 FPS on an NVIDIA V100 GPU for example~\cite{mask2Former2022}.
+While these open-vocabulary or universal models usually present promising approaches in terms of accuracy, most of them are transformer-based approaches and suffer from a low frame rate (below 30 \ac{FPS}), making them unsuitable for real-time applications \cite{carion2020endtoendobjectdetectiontransformers} \cite{groundingdino2024} \cite{swinTransformer2021} \cite{MaskFormer2021} \cite{mask2Former2022}~\cite{glipv22022}.
+Commonly used MaskFormer and Mask2Former only reach 17.6 \ac{FPS} and 8.6 \ac{FPS} on an NVIDIA V100 GPU for example~\cite{mask2Former2022}.
 These low speeds are recorded despite a strong GPU is usually utilized in inference \cite{groundingdino2024} \cite{glipv22022}.
 An additional issue is that large amounts of computing resources and data are often needed to train transformer-based models, which exceeds the resources of this work \cite{groundingdino2024} \cite{glipv22022} \cite{segmentAnything2023} \cite{segmentAnything22024}.
 Since the goal of this work is to be capable of real-time operation on limited embedded hardware, lightweight models are preferred.
