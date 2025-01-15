@@ -43,8 +43,8 @@
 \end{figure}
 
 The Dataset class reads images according to an index, performs online data augmentation, and outputs a tensor.
-In the Dataset class also the targets are formed out of the augmented annotations.
-First Polylines are transformed into a mask, then the data augmentation from \autoref{sec:dataaugmentation} is applied.
+In the Dataset class, also the targets are formed from the augmented annotations.
+First, Polylines are transformed into a mask, and then the data augmentation from \autoref{sec:dataaugmentation} is applied.
 In the last step, this augmented mask is used to generate regression or classification targets.
 For semantic segmentation, the mask can be utilized directly.
 The Dataloader iterates through the dataset step by step and calls the dataset class using indices.
@@ -53,9 +53,9 @@ In temporal training, a sampler is essential for managing sequences, avoiding ou
 A sliding window approach is implemented, shown in \autoref{fig:slidingWindow}.
 A window of a predefined number of images serves as input for the model.
 This number (usually 10) is smaller than the sequence length of 76.
-Then the data loader steps through the sequence.
+Then, the data loader steps through the sequence.
 At the end of a sequence, the sampler forces the Dataloader to jump to the next sequence instead of mixing them.
-Furthermore, the Datalaoder creates batches and therefore adds the dimension $B$ to the tensor.
+Furthermore, the Datalaoder creates batches and adds the dimension $B$ to the tensor.
 
 \begin{figure}[H]
     \centering
@@ -65,11 +65,11 @@ Furthermore, the Datalaoder creates batches and therefore adds the dimension $B$
 \end{figure}
 
 \noindent The training consists of a pre-defined number of epochs, which presents one training cycle.
-In each epoch, the Dataloader is used to feed the model one batch.
-Then the model predicts, calculates the loss according to this prediction, and performs the back propagation to optimize the model.
+In each epoch, the Dataloader feeds the model one batch.
+Then, the model predicts, calculates the loss according to this prediction, and performs the back propagation to optimize the model.
 In the same cycle, the validation is done, in which the Dataloader feeds the model samples of the validation set.
-Here only the prediction is done and the loss is calculated.
+Here, only the prediction is done, and the loss is calculated.
 Two additional steps are done in an epoch after training and validating.
 On the one hand, the OneCycleLR scheduler \cite{pytorch_oneCycleLR_docu} is used to update the learning rate.
 On the other hand, a model is saved as the best one as soon as it reaches a new minimum in the validation loss.
-This way the model with the lowest loss is obtained.
+This way, the model with the lowest loss is obtained.
