@@ -237,7 +237,7 @@ Furthermore, single-frame-based models outperform temporal models in scenarios w
 \subsubsection{Approaches that were not pursued further}
 \label{subsubsec:furtherApproachForOutlook}
 
-This subsection describes two tested but not further pursued methods and explains why.
+This subsection describes two tested methods and explains why they were not further pursued.
 Additionally, it briefly describes an idea for further research.
 
 During the finalization of this work, \cite{segmentAnything22024} introduced Segment Anything 2, a framework for visual segmentation.
@@ -291,7 +291,7 @@ The second approach tried in this work but not further pursued originates from s
 A hyperparameter can define the number of rails.
 In the original project, four rails are detected \cite{railNet2022GitHub}.
 This work experiments with a pre-trained model of \cite{li2022rail} to predict the rails in the video used for this work's temporal dataset.
-First, observations show that this model, trained on a particular dataset that looks like \autoref{fig:mutlirailTest_a}, cannot generalize for scenes that look different, as shown in \autoref{fig:mutlirailTest_b}.
+First, observations show that this model, trained on a particular dataset that includes images similar to \autoref{fig:mutlirailTest_a}, cannot generalize for scenes that look different, as shown in \autoref{fig:mutlirailTest_b}.
 The authors also state that in the corresponding GitHub repository \cite{railNet2022GitHub}.
 Consequently, this project does not offer a baseline that fits as well as TEP-Net ~\cite{tepNet2024}.
 Since \cite{tepNet2024} used this exact model \cite{li2022rail} for the state-of-the-art comparison, it shows that generalization is possible with the right dataset.
