@@ -1,10 +1,10 @@
 \section{Autocrop Experiments}
 \label{sec:autocropExperiments}
 
-Since in the training of all regression models, only image crops are used, in inference the model must get similar inputs.
-Therefore an Autocrop technique is introduced in \cite{tepNet2024} and an improved version is proposed in this work in \autoref{sec:imporvedAutocrop}.
+Since only image crops are used in the training of all regression models, the model must get similar inputs in inference.
+Therefore, an autocrop technique is introduced in \cite{tepNet2024}, and an improved version is proposed in this work in \autoref{sec:imporvedAutocrop}.
 The introduced version of this mechanism includes an \ac{EMA} instead of the \ac{RA} and a proposed reset rule.
-It results from many experiments described in this section.
+The final version stems from the results of many experiments, which are described in this section.
 
 First, behaviors from the original cropping method proposed by \cite{tepNet2024} are analyzed.
 After that, the improved version is implemented with an \ac{EMA}.
@@ -14,7 +14,7 @@ The horizon line of the prediction converges to the bottom of the image.
 This behavior is used for the reset rule, which resets the image crop to pre-defined crop coordinates.
 This is done when the prediction falls below a threshold calculated with a pre-defined percentage of the crop height.
 Experiments with other versions of this reset rule are conducted.
-On the one hand, various percentages are tested and on the other hand, different reset crop coordinates are used.
+On the one hand, various percentages are tested, and on the other hand, different reset crop coordinates are used.
 Thresholds include 30\%, 40\%, 50\%, and 60\% of the crop height and crop coordinates include the whole image like \autoref{func:resetRuleParams1} and smaller crops like \autoref{func:resetRuleParams2} or \autoref{func:resetRuleParams3}, with $H=image\_height$ and $W=image\_width$.
 These experiments have been conducted on real and difficult video footage in a scenario that resembles a practical application and a scenario in which the reset is forced every five seconds to test its capabilities intensively.
 
