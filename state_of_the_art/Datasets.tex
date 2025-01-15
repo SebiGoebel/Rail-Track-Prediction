@@ -1,7 +1,7 @@
 \section{Datasets}
 \label{sec:datasets}
 
-Datasets are essential for the development of autonomous driving systems, particularly for training and testing algorithms or neural networks.
+Datasets are essential for developing autonomous driving systems, particularly for training and testing algorithms or neural networks.
 Typically, raw sensor data is collected from real-world driving scenarios, providing a realistic environment that reflects potential situations the system may encounter in future applications.
 This allows for more accurate modeling and evaluation of the system's performance under real conditions.
 A common approach to solving problems in autonomous driving systems is using vision-based machine learning algorithms~\cite{railsem19dataset}.
@@ -13,7 +13,7 @@ Therefore, most publicly available datasets focus on this application and primar
 
 \subsubsection{Classification Datasets}
 
-There are a couple of public datasets for different \ac{CV} applications. The data of the following datasets are especially gathered for classification tasks.
+There are a couple of public datasets for different \ac{CV} applications. The data of the following datasets are gathered for classification tasks.
 
 % ---------------------------------------- Table: Datasets for Classification ----------------------------------------
 \begin{table}[H]
@@ -112,9 +112,9 @@ TEP-Net             & train's left and right rail as polylines & 7917 \\\hline
 
 % RailSem19
 \subsubsection{RailSem19}
-\textit{RailSem19} \cite{railsem19dataset} is the first publicly available dataset fitted for environments in the rail domain. It consists of 8500 annotated images gathered from YouTube videos. All of these images are captured from the ego perspective of the train driver, which makes them suitable for the use in this work. Additionally, both bounding box labels and dense labels are included for object detection and semantic segmentation. The bounding box labels are: \textit{guard-rail; rail; traffic-signal-front; traffic-signal-back; traffic-sign-front; crossing; train; platform; buffer-stop; switch-indicator; switch-static; switch-left; switch-right; switch-unknown}. Switch labels are important for predicting the direction of the train because they provide valuable information. The \textit{switch-unknown} label is used when a switch is visible, but it is unclear in which direction the train would proceed. The presence of this label is mainly due to the high noise levels of the images of YouTube videos.
-The dense labels of RailSem19 are: \textit{road; sidewalk; construction; tram-track; fence; pole; traffic-light; traffic-sign; vegetation; terrain; sky; human; rail-track; car; truck; track-bed; on-rails; rail-raised; rail-embedded; void}. In the case of dense labels, the labels \textit{tram-track; rail-track; track-bed; on-rails; rail-raised; rail-embedded} are essential for predicting the direction of trains and trams. \autoref{fig:railSem19-images-denseLabels} shows example scenes with their dense labels below.
-Another advantage is that very diverse environments have been used for this dataset. The creators of \textit{RailSem19} took images from 38 countries in all four seasons and weather conditions. Additionally, the focus was on rails and trams, providing a diverse reflection of rail scenarios and not limiting the use to a specific use case.
+\textit{RailSem19} \cite{railsem19dataset} is the first publicly available dataset fitted for environments in the rail domain. It consists of 8500 annotated images gathered from YouTube videos. All of these images are captured from the train driver's ego perspective, making them suitable for this work. Additionally, both bounding box labels and dense labels are included for object detection and semantic segmentation. The bounding box labels are: \textit{guard-rail; rail; traffic-signal-front; traffic-signal-back; traffic-sign-front; crossing; train; platform; buffer-stop; switch-indicator; switch-static; switch-left; switch-right; switch-unknown}. Switch labels are important for predicting the direction of the train because they provide valuable information. The \textit{switch-unknown} label is used when a switch is visible, but it is unclear in which direction the train would proceed. The presence of this label is mainly due to the high noise levels of the images of YouTube videos.
+The dense labels of RailSem19 are: \textit{road; sidewalk; construction; tram-track; fence; pole; traffic-light; traffic-sign; vegetation; terrain; sky; human; rail-track; car; truck; track-bed; on-rails; rail-raised; rail-embedded; void}. In the case of dense labels, the labels \textit{tram-track; rail-track; track-bed; on-rails; rail-raised; rail-embedded} are essential for predicting the direction of trains and trams. \autoref{fig:railSem19-images-denseLabels} shows scenes with their dense labels below.
+Another advantage is that diverse environments are depicted. The creators of \textit{RailSem19} took images from 38 countries in all four seasons and weather conditions. Additionally, the focus was on rails and trams, providing a diverse reflection of rail scenarios and not limiting the use to a specific use case.
 
 \begin{figure}[H]
     \centering
@@ -154,7 +154,7 @@ Another advantage is that very diverse environments have been used for this data
 %RailVID
 \subsubsection{RailVID}
 \label{subsubsec:railVID}
-Another dataset that focuses on the detection of rails is \textit{RailVID} \cite{yuan2022railvid}, depicted in \autoref{fig:railVID_dataset_images}. This project aims to detect rail tracks and obstacles on the rails, which can lead to possible hazardous situations. With a functioning system, fully automatic train operation is aimed for. The \textit{RailVID} dataset is a collection of 1071 images with the following labels: \textit{background, railway, car, people}. Since the area of application is on the "Suzhou Rail Transit Line 1" in Jiangsu Province, China, all data is captured there. \textit{RailVID} is a collection of infrared data captured with the AT615X infrared thermal instrument from InfiRay. The decision to use infrared data and not RGB images is made because it is more robust against challenging imaging conditions, like darkness at night, fog, rain, and direct light disturbance.
+Another dataset that focuses on the detection of rails is \textit{RailVID} \cite{yuan2022railvid}, shown in \autoref{fig:railVID_dataset_images}. This project aims to detect rail tracks and obstacles on the rails, which can lead to possible hazardous situations. With a functioning system, fully automatic train operation is aimed for. The \textit{RailVID} dataset is a collection of 1071 images with the following labels: \textit{background, railway, car, people}. Since the area of application is on the "Suzhou Rail Transit Line 1" in Jiangsu Province, China, all data is captured there. \textit{RailVID} is a collection of infrared data captured with the AT615X infrared thermal instrument from InfiRay. The decision to use infrared data and not RGB images is made because it is more robust against challenging imaging conditions, like darkness at night, fog, rain, and direct light disturbance.
 Since this dataset only consists of infrared data and in this work, \ac{RGB} data is used, \textit{RailVID} cannot be used for training. An additional issue is that the dataset is recorded only on a specific Chinese line. This is advantageous for this particular use case, but it could become an issue if the system were to be deployed elsewhere.
 
 \begin{figure}[H]
@@ -182,6 +182,8 @@ Since this dataset only consists of infrared data and in this work, \ac{RGB} dat
     \label{fig:railVID_dataset_images}
 \end{figure}
 
+\clearpage
+
 % RailSet
 \subsubsection{RailSet}
 \label{subsubsec:RailSet}
@@ -193,7 +195,7 @@ RailSet-Ano is a collection of 1100 images of railway defects like rail disconti
 Some anomalies are taken from other images and pasted on pictures of the RailSet-Seg and RailSem19 dataset others are generated with a network \cite{railSet2022}.
 Since RailSet-Ano deals with a different use case than the one in this work, this particular data cannot be used.
 
-On the other hand, RailSet-Seg fits the problem. It consists of 6600 images of normal situations.
+On the other hand, RailSet-Seg fits the problem. It consists of 6600 images of rail scenarios without anomalies.
 The images are collected from 23 YouTube videos with a collective duration of 15 hours. It includes two labels: \textit{rail} and \textit{rail-track}. An example is visualized in \autoref{fig:RailSet-Seg_example_image_GT}.
 Besides using RailSet-Seg to create RailSet-Ano, another motivation is to include more complex scenes of the rail domain than RailSem19.
 That is why the focus of RailSet lies on scenarios with poor weather conditions or lighting conditions.
@@ -265,7 +267,7 @@ Since this dataset only covers very specific railroads with unique characteristi
 
 % Rail-DB
 \subsubsection{Rail-DB}
-A very similar dataset is Rail-DB \cite{li2022rail}.
+A similar dataset is Rail-DB \cite{li2022rail}.
 This dataset is a collection of 7432 images taken from 15 videos.
 The labels in this dataset consist of polylines representing all existing rails in an image.
 Additionally, the polylines all have different classes. This way, there is not only one rail class but as many classes as rails in one image.
@@ -396,7 +398,7 @@ Due to the necessity of re-labeling for this work and only data from Hamburg is 
 \cite{tepNet2024} presents the \ac{TEP}-Net dataset.
 The problem this paper aims to solve is rail track prediction.
 This differs from all previously mentioned datasets.
-There is no dataset, but \cite{tepNet2024} provides information that distinguishes possible rails in the image from the one the train follows.
+There is no dataset, but \cite{tepNet2024} that distinguishes the train's rails from other rails in the image.
 Since RailSem19 is the most popular dataset in the rail domain, it is used as the initial point.
 A total of 7917 images are taken from RailSem19.
 The remaining 583 are excluded because they are taken from unusual perspectives or it is unclear which track the train is on or would continue.
