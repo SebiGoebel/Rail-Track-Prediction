@@ -18,7 +18,6 @@ There are a couple of public datasets for different \ac{CV} applications. The da
 % ---------------------------------------- Table: Datasets for Classification ----------------------------------------
 \begin{table}[H]
 \centering
-\caption{Datasets for Classification}\label{tab_datsets_classification}
 \begin{tabular}{| p{0.3\linewidth} | p{0.25\linewidth} | p{0.35\linewidth} |}\hline
 \textbf{Dataset} & \textbf{Labels} & \textbf{Number of relevant images}\\\hline
 CIFAR 100 & trains & 600\\\hline
@@ -27,6 +26,7 @@ Microsoft COCO & trains & 3745\\\hline
 1000 ImageNet & \begin{tabular}[c]{@{}l@{}}electric\_locomotive, \\ steam\_locomotive, \\ bullet\_train\end{tabular} & 6722\\\hline
 Open Images Dataset V4 & train & 9284\\\hline
 \end{tabular}
+\caption{Datasets for Classification}\label{tab_datsets_classification}
 \end{table}
 % --------------------------------------------------------------------------------------------------------------------
 
@@ -41,7 +41,7 @@ Included are 10506 \textit{train}-labels in 9284 images.
 However, there are no other significant labels relevant to the rail domain.
 Additionally, the dataset contains labels for toy trains, which could pose potential challenges.
 
-\subsubsection{Semantic Segmentation}
+\subsubsection{Semantic Segmentation Datasets}
 
 Semantic segmentation labels are often referred to as dense or pixel-wise annotated data.
 These datasets are characterized by each pixel in their images being assigned to a class.
@@ -49,7 +49,6 @@ These datasets are characterized by each pixel in their images being assigned to
 % ---------------------------------------- Table: Datasets for Semantic Segmentation ----------------------------------------
 \begin{table}[H]
 \centering
-\caption{Datasets for Semantic Segmentation}\label{tab_datasets_semanticSegmentation}
 \begin{tabular}{| p{0.3\linewidth} | p{0.3\linewidth} | p{0.35\linewidth} |}\hline
 \textbf{Dataset} & \textbf{Labels} & \textbf{Number of relevant images}\\\hline
 Cityscapes          & rail track, train & 284\\\hline
@@ -57,6 +56,7 @@ Mapillary Vistas    & \begin{tabular}[c]{@{}l@{}}construction-flat-rail-track, \
 COCO-Stuff          & platform, railroads, train & 8615\\\hline
 KITTI               & rail tracks, train & 65\\\hline
 \end{tabular}
+\caption{Datasets for Semantic Segmentation}\label{tab_datasets_semanticSegmentation}
 \end{table}
 % ---------------------------------------------------------------------------------------------------------------------------
 
@@ -92,7 +92,6 @@ Other datasets that deal with perception in a rail domain environment and are ca
 % ---------------------------------------- Table: Datasets for RailDomain ----------------------------------------
 \begin{table}[H]
 \centering
-\caption{Datasets for the rail domain}\label{tab_datsets_railDomain}
 \begin{tabular}{| p{0.15\linewidth} | p{0.55\linewidth} | p{0.25\linewidth} |}\hline
 \textbf{Dataset} & \textbf{Labels} & \textbf{Number of images}\\\hline
 FRSign              & bounding boxes of traffic signs & + 100 000 \\\hline
@@ -105,6 +104,7 @@ Rail-DB             & all rails as polylines & 7432 \\\hline
 OSDaR23             & 20 labels for rail domain in various formats & 16874 \\\hline
 TEP-Net             & train's left and right rail as polylines & 7917 \\\hline
 \end{tabular}
+\caption{Datasets for the rail domain}\label{tab_datsets_railDomain}
 \end{table}
 % --------------------------------------------------------------------------------------------------------------------
 
@@ -392,7 +392,7 @@ Due to the necessity of re-labeling for this work and only data from Hamburg is 
 
 
 % TEP-Net annotations
-\subsubsection{TEP-Net dataset}
+\subsubsection{TEP-Net Dataset}
 \label{subsubsec:TEP-Net_dataset}
 
 \cite{tepNet2024} presents the \ac{TEP}-Net dataset.

@@ -8,7 +8,7 @@ After that, a switch evaluation dataset is described that is used to evaluate si
 The last subsection deals with the temporal dataset and its creation.
 
 
-\subsection{RailSem19 and subsets for training object detection models}
+\subsection{RailSem19 and Subsets for Training Object Detection Models}
 \label{sec:usedDatasetsYOLOs}
 
 The first approach to creating a Rail Track Prediction system includes combining object detection and semantic segmentation models.
@@ -49,7 +49,7 @@ To prevent confusion, all images containing $switch\_unknown$ annotations are in
 This leads to the pursuit of a different solution, and experiments with semantic segmentation models are therefore not accomplished.
 Consequently, the corresponding dense labels of the RailSem19 dataset are not utilized.
 
-\subsection{TEP annotations}
+\subsection{TEP Annotations}
 
 For training single-frame-based models, \cite{tepNet2024} published its annotations for the images of RailSem19.
 These annotations consist of polylines for the train's left and right rails.
@@ -60,7 +60,7 @@ The online tool CVAT \cite{cvat} is used to label this dataset.
 These annotations can then be transformed with a pre-processing step to support other models like semantic segmentation. 
 This dataset is described in more detail in \autoref{subsubsec:TEP-Net_dataset}.
 
-\subsection{Switch evaluation dataset}
+\subsection{Switch Evaluation Dataset}
 
 Making the output as useful and visible as possible is essential for a practical application.
 Therefore, the output should be the whole track, not only the rails.

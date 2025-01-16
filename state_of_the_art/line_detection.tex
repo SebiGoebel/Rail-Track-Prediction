@@ -26,7 +26,7 @@ However, both approaches utilize encoder-decoder structures and are similar to t
 Other structures for lane detection include key point extraction, grid systems, or polyline regression.
 The following three paragraphs describe research in those directions, following projects with similar approaches for the rail domain.
 
-\subsubsection{Keypoint detection on the road}
+\subsubsection{Keypoint Detection on the Road}
 
 \cite{LineCNN2020} proposed Line-CNN, which includes a ResNet backbone and an introduced "Line Proposal Unit".
 The model suggests a series of lines to locate road lanes.
@@ -39,13 +39,13 @@ A \ac{NAS} is also utilized to find the optimal architecture for this task.
 Another approach that uses key points is introduced in \cite{GANet2022}.
 This architecture utilizes a "Lane-aware Feature Aggregation Module" to strengthen the connection between neighboring key points and achieves state-of-the-art performance.
 
-\subsubsection{Grid system}
+\subsubsection{Grid System}
 
 An approach that uses grid systems is proposed by \cite{laneDetectionGrid2020}.
 Here, a row-wise classification is performed for a predefined number of grids.
 The number of grids is equivalent to the number of lanes that can be detected.
 
-\subsubsection{Polyline regression}
+\subsubsection{Polyline Regression}
 
 A regression approach is proposed in \cite{PolyLaneNetRoad2021} that predicts the polynomials of lanes.
 ResNet and EfficientNet backbones extract features, which are then used to forecast lines.
@@ -60,7 +60,7 @@ A typical backbone like ResNet with additional feature flip fusion modules is ut
 Then, a pooling and two convolutional layers are implemented sequentially, which form the final output of predictions.
 Compared to polynomial fitting, the approach proposed in \cite{DetectingLanesWithBezierCurves2023} is superior.
 
-\subsubsection{Rail domain}
+\subsubsection{Rail Domain}
 
 Even though much has been done in the road domain, and the rail domain is usually not considered, some research has still been conducted to adapt lane detection algorithms for trains.
 Some of the mentioned research approaches utilize key point extraction to detect rails.

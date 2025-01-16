@@ -45,7 +45,7 @@ The technical specifications of the NVIDIA Jetson AGX Xavier are shown in \autor
     \label{tab:jetson_AGX_xavier_specs}
 \end{table}
 
-\subsection{Optimizing models with TensorRT}
+\subsection{Optimizing Models with TensorRT}
 
 To fully leverage the used hardware platform Jetson AGX Xavier, NVIDIA introduced TensorRT \cite{nvidia_tensorrt}.
 This ecosystem is developed to allow faster inference times when deploying deep learning models.
@@ -74,7 +74,7 @@ The selected kernels depend on the specific machine-learning application and the
 In more detail, the model is executed on the device several times using different CUDA kernels in each run, and the best combination is utilized.
 Since Kernel tuning is an iterative process, it usually takes a few minutes, even with compact models.
 
-\subsubsection{TensorRT engine from PyTorch model}
+\subsubsection{TensorRT Engine from PyTorch Model}
 
 Since TensorRT does not support PyTorch models, a workaround has to be made.
 First, the PyTorch models are converted into an \ac{ONNX} format \cite{onnx_docu}.

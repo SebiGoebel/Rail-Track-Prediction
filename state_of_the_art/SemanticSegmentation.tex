@@ -1,7 +1,7 @@
 \section{Semantic Segmentation}
 \label{sec:SemanticSegmentation}
 
-Semantic Segmentation models are used to create a mask of an image in which every pixel is assigned to a class.
+Semantic segmentation models are used to create a mask of an image in which every pixel is assigned to a class.
 This method can be used to segment rails or rail tracks to obtain the direction of the train.
 
 The first approach to filter out the rail tracks in front of the train was proposed by \cite{firstRailSegmentation2018} in 2018.
@@ -22,7 +22,7 @@ Only rails are predicted, other annotations of RailSem19 are ignored.
 The characteristics of rails, like placement and structure, are considered.
 Therefore, the integrated module is implemented to improve the spatial relationship between features on both the vertical and horizontal axes.
 \cite{automatedSemSeg2022} uses four subsets of RailSem19 with 2, 3, 4, or all 19 classes to train the U-Net \cite{uNet2015} architecture.
-Additionally, A cropping method is implemented to account for the difference in resolutions between RailSem19's images and the U-Net recommended one.
+Additionally, a cropping method is implemented to account for the difference in resolutions between RailSem19's images and the U-Net recommended one.
 \cite{hadded2022application} used the RailSet dataset \cite{railSet2022}, which is an extension of RailSem19 for segmentation and anomaly detection tasks.
 For details of the RailSet dataset, please refer to \autoref{subsubsec:RailSet}.
 U-Net \cite{uNet2015} and FRNN \cite{FRRNBModel2017} are trained with horizontal flips and zooming for data augmentation.

@@ -1,4 +1,4 @@
-\section{Autocrop mechanism for inference}
+\section{Autocrop Mechanism for Inference}
 \label{sec:autocrop}
 
 This section gives a detailed description of the so-called autocrop.
@@ -6,7 +6,7 @@ This cropping mechanism is responsible for cutting out the desired input for the
 First, the autocrop from \cite{tepNet2024} is described in detail.
 Furthermore, an improved version of this cropping mechanism is explained.
 
-\subsection{Autocrop for inference with TEP's cropping mechanism}
+\subsection{Autocrop for Inference with TEP's Cropping Mechanism}
 
 In \cite{tepNet2024}, only cropped images are used for training models to only consider the most relevant \ac{ROI} in images.
 For training and validating the model on the dataset, the \ac{GT} allows the computation of crop coordinates (left, top, right).
@@ -32,7 +32,7 @@ This allows the crop coordinates to converge to these global averages and preven
     \label{fig:perspective_shifts}
 \end{figure}
 
-\subsection{Improved Autocrop for inference}
+\subsection{Improved Autocrop for Inference}
 \label{sec:imporvedAutocrop}
 
 \cite{tepNet2024} incorporates a \ac{RA} (\autoref{func:runningAverage}) with rule-based policies to prevent collapse to the inside and consider image borders when adding a margin. After that, the newly calculated and checked average is weighted and added to form the new crop coordinates, like in \autoref{func:weightingAverage}. In these formulas, $AVG$ is the average, $x$ is the crop coordinates, and $pred$ are the values obtained from the prediction. In \autoref{func:weightingAverage}, the same annotations are used with $c$ being the coefficient, which is 0.1. All notations but $c$ include all three crop coordinates: left, top right.
@@ -76,13 +76,13 @@ Experiments show that the following reset values are the most advantageous: left
 
 \clearpage
 
-\section{Data augmentation}
+\section{Data Augmentation}
 \label{sec:dataaugmentation}
 
 This section gives a thorough explanation of the data augmentation of \cite{tepNet2024}.
 Additionally, the adapted data augmentation for training temporal models is described in detail.
 
-\subsection{Data augmentation for Training single-frame-based models}
+\subsection{Data Augmentation for Training Single-frame-based Models}
 
 \cite{tepNet2024} utilizes three data augmentation techniques in the training process.
 The first two are commonly used in \ac{CV} tasks, including random horizontal flips and traditional image adjustments like brightness, contrast, saturation, and hue variations.
@@ -109,7 +109,7 @@ This introduced variability follows the policy, ensuring that the rails' startin
     \label{fig:tepNet_dataaugmentation}
 \end{figure}
 
-\subsection{Data augmentation for Training temporal models}
+\subsection{Data Augmentation for Training Temporal Models}
 \label{sec:dataAugmentationTemporal}
 
 For training temporal models, the same three data augmentation strategies as the ones from training single-frame-based models are utilized for enhanced generalization.

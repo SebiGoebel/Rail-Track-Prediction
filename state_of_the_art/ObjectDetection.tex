@@ -1,7 +1,7 @@
-\section{Real-time Object detection}
+\section{Real-time Object Detection}
 \label{sec:ObjectDetection}
 
-Object Detection models output bounding boxes and can detect rail switches or even switch states \cite{railsem19dataset}.
+Object detection models output bounding boxes and can detect rail switches or even switch states \cite{railsem19dataset}.
 Therefore, these models can be important for implementing the rail track prediction for this work.
 This section provides a brief introduction to various object detection models.
 In 2012 \cite{AlexNet2012} showed that deep convolutional networks can extract abstract feature representations from images in a robust manner.
@@ -11,7 +11,7 @@ Since then, the development of \ac{CNN}s can be grouped into two different detec
 
 \vspace{0.5cm}
 
-\subsection{Two-stage detectors}
+\subsection{Two-stage Detectors}
 
 Two-stage detectors usually follow a "coarse-to-fine" process, which firstly includes a region proposal and secondly a classification and a refinement of regions \cite{20yearsSurvey, surveyObjectDetection, surveyObjectDetection2019, twostageObjectDetection}.
 Well-known examples are the R-CNN \cite{RCNN2014}, Fast R-CNN \cite{FastRCNN2015}, Faster R-CNN \cite{FasterRCNN2017}, Mask R-CNN \cite{MaskRCNN2017}, and \ac{FPN} \cite{FPN2017_two_stage-detector}.
@@ -22,7 +22,7 @@ Therefore, two-stage detectors are not considered further for this work.
 
 \vspace{0.5cm}
 
-\subsection{One-stage detectors}
+\subsection{One-stage Detectors}
 
 Single-stage or one-stage detectors combine the classification and localization in one step, making them fast enough for real-time applications.
 The first single shot detector was the \ac{YOLO} \cite{YOLOv1}, which operates with up to 155 FPS on a Titan X GPU.
