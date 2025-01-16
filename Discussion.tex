@@ -202,7 +202,7 @@ Furthermore, in a practical application, the train's current speed can also be i
 
 \subsubsection{3. To what extent can the temporal dimension be leveraged to improve the accuracy of predictions in switch situations where the necessary information is no longer present in the current frame?}
 
-\autoref{tab:temporalModelsResults} shows scenarios exist in which the original auto-crop is more advantageous than the adapted one, even though \autoref{sec:autocropResults} and \autoref{sec:qualitativeComparison} prove that the adapted one is more robust.
+\autoref{tab:temporalModelsResults} shows scenarios exist in which the original autocrop is more advantageous than the adapted one, even though \autoref{sec:autocropResults} and \autoref{sec:qualitativeComparison} prove that the adapted one is more robust.
 After analyzing models in these test cases, it becomes evident that the higher accuracy in \textbf{Switch 1} and \textbf{Switch 2} highly depends on the specific situations of these sequences.
 \textbf{Switch 2} is a very complex situation with many steep angled switches present in the sequence, which is unusual for typical train infrastructure and only occurs in train stations or shunting yards.
 Even the single-frame-based model is not designed for such situations and determines the direction of the train incorrectly in every frame.

@@ -150,8 +150,8 @@ Frames before and after these marked seconds are saved, resulting in 38 sequence
 
 Labeling 2888 images is very time-intensive and repetitive.
 Therefore, an auto-labeling strategy is implemented.
-The best-performing single-frame-based model, in combination with the adapted auto-crop method, is utilized.
-Each image is processed 50 times so the auto-crop coordinates can adapt, and only the most relevant region is considered.
+The best-performing single-frame-based model, in combination with the adapted autocrop method, is utilized.
+Each image is processed 50 times so the autocrop coordinates can adapt, and only the most relevant region is considered.
 \autoref{fig:autolabler} shows the process from this point.
 First, the mask's borders are taken, and then the horizon line is deleted, leaving the lines of the rails.
 Only two pixels remain in each row as visualized in \autoref{fig:autolabler_c}.
