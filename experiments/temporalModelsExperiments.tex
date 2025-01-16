@@ -3,7 +3,7 @@
 
 Training temporal models requires changes in the data-handling logic of the training processes and a new temporal dataset.
 Models are trained with videos instead of single images.
-Therefore, this work creates a novel sequential dataset consisting of 38 sequences with 76 frames each of trains driving over switches.
+Therefore, this work creates a novel sequential dataset consisting of 38 sequences with 76 frames each in which trains drive over switches.
 It includes polyline labels for the left and right rail, like the dataset used to train all single-frame-based models.
 \autoref{sec:tempDataset} describes this dataset in more detail.
 
@@ -11,11 +11,11 @@ The sequential approach in this work resembles a sequence-to-one problem.
 The input consists of a predefined number of images, and the model predicts the rails in the last image.
 Therefore, this work follows a sliding window method, which iterates through sequences.
 
-In most cases, the single-frame-based model achieves high accuracy except when the train is located directly on the switch, and the switchblades are not visible.
+In most cases, the single-frame-based model achieves high accuracy except when the train is located directly on the switch and the switchblades are not visible.
 Therefore, all temporal experiments use feature extractors that are pre-trained on the single-frame dataset.
 Additionally, since these backbones already extract the most relevant features, their weights are frozen, so they do not change in training.
 
-In order to find the best-performing network architecture and training strategy, a large amount of experiments and evaluations are conducted in this work.
+To find the best-performing network architecture and training strategy, a large amount of experiments and evaluations are conducted in this work.
 These include different data augmentation strategies, various model architectures trained on different versions of the temporal dataset, and multiple evaluation techniques.
 
 \subsection{Data Augmentation}
@@ -73,7 +73,7 @@ These sequences are selected to represent possible situations.
         \includegraphics[width=\textwidth]{PICs/experiments/temporalModels/partlyRichtig2.png}
         \caption{\textbf{Switch 4}: 39/76 frames correct}
     \end{subfigure}
-    \caption{Temporal test set with annotation. Visualized are the first images of a sequence. The amount of correctly predicted frames from the single-frame-based model.}
+    \caption{Temporal test set with annotation. Visualized are the first images of a sequence. The number of correctly predicted frames from the single-frame-based model is in the description.}
     \label{fig:temporalTestSet}
 \end{figure}
 
@@ -93,7 +93,7 @@ Therefore, models train for only 100 epochs in most experiments.
 Additionally, the data-handling logic within and before the model sometimes requires a batch size of 1.
 Consequently, all different sequential models train with that batch size.
 Furthermore, this work adds two hyperparameters to manage sequences and the sliding window.
-The sequence length of 76 can be defined if the dataset changes and the window length can be set.
+The sequence length of 76 can be defined if the dataset changes, and the window length can be set.
 Most experiments use a window length of 10 frames.
 \autoref{tab:temporalExperimetparams} describes the most relevant experiments and includes the parameters used.
 
@@ -164,7 +164,7 @@ However, the method that resembles a practical application the most is video inf
 Therefore, this evaluation method is implemented and used for this work since it presents the most relevant metrics.
 Each test sequence has a lead time of over 500 frames so that crop coordinates can adjust to the situation.
 The \ac{IoU} is calculated using the prediction and the \ac{GT} in labeled frames.
-This results in a total \ac{IoU} for each sequence and a trend graph that plots the \ac{IoU} of each frame.
+This results in a total \ac{IoU} for each sequence and a trend graph that plots each frame's \ac{IoU}.
 Consequently, sequences can be analyzed more thoroughly.
 The implemented technique is also used to evaluate the single-frame-based model on the test set of the sequential dataset.
 A fair comparison between single-frame and sequence models can be established this way.
