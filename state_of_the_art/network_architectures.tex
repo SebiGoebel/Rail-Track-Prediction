@@ -119,6 +119,7 @@ Inspired by MobileNet V3, the models also deploy residual bottleneck convolution
 \cite{EfficientNet} calls such a block an "MBConv".
 Since \cite{EfficientNet} observed the correlation between performance improvement and model scaling, the idea is to strategically adjust a network's depth, width, and resolution.
 \autoref{fig:efficientNet_scaled} visualizes these parameters in an example network.
+\autoref{fig:efficientNet_networks} shows a network, before (\autoref{fig:efficientNet_baseline}) and after (\autoref{fig:efficientNet_scaled}) scaling is applied.
 Consequently, a scaling method is introduced, which uses a so-called "compound coefficient".
 The resolution, depth, and width are uniformly scaled with this technique, resulting in eight variants of EfficientNet.
 The different versions, starting with B0 and ending with B7, have increasing parameters.
@@ -132,7 +133,7 @@ All variants of the EfficientNet are included in the PyTorch library \cite{pytor
     \begin{subfigure}{0.4\textwidth}
         \centering
         \includegraphics[width=\linewidth, height=7cm, keepaspectratio]{PICs/backbones/EfficientNet_baseline.jpg}
-        \caption{network before scaling method}
+        \caption{Network before scaling method}
         \label{fig:efficientNet_baseline}
     \end{subfigure}
     \qquad
@@ -140,7 +141,7 @@ All variants of the EfficientNet are included in the PyTorch library \cite{pytor
     \begin{subfigure}{0.4\textwidth}
         \centering
         \includegraphics[width=\linewidth, height=7cm, keepaspectratio]{PICs/backbones/EfficientNet_scaling.jpg}
-        \caption{scaling parameters of a network according to \cite{EfficientNet}}
+        \caption{Scaling parameters of a network according to \cite{EfficientNet}}
         \label{fig:efficientNet_scaled}
     \end{subfigure}
     \caption{Systematic visualization of scaling parameters of a network \cite{EfficientNet}}
