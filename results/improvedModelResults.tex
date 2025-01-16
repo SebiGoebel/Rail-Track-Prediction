@@ -3,9 +3,9 @@
 
 This chapter describes the results of all experiments aiming to improve the single-frame-based model of \cite{tepNet2024}.
 First, the results of using various backbones are described.
-The next subchapter depicts how true pooling layers affect performance.
+The following subchapter depicts how true pooling layers affect performance.
 After that, the results of experiments with different prediction heads are described.
-Each of these subchapters builds on the previous one and results in a final improved single-frame-based model.
+Each subchapter builds on the previous one, resulting in a final improved single-frame-based model.
 
 \subsection{Backbones}
 
@@ -41,12 +41,12 @@ Their results showed that ResNet18 is the fastest model and EfficientNet-B3 is t
 Data for those two models is from \cite{tepNet2024}, which does not give information about Flops.
 Nevertheless, those two models are evaluated on the switch evaluation dataset for performance comparison considering switch cases.
 All versions of MobileNetV3 and DenseNet available on PyTorch are implemented and evaluated.
-Only the most accurate DenseNet version according to the \ac{IoU} and the fastest model, the MoblieNetV3-Small, are assessed on the switch evaluation dataset.
+Only the most accurate DenseNet version according to the \ac{IoU} and the fastest model, the MobileNetV3-Small, are assessed on the switch evaluation dataset.
 
-\autoref{tab:backboneResults} shows an apparent gain in speed with the MobleNetV3s and the Small version being the fastest with latencies of only 2.05 ms on the Jetson AGX Xavier when quantized to FP16 with TensorRT.
+\autoref{tab:backboneResults} shows an apparent gain in speed with the MobileNetV3s and the Small version being the fastest with latencies of only 2.05 ms on the Jetson AGX Xavier when quantized to FP16 with TensorRT.
 This duration is equivalent to 487.8 \ac{FPS}.
 Compared to EfficientNetB3, this is 7.44 times faster while only losing 1.34\% of the \ac{IoU} accuracy.
-The MobielNetV3-Small is the most lightweight model with only 5.33M Parameters.
+The MobileNetV3-Small is the most lightweight model with only 5.33M Parameters.
 However, this backbone shows more confusion when considering switch cases because performance drops significantly on the switch evaluation dataset.
 
 The DenseNet201 outperformed all other models on the switch evaluation dataset with correct predictions of 93.38\%.
@@ -56,7 +56,7 @@ Since the FP16 model also closely approaches the boundary, DenseNets are exclude
 
 \autoref{tab:backboneResults} shows the best values in each category in bold.
 Since these values spread across various models, further experiments must be conducted to determine a final backbone.
-Because of their high latencies only DenseNets are excluded from further experiments with pooling layers.
+Because of their high latencies, only DenseNets are excluded from further experiments with pooling layers.
 
 \subsection{Pooling Layers}
 
@@ -100,7 +100,7 @@ The best versions of each backbone are shown in the first four rows of \autoref{
 
 An adaptive average or max pool is implemented for pooling layers.
 This work evaluates the three models with both layers.
-\autoref{tab:poolongResults} shows that the performance of the MobileNet according to the switch evaluation dataset drops even further with both pooling layers.
+\autoref{tab:poolongResults} shows that the performance of the MobileNet, according to the switch evaluation dataset, drops even further with both pooling layers.
 Since this work predominantly focuses on switch cases and the direction of the train is more critical than pixel-level accuracy, MobileNets are not further considered in this work.
 
 The best trade-off between accuracy and speed provides the EfficientNetB3 with an integrated max pooling layer.
@@ -140,7 +140,7 @@ It achieves a switch accuracy of 97.79\% while only increasing the latency by 0.
 Converted to \ac{FPS}, this corresponds to 38.65 and 62.15, respectively.
 Since this latency gain is acceptable for almost an additional 3\% switch accuracy presents a good trade-off, the final model incorporates the EfficientNet-B3 backbone, an adaptive max pooling layer, and the introduced trapeze head.
 
-\section{Qualitative comparison between the baseline model and the improved Version}
+\section{Qualitative comparison between the baseline model and the improved version}
 \label{sec:qualitativeComparison}
 
 \begin{figure}[H]
@@ -191,13 +191,13 @@ Since this latency gain is acceptable for almost an additional 3\% switch accura
         \textbf{adapted TEP-Net}\\
         EfficientNet-B3
     \end{minipage}
-    \caption{Comparison between the best version of TEP-Net \cite{tepNet2024} and the best version with all improvements of this work: best backbone, adaptive max pooling, trapeze head, and adapted auto-crop mechanism.
+    \caption{Comparison between the best version of TEP-Net \cite{tepNet2024} and the best version with all improvements of this work: best backbone, adaptive max pooling, trapeze head, and adapted autocrop mechanism.
     Images of complex scenes with difficult angles of perspective are intentionally chosen.}
     \label{fig:comparisonBaseline2Improved}
 \end{figure}
 
 \autoref{fig:comparisonBaseline2Improved} shows three examples of the switch evaluation dataset.
-These predictions are obtained with the auto-cropping mechanism.
+These predictions are obtained with the autocrop mechanism.
 The crop coordinates are adjusted by predicting each image 50 times.
 On the left, predictions are made with the best-performing model from \cite{tepNet2024} with the original auto cropping technique, and on the right, all introduced improvements are used.
 That includes the adapted auto crop mechanism and best-performing model incorporating an EfficientNet-B3 backbone, the adaptive max pooling layer, and the trapeze head.
@@ -207,4 +207,4 @@ That includes rails captured from very unusual angles that do not start from the
 In the image in the bottom row, additional rails lay in the track, introducing an extra challenge.
 
 \autoref{fig:comparisonBaseline2Improved} visualizes that the original model \cite{tepNet2024} struggles to find the track.
-The improved Version finds the track and correctly predicts the switch in each image, which demonstrates that all introduced adaptations increase the system's robustness and thus enhance safety in a practical application.
+The improved version finds the track and correctly predicts the switch in each image, demonstrating that all introduced adaptations increase the system's robustness and thus enhance safety in a practical application.
