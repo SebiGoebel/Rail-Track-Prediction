@@ -7,26 +7,26 @@ For a fair comparison, all those models are trained for 100 epochs, the same win
 Additionally, the data augmentation strategy remains consistent.
 
 Results are captured from inferring models on a video that includes scenes from the test set of the temporal dataset.
-The auto-cropping mechanism is also utilized to be as close to a practical application as possible.
-Furthermore, inference starts over 500 frames before the annotated sequence to give crop coordinates time to converge to their optimal positions.
+The autocrop mechanism is also utilized to be as close to a practical application as possible.
+Furthermore, inference starts over 500 frames before the annotated sequence, giving crop coordinates time to converge to their optimal positions.
 This process results in \ac{IoU}s for each frame.
 Consequently, \ac{IoU} trends for each model are plotted in \autoref{fig:IoUTrends}.
-The evaluation includes all models using the original and the adapted auto-crop to ensure thoroughness.
+The evaluation includes all models using the original and the adapted autocrop to ensure thoroughness.
 
-Since sequences also include frames in which the train is located before the switch, these frames are excluded.
+Since sequences also include frames with \ac{GT} in which the train is located before the switch, these frames are excluded.
 Only the most problematic frames for single-frame-based models in which the train is directly over the switch and the switchblades are not visible are considered.
-The real switch-\ac{IoU}s and their corresponding frames included in this evaluation are marked with a green area in \autoref{fig:IoUTrends}.
+The real switch-\ac{IoU}s, and their corresponding frames included in this evaluation are marked with a green area in \autoref{fig:IoUTrends}.
 The \ac{IoU}-trends show either a drop in accuracy or a rapid fluctuation.
 After those irregularities, models usually recover and show stable predictions again.
 These trends are expected from the behavior of uncertain models.
 Either the model chooses the wrong track at a switch, which results in a drop, or the prediction varies between the right and wrong track, which leads to a fluctuation like in \autoref{fig:IoUTrends_switch_3}.
-However, even though temporal models show similar behavior, it is visible that at least one model acts more robustly in sequences 2, 3 and 4.
+However, even though temporal models show similar behavior, it is visible that at least one model acts more robustly in sequences 2, 3, and 4.
 Either the model is more stable overall, or the drop in accuracy is time-delayed.
 
 \autoref{fig:IoUTrends} shows all trends of \ac{IoU}s for the 23 different methods listed in \autoref{tab:temporalModelsResults}.
 However, only 6 of them are highlighted in colors.
-The original model with the original auto-crop mechanism of \cite{tepNet2024} is in blue.
-Then, the adapted single-frame-based model with the adapted and the original auto-crop (ogA) is shown in yellow and green.
+The original model with the original autocrop mechanism of \cite{tepNet2024} is in blue.
+Then, the adapted single-frame-based model with the adapted and the original autocrop (ogA) is shown in yellow and green.
 Also included are the models CNN\_FC\_LSTM (ogA) and CNN\_FC\_FCOUT\_V1 in purple and cyan, which are the models with the highest average \ac{IoU} across all switches and switches 3 and 4, respectively.
 Furthermore, the red trend is the best-performing temporal model for each corresponding scene.
 In the first two graphs of \autoref{fig:IoUTrends}, CNN\_FC\_LSTM (ogA) is also the best-performing temporal model for these scenes.
@@ -163,7 +163,7 @@ Therefore, only the red one is visible.
         \hline
     \end{tabular}
     }
-    \caption{Temporal Models Results Switches}
+    \caption{Temporal model results on test switches}
     \label{tab:temporalModelsResultsIoUsSummary}
 \end{table}
 
@@ -176,19 +176,20 @@ In the video of \textbf{Switch 2}, 0/76 frames are predicted, which shows the co
 In \textbf{Switch 1}, all frames are correctly predicted, which shows that the single-frame-based model has no issues predicting this scene.
 In general, there are switches where the track splits.
 However, only one route diverges, and the rail on which the train continues remains on a straight path.
-The \textbf{Switch 1} sequence is such a scenario therefore it is similar to a rail without any switches.
-The reason the original model performed with such high accuracy lies mainly in the original auto-crop mechanism.
+The \textbf{Switch 1} sequence is such a scenario.
+Therefore, it is similar to a rail without any switches.
+The reason the original model performed with such high accuracy lies mainly in the original autocrop mechanism.
 This method uses an \ac{RA}, so the crop coordinates coverage to global averages.
 This characteristic presents a disadvantage in most cases because it cannot adapt to different scenarios.
 However, in the cases of \textbf{Switch 1} and \textbf{Switch 2}, the behavior of not adapting to a new situation presents an advantage.
-Therefore, especially in those two scenes, the utilization of the original auto-crop is advantageous.
+Therefore, especially in those two scenes, using the original autocrop is advantageous.
 It must be mentioned that the high accuracy is highly dependent on these two particular situations.
 This work focuses more on scenarios in which models correctly predict the track before the train drives over a switch, and only when the starting context of the switch is missing should the temporal model achieve an improvement.
 This situation occurs in scenarios \textbf{Switch 3} and \textbf{Switch 4}.
-Therefore, the additional average of just these two scenes is included in \autoref{tab:temporalModelsResults}.
+Therefore, the additional average of only these two scenes is included in \autoref{tab:temporalModelsResults}.
 
 \autoref{tab:temporalModelsResults} shows that even when scenarios \textbf{Switch 1} and \textbf{Switch 2} are included, a temporal model (CNN\_FC\_LSTM (ogA)) still achieves the highest overall accuracy.
-When excluding those two scenes as expected, a temporal model with the adapted auto-crop mechanism (CNN\_FC\_FCOUT\_V1) outperforms other techniques.
+When excluding those two scenes as expected, a temporal model with the adapted autocrop mechanism (CNN\_FC\_FCOUT\_V1) outperforms other techniques.
 
 \begin{table}[H]
     \centering
@@ -225,7 +226,7 @@ When excluding those two scenes as expected, a temporal model with the adapted a
         \hline
     \end{tabular}
     }
-    \caption{Temporal Models Results IoUs}
+    \caption{Temporal models results with \ac{IoU}s for the four switch sequences that are in the test set.}
     \label{tab:temporalModelsResults}
 \end{table}
 
@@ -284,19 +285,19 @@ When excluding those two scenes as expected, a temporal model with the adapted a
         \hline
     \end{tabular}
     }
-    \caption{Temporal Models Results}
+    \caption{Results of temporal models including parameters, flops, MACs and latencies.}
     \label{tab:temporalModelsResultsLatency}
 \end{table}
 
 \clearpage
 
-\noindent\autoref{tab:temporalModelsResultsLatency} shows the results for temporal Models considering Parameters, Flops, MACs, and the Latency measured on the NVIDIA Jetson device.
+\noindent\autoref{tab:temporalModelsResultsLatency} shows the results for temporal models considering parameters, flops, MACs, and the latency measured on the NVIDIA Jetson device.
 Compared to the single-frame-based model, temporal ones are slower, with FP16 latencies between 127.88 ms and 156.09 ms and FP32 latencies between 223.07 ms and 328.86 ms.
 The fastest model is the CNN\_FLAT\_FC on FP16 with 127.88 ms, corresponding to a frame rate of 7.8 \ac{FPS}.
 When inferring videos with 30 \ac{FPS}, these models are not real-time capable anymore.
 However, there are methods to enable real-time capability for these temporal models.
-For example switching the backbone to a MobileNet-Small, as given in \autoref{tab:temporalModelsResultsLatency}.
+For example, switching the backbone to a MobileNet-Small, as given in \autoref{tab:temporalModelsResultsLatency}.
 This significantly reduces latency and falls below the real-time threshold of 33.33 ms.
 Nevertheless, this topic falls outside the scope of this work and is therefore addressed in \autoref{sec:discussion}.
-In this study, no temporal models utilizing a MobileNet backbone have been examined concerning their accuracy.
+In this study, no temporal models utilizing a MobileNet backbone are examined regarding their accuracy.
 Only the latency is measured.
